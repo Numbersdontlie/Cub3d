@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
+#    By: luifer <luifer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/08/19 17:06:56 by kbolon           ###   ########.fr        #
+#    Updated: 2024/08/19 21:12:06 by luifer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,21 +18,23 @@ SRCS = 	sources/main.c \
 		sources/free_functions.c \
 		sources/parsing/check_map.c \
 		sources/parsing/read_input.c \
+		sources/initialize_data.c \
 
 #		arg_checker.c \
 
 LIBFT = libft/libft.a
+MLX_PATH = minilibx-linux
 MLX = minilibx-linux/libmlx.a
-CC = cc -g
+CC = cc
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
-#MLXFLAGS = $(LGLFW) -L/Users/karenbolon/Documents/so_long/MLX/build -lmlx -framework Cocoa -framework OpenGL -framework IOKit
-#INCLUDE = -I./include
+CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME) clean
+all: $(NAME) $(MLX)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
+	@make -C $(MLX_PATH)
+	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+	@echo "$(NAME): $(OBJS) was created"
 
 $(LIBFT):
 	make -C libft
@@ -41,12 +43,14 @@ $(LIBFT):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 
 clean:
-	rm -f $(OBJS)
-	make clean -C libft
+	rm -rf $(OBJS)
+	@make clean -C $(MLX_PATH)
+	@make clean -C libft
+	@echo "$(NAME): $(OBJS) was deleted"
 
 fclean: clean
-		rm -f $(NAME)
-		make fclean -C libft
+		rm -rf $(NAME) $(MLX) $(LIBFT)
+		@echo "$(NAME) $(MLX) $(LIBFT) was deleted"
 
 re: fclean all
 

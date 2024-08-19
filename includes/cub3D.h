@@ -6,10 +6,10 @@
 /*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*                                                                            */
-/*   Updated: 2024/08/19 14:45:58 by luifer           ###   ########.fr       */
+/*   Updated: 2024/08/19 22:08:35 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef	CUB3D_H
 # define CUB3D_H
@@ -36,6 +36,8 @@
 # define ROTATE_RIGHT 0x64 //D
 # define LEFT 0xff51 //left arrow
 # define RIGHT 0xff53 //right arrow
+# define EXIT_SUCCESS 0
+# define EXIT_FAILURE 1
 
 //Structure for the image it include:
 //pointer to image, pointer to img address, bit per pixel
@@ -147,7 +149,8 @@ typedef struct s_data
 //errors.c
 void	error_message(char *str);
 void	error_message_simple(char *str, char **arr);
-int	error_input();
+void	ft_malloc_error(void);
+int		error_input();
 
 //initialize_data.c
 void	ft_initialize_img(t_img *img);
@@ -156,9 +159,13 @@ void	ft_initialize_map(t_mapinfo *mapinfo);
 void	ft_initialize_player(t_player *player);
 void	ft_initialize_data(t_data *data);
 
+//initialize_window.c
+void	ft_initialize_image(t_data *data, t_img *image, int width, int height);
+void	ft_initialize_connection(t_data *data);
 
 //free_functions.c
 void	free_memory(char **arr);
+void	ft_clean_exit(t_data *data, t_img *image);
 //void	free_game(t_game *game);
 //void	error_message_game(char *str, t_game *game);
 

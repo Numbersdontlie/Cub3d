@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/19 13:46:25 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/19 22:08:28 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@ void	free_memory(char **arr)
 		i++;
 	}
 	free(arr);
+}
+
+//Function to exit the program in a clean way
+//it destroy the image, window and display before freeing memory
+void	ft_clean_exit(t_data *data, t_img *image)
+{
+	mlx_destroy_image(data->mlx_conn, image->img);
+	mlx_destroy_window(data->mlx_conn, data->mlx_window);
+	mlx_destroy_display(data->mlx_conn);
+	free(data->mlx_conn);
+	exit(EXIT_SUCCESS);
 }
 
 /*void	free_game(t_game *game)
