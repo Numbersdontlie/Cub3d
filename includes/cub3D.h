@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/19 11:18:14 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/19 14:45:58 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,14 @@ typedef struct s_data
 //errors.c
 int	error_message(char *str, int code);
 int	error_input();
+
+//initialize_data.c
+void	ft_initialize_img(t_img *img);
+void	ft_initialize_ray(t_ray *ray);
+void	ft_initialize_map(t_mapinfo *mapinfo);
+void	ft_initialize_player(t_player *player);
+void	ft_initialize_data(t_data *data);
+
+
 
 #endif
