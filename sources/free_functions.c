@@ -1,50 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/19 14:39:04 by kbolon           ###   ########.fr       */
+/*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
+/*   Updated: 2024/08/19 13:46:25 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	print_map(char **arr)
+void	free_memory(char **arr)
 {
-	int	count;
 	int	i;
 
 	i = 0;
-	count = row_count(arr);
-	while (i < count)
+	while (arr[i])
 	{
-		printf("%s\n", arr[i]);
+		free(arr[i]);
 		i++;
 	}
+	free(arr);
 }
 
-void check_args(char *arr)
+/*void	free_game(t_game *game)
 {
-	char	**map;
+	if (game)
+	{
+		free_memory(game->grid);
+		free(game);
+	}
+}*/
 
-	map = read_map(arr);
-
-//	print_map(map);
-//	check_border(arr);
-	valid_chars(map);
-	check_map_items(map);
-}
-
-int	main(int ac, char **av)
+/*void	error_message_game(char *str, t_game *game)
 {
-	if (ac != 2)
-		error_message("ERROR: include ./cub3D & .cub\n");
-	check_extension(av[1]);
-	check_args(av[1]);
-	ft_printf("%s Yay\n", av[0]);
-	return (0);
-}
-
+	if (!game->grid)
+		free_game(game);
+	if (!game->img)
+	{
+		mlx_close_window(game->mlx);
+		mlx_terminate(game->mlx);
+		free(game->img);
+	}
+	error_message(str);
+}*/
