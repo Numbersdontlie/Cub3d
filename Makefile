@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/08/19 13:46:46 by kbolon           ###   ########.fr        #
+#    Updated: 2024/08/19 17:06:56 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,12 @@ SRCS = 	sources/main.c \
 #		arg_checker.c \
 
 LIBFT = libft/libft.a
+MLX = minilibx-linux/libmlx.a
 CC = cc -g
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
+#MLXFLAGS = $(LGLFW) -L/Users/karenbolon/Documents/so_long/MLX/build -lmlx -framework Cocoa -framework OpenGL -framework IOKit
+#INCLUDE = -I./include
 
 all: $(NAME) clean
 
