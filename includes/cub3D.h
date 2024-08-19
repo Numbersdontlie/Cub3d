@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/18 23:47:59 by luifer           ###   ########.fr       */
+/*   Updated: 2024/08/19 11:18:14 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef	CUB3D_H
 # define CUB3D_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -143,5 +143,8 @@ typedef struct s_data
 	int			**textures;
 }	t_data;
 
+//errors.c
+int	error_message(char *str, int code);
+int	error_input();
 
 #endif
