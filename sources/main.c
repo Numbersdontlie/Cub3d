@@ -6,25 +6,20 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/16 16:34:40 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/19 11:07:48 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cub3D.h"
+#include "../includes/cub3D.h"
 
-/*		error_message("Error\nPlease include the inputs: \n\
-		./cub3D, \n2: NO ./path_to_north_texture, \n\
-		SO ./path_to_south_texture, \n\
-		WE ./path_to_west_texture \n\
-		EA ./path_to_east_texture, \n\
-		F RGB colour for floor (in range of 0-255, example: F 125.125.125)\n\
-		C RGB colour for floor (in range of 0-255, example: C 125.125.125), 14: .cub");
-
-*/
-
-int	main()
+int	main(int ac, char **av)
 {
-	printf("Yay...it works\n");
-
+	if (ac != 2)
+		return (error_input());
+	else
+	{
+		ft_printf("%s", av[0]);
+		ft_printf("\nYAY!\n");
+	}
 	return (0);
 }

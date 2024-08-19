@@ -6,33 +6,41 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/08/16 16:21:57 by kbolon           ###   ########.fr        #
+#    Updated: 2024/08/19 11:31:35 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = cub3D
 
-SRCS = 	main.c \
+SRCS = 	sources/main.c \
+		sources/errors.c \
+
 #		arg_checker.c \
 
+LIBFT = libft/libft.a
 CC = cc -g
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
-all: $(NAME)
+all: $(NAME) clean
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
+
+$(LIBFT):
+	make -C libft
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 
 clean:
 	rm -f $(OBJS)
+	make clean -C libft
 
 fclean: clean
 		rm -f $(NAME)
+		make fclean -C libft
 
 re: fclean all
 
