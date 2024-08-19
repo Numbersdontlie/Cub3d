@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/19 11:18:14 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/19 14:10:26 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,25 @@ typedef struct s_data
 }	t_data;
 
 //errors.c
-int	error_message(char *str, int code);
+void	error_message(char *str);
+void	error_message_simple(char *str, char **arr);
 int	error_input();
+
+//free_functions.c
+void	free_memory(char **arr);
+//void	free_game(t_game *game);
+//void	error_message_game(char *str, t_game *game);
+
+//parsing/check_map.c
+void	valid_chars(char **arr);
+void	count_chars(char **arr, int *player);
+void	check_map_items(char **arr);
+
+//parsing/read_input.c
+void	check_extension(char *s);
+size_t	row_count(char **grid);
+char	**read_map(char *s);
+char	*ft_replace(char *s);
+char	**graphic_gnl(int size, int fd, char **arr, int i);
 
 #endif
