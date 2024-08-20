@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:47:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/19 21:53:13 by luifer           ###   ########.fr       */
+/*   Updated: 2024/08/20 13:55:10 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,18 @@ void	ft_malloc_error(void)
 	perror("Problem with memory allocation");
 	exit(EXIT_FAILURE);
 }
+
+/*void	error_message_map(char *str, t_mapinfo *map)
+{
+	if (!map->file)
+		free_game(file);
+
+	//free images here too
+	if (!map->img)
+	{
+		mlx_close_window(map->mlx);
+		mlx_terminate(map->mlx);
+		free(map->img);
+	}
+	error_message(str);
+}*/

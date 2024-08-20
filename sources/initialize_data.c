@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/19 21:19:17 by luifer           ###   ########.fr       */
+/*   Updated: 2024/08/20 14:02:42 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,31 @@ void	ft_initialize_ray(t_ray *ray)
 	ray->draw_end = 0;
 }
 
-//Function to initialize the map structure
-void	ft_initialize_map(t_mapinfo *mapinfo)
+//temp function to get the grid working for parse testing
+t_mapinfo 	*ft_initialize_map(char	**grid)
 {
+	t_mapinfo	*mapinfo;
+
+	if (!grid)
+		return (NULL);
+	mapinfo = (t_mapinfo *) ft_calloc (1, sizeof(t_mapinfo));
+	if (!mapinfo)
+	{
+		free_memory(grid);
+		error_message_simple("ERROR: malloc fail in grid init", grid);
+	}
+	mapinfo->grid = grid;
+	mapinfo->line_count = row_count(grid);
+	mapinfo->player_x = find_item(mapinfo->grid, 'x');
+	mapinfo->player_y = find_item(mapinfo->grid, 'y');
+	return (mapinfo);
+}
+
+//ORIGINAL
+//Function to initialize the map structure
+/*void	ft_initialize_map(t_mapinfo *mapinfo)
+{
+	
 	mapinfo->fd = 0;
 	mapinfo->file = NULL;
 	mapinfo->path = NULL;
@@ -54,12 +76,12 @@ void	ft_initialize_map(t_mapinfo *mapinfo)
 	mapinfo->height = 0;
 	mapinfo->width = 0;
 	mapinfo->idx_map_end = 0;
-}
+}*/
 
 //Function to initialize the player structure
 void	ft_initialize_player(t_player *player)
 {
-	player->direction = NULL;
+	player->direction = 0;
 	player->dir_x = 0.0;
 	player->dir_y = 0.0;
 	player->pos_x = 0.0;
@@ -80,9 +102,9 @@ void	ft_initialize_data(t_data *data)
 	data->window_height = HEIGHT;
 	data->window_width = WIDTH;
 	ft_initialize_player(&data->player);
-	ft_initialize_textinfo(&data->textinfo);//ToDo
+//	ft_initialize_textinfo(&data->textinfo);//ToDo
 	data->map = NULL;
-	ft_initialize_map(&data->mapinfo);
+//	ft_initialize_map(&data->mapinfo);
 	data->texture_pixels = NULL;
 	data->textures = NULL;
 }
