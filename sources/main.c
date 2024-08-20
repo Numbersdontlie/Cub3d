@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/19 14:39:04 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/20 13:54:41 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,24 @@ void	print_map(char **arr)
 
 void check_args(char *arr)
 {
-	char	**map;
+	char		**grid;
+	t_mapinfo	*map;
 
-	map = read_map(arr);
+	grid = read_map(arr);
 
 //	print_map(map);
 //	check_border(arr);
-	valid_chars(map);
-	check_map_items(map);
+	valid_chars(grid);
+	check_map_items(grid);
+	map = ft_initialize_map(grid);
+	if (!map)
+	{
+		free_memory(grid);
+//		error_message_game("ERROR\n, issues making map", map);//need to free images or game??
+		error_message("ERROR\n, issues making map");
+	}
+	flood_fill(map);
+	printf("grid checked\n");
 }
 
 int	main(int ac, char **av)
@@ -44,7 +54,6 @@ int	main(int ac, char **av)
 		error_message("ERROR: include ./cub3D & .cub\n");
 	check_extension(av[1]);
 	check_args(av[1]);
-	ft_printf("%s Yay\n", av[0]);
 	return (0);
 }
 
