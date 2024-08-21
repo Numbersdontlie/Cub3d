@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:44:09 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/20 14:00:27 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/21 16:51:49 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,16 @@ int	find_item(char **grid, char axis)
 	return (0);
 }
 
-/*void	error_check(t_mapinfo tmp, t_mapinfo *map)
+int	path_checker(char **game, size_t y, size_t x)
 {
-	if (!(tmp.exit_x == 1 && tmp.points == 0))
-	{
-		free_memory(tmp.grid);
-		free_game(game);
-		error_message("Error\nNo valid path available");
-	}
-}*/
+	size_t	line_count;
 
-int	path_checker(t_mapinfo *game, int y, int x)
-{
-	if (y < 0 || y >= game->height || x < 0 || x >= game->width)
-	{
-		ft_printf("Map is not enclosed");
+	line_count = row_count(game);
+	if (y >= line_count || !game[y] || x >= ft_strlen(game[y]) || !game[y][x])
 		return (1);
-	}
-	if (game->grid[y][x] == '1')
+	if (game[y][x] == '1' || game[y][x] == 'V')
 		return (0);
-	game->grid[y][x] = '1';
+	game[y][x] = 'V';
 	if (path_checker(game, y, x - 1) || path_checker(game, y, x + 1) \
 		|| path_checker(game, y - 1, x) || path_checker(game, y + 1, x))
 	{
@@ -69,31 +59,30 @@ int	path_checker(t_mapinfo *game, int y, int x)
 	return (0);
 }
 
-void	flood_fill(t_mapinfo *game)
+void	flood_fill(char **game)
 {
-	t_mapinfo		tmp;
-	int				i;
+	size_t	player_x;
+	size_t	player_y;
+	size_t	i;
+	char	**arr;
 
 	i = 0;
-	tmp.width = game->width;
-	tmp.height = game->height;
-	tmp.player_x = game->player_x;
-	tmp.player_y = game->player_y;
-	tmp.grid = (char **) malloc (sizeof(char *) * (tmp.height + 1));
-	if (!tmp.grid)
+	player_x = find_item(game, 'x');
+	player_y = find_item(game, 'y');
+	arr = (char **) malloc (sizeof(char *) * (row_count(game) + 1));
+	if (!arr)
 		error_message("Error\nmemory allocation fail in tmp.grid");
-	while (i < tmp.height)
+	while (i < row_count(game))
 	{
-		tmp.grid[i] = ft_strdup(game->grid[i]);
+		arr[i] = ft_strdup(game[i]);
 		i++;
 	}
-	tmp.grid[i] = NULL;
-//	path_checker(&tmp, tmp.player_y, tmp.player_x);
-    if (path_checker(&tmp, tmp.player_y, tmp.player_x)) {
-        printf("Map is not enclosed.\n");
-    } else {
-        printf("Map is enclosed.\n");
-    }
-	free_memory(tmp.grid);
+	arr[i] = NULL;
+	if (path_checker(arr, player_y, player_x)) 
+	{
+		free_memory(game);
+		error_message_simple("ERROR: Map is not enclosed.", arr);
+	}
+	free_memory(arr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/20 13:54:41 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/21 16:49:49 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	print_map(char **arr)
 {
-	int	count;
-	int	i;
+	size_t	count;
+	size_t	i;
 
 	i = 0;
 	count = row_count(arr);
@@ -29,23 +29,13 @@ void	print_map(char **arr)
 void check_args(char *arr)
 {
 	char		**grid;
-	t_mapinfo	*map;
 
 	grid = read_map(arr);
-
-//	print_map(map);
-//	check_border(arr);
 	valid_chars(grid);
 	check_map_items(grid);
-	map = ft_initialize_map(grid);
-	if (!map)
-	{
-		free_memory(grid);
-//		error_message_game("ERROR\n, issues making map", map);//need to free images or game??
-		error_message("ERROR\n, issues making map");
-	}
-	flood_fill(map);
+	flood_fill(grid);
 	printf("grid checked\n");
+	free_memory(grid);
 }
 
 int	main(int ac, char **av)
