@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/20 14:00:46 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/21 16:49:41 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ typedef struct s_textinfo
 typedef struct s_mapinfo
 {
 	int		fd;
-	int		line_count;
+	size_t	line_count;
 	char	*path;
 	char	**grid;
-	int		player_x; //we can move these, I just put to easy testing bc I only init map
-	int		player_y; //we can move these, I just put to easy testing bc I only init map
-	int		height;
-	int		width;
+	size_t	player_x; //we can move these, I just put to easy testing bc I only init map
+	size_t	player_y; //we can move these, I just put to easy testing bc I only init map
+	size_t	height;//could this be line count??
+	size_t	width;
 	int		idx_map_end;
 }	t_mapinfo;
 
@@ -184,20 +184,20 @@ void		ft_clean_exit(t_data *data, t_img *image);
 //void		error_message_game(char *str, t_game *game);
 
 //parsing/check_map.c
-void	valid_chars(char **arr);
-void	count_chars(char **arr, int *player);
-void	check_map_items(char **arr);
+void		valid_chars(char **arr);
+void		count_chars(char **arr, size_t *player);
+void		check_map_items(char **arr);
 
 //parsing/flood_fill_check.c
 int			find_item(char **grid, char axis);
-int			path_checker(t_mapinfo *game, int y, int x);
-void		flood_fill(t_mapinfo *game);
+int			path_checker(char **game, size_t y, size_t x);
+void		flood_fill(char **game);
 
 //parsing/read_input.c
-void	check_extension(char *s);
-size_t	row_count(char **grid);
-char	**read_map(char *s);
-char	*ft_replace(char *s);
-char	**graphic_gnl(int size, int fd, char **arr, int i);
+void		check_extension(char *s);
+size_t		row_count(char **grid);
+char		**read_map(char *s);
+char		*ft_replace(char *s);
+char		**graphic_gnl(int size, int fd, char **arr, int i);
 
 #endif

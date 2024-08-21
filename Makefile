@@ -6,10 +6,9 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/08/20 14:35:14 by kbolon           ###   ########.fr        #
+#    Updated: 2024/08/21 16:46:42 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 NAME = cub3D
 
@@ -21,8 +20,6 @@ SRCS = 	sources/main.c \
 		sources/parsing/read_input.c \
 		sources/initialize_data.c \
 
-#		arg_checker.c \
-
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
 MLX = minilibx-linux/libmlx.a
@@ -30,13 +27,23 @@ CC = cc
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 
+#colours
+
+RED=\033[0;31m
+GREEN=\033[0;32m
+YELLOW=\033[0;33m
+BLUE=\033[0;34m
+MAGENTA=\033[0;35m
+CYAN=\033[0;36m
+RESET=\033[0m
+
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-#	@echo "$(NAME): $(OBJS) was created"
 	@$(MAKE) clean
 	@$(MAKE) clear-screen
+	@echo "$(BLUE)cub3D compiled$(RESET)"
 
 $(MLX):
 	@make -C $(MLX_PATH)
@@ -51,15 +58,17 @@ clean:
 	rm -rf $(OBJS)
 	@make clean -C $(MLX_PATH)
 	@make clean -C libft
-#	@echo "$(NAME): $(OBJS) was deleted"
+	@$(MAKE) clear-screen
+	@echo "$(RED)object files were deleted$(RESET)"
 
 clear-screen:
 	clear
-	@echo "Terminal cleared after build process"
+	@echo "$(YELLOW)Terminal cleared after build process$(RESET)"
 
 fclean: clean
 		rm -rf $(NAME) $(MLX) $(LIBFT)
-#		@echo "$(NAME) $(MLX) $(LIBFT) was deleted"
+		@$(MAKE) clear-screen
+		@echo "$(MAGENTA)$(NAME) $(MLX) $(LIBFT) was deleted$(RESET)"
 
 re: fclean all
 

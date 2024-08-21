@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/19 14:38:28 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/21 15:37:13 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	valid_chars(char **arr)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (arr[i] != NULL)
@@ -32,10 +32,10 @@ void	valid_chars(char **arr)
 	}
 }
 
-void	count_chars(char **arr, int *player)
+void	count_chars(char **arr, size_t *player)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (arr[i] != NULL)
@@ -54,7 +54,7 @@ void	count_chars(char **arr, int *player)
 
 void	check_map_items(char **arr)
 {
-	int		player;
+	size_t		player;
 
 	player = 0;
 	count_chars(arr, &player);
