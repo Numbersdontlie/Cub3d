@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/08/21 16:46:42 by kbolon           ###   ########.fr        #
+#    Updated: 2024/08/22 11:03:08 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS = 	sources/main.c \
 		sources/free_functions.c \
 		sources/parsing/check_map.c \
 		sources/parsing/flood_fill_check.c \
+		sources/parsing/parse_input.c \
 		sources/parsing/read_input.c \
 		sources/initialize_data.c \
 
