@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/21 16:49:41 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/22 12:39:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,10 @@ void		check_map_items(char **arr);
 int			find_item(char **grid, char axis);
 int			path_checker(char **game, size_t y, size_t x);
 void		flood_fill(char **game);
+
+//parsing/parse_input.c
+char		*find_cardinal_paths(char **arr, char *s);
+char		*find_floor_ceiling(char **arr, int c);
 
 //parsing/read_input.c
 void		check_extension(char *s);
