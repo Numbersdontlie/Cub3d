@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/22 12:39:31 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/23 16:58:30 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,9 @@ void		flood_fill(char **game);
 //parsing/parse_input.c
 char		*find_cardinal_paths(char **arr, char *s);
 char		*find_floor_ceiling(char **arr, int c);
+char		**update_grid(char **arr, char *path);
+char		**remove_empty_lines(char **arr);
+//int			check_access(char *path);
 
 //parsing/read_input.c
 void		check_extension(char *s);

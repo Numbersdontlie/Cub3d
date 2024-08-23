@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/22 12:53:45 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/23 16:55:19 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,30 @@ void check_args(char *arr)
 	char		*C;
 
 	grid = read_map(arr);
-//	valid_chars(grid);
-//	check_map_items(grid);
-//	flood_fill(grid);
-//	printf("grid checked\n");
 	NO_path = find_cardinal_paths(grid, "NO");
+	grid = update_grid(grid, NO_path);
+	free(NO_path);
 	SO_path = find_cardinal_paths(grid, "SO");
+	grid = update_grid(grid, SO_path);
+	free(SO_path);
 	EA_path = find_cardinal_paths(grid, "EA");
+	grid = update_grid(grid, EA_path);
+	free(EA_path);
 	WE_path = find_cardinal_paths(grid, "WE");
+	grid = update_grid(grid, WE_path);
+	free(WE_path);
 	F = find_floor_ceiling(grid, 'F');
+	grid = update_grid(grid, F);
+	free(F);
 	C = find_floor_ceiling(grid, 'C');
-	printf("WE: %s\n", WE_path);
+	grid = update_grid(grid, C);
+	free(C);
+	grid = remove_empty_lines(grid);
+	valid_chars(grid);
+	check_map_items(grid);
+	flood_fill(grid);
 	free_memory(grid);
+	printf("EVERYTHING OK\n");
 }
 
 int	main(int ac, char **av)
