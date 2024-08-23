@@ -2,4 +2,6 @@
 .vscode
 minilibx-linux/
 ./minilibx-linux/
+sandbox
+./sandbox
 cub3D

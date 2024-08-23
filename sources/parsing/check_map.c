@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/21 15:37:13 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/23 15:52:08 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	valid_chars(char **arr)
 		j = 0;
 		while (arr[i][j] != '\0')
 		{
-			if (ft_strchr("01NSEW\n", arr[i][j]))
+			if (ft_strchr("01NSEW \n", arr[i][j]))
 				j++;
 			else
 				error_message_simple("ERROR: illegal character in map", arr);
