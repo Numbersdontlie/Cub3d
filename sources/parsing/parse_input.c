@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/23 16:58:13 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/26 13:39:55 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	*find_cardinal_paths(char **arr, char *s)
 	char	*path_found;
 	char	*path_extension;
 
-	i = 0;
+	i = -1;
 	count = row_count(arr);
-	while (i < count)
+	while (++i < count)
 	{
 		if (!ft_strncmp(arr[i], s, 2))
 		{
@@ -39,37 +39,36 @@ char	*find_cardinal_paths(char **arr, char *s)
 				return (path_extension);
 			}
 		}
-		i++;
 	}
 	error_message_simple("ERROR: path not found", arr);
 	return (NULL);
 }
 
-char	*find_floor_ceiling(char **arr, int c)
+char*find_floor_ceiling(char **arr, int c)
 {
 	int		i;
 	int		count;
 	char	*path;
 
-	i = 0;
+	i = -1;
 	count = row_count(arr);
-	while (i < count)
+	while (++i < count)
 	{
-		path = ft_strchr(arr[i], c);
-		if (path != NULL)
+		if (arr[i][0] == c && arr[i][1] == ' ')
 		{
-			path++;
+			path = arr[i] + 2;
 			while (*path && !ft_isdigit(*path))
 				path++;
 			if (*path)
 			{
 				path = ft_strdup(path);
+				if (!path)
+					error_message_simple("Error: mem alloc failed", arr);
 				return (path);
 			}
 		}
-		i++;
 	}
-	perror("ERROR: path not found\n");
+	perror("ERROR: RGB path not found\n");
 	return (NULL);
 }
 
@@ -127,33 +126,3 @@ char	**remove_empty_lines(char **arr)
 	free_memory(arr);
 	return (updated_grid);
 }
-
-
-/*int	check_access(char *path)
-{
-	if (access(cmd->file_name, F_OK | W_OK) == -1)
-	{
-		perror("ERROR: Path not found");
-		return (1);
-	}
-	return (0);
-}*/
-
-
-/*	path->fd_in = open(node->file_name, O_RDONLY, 0);
-		if (check_access_and_fd(node, node->fd_in, 0) == 0)
-			node->fd_out = -1;
-	}
-	else if (fd_type == 1)
-	{
-		node->fd_out = open(node->file_name, instructions, 0777);
-		if (check_access_and_fd(node, 0, node->fd_out) == 0)
-			node->fd_in = -1;
-	}
-	else if (!fd_type)
-	{
-		node->fd_in = -1;
-		node->fd_out = -1;
-	}
-	return (node);
-}*/
