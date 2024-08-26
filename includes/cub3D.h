@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/23 16:58:30 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/26 13:49:34 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ typedef struct s_textinfo
 	char			*south;
 	char			*west;
 	char			*east;
-	int				*floor;
-	int				*ceiling;
+	char			*floor;
+	char			*ceiling;
+	char			**grid;
 	unsigned long	hex_floor;
 	unsigned long	hex_ceiling;
 	int				size;
@@ -85,12 +86,12 @@ typedef struct s_textinfo
 
 //Structure for map information, it includes:
 //fd to open the map file, a counter of lines in the map, the map path
-//file, height, width and index of the end of the map
+//file, height, width and index of tcharhe end of the map
 typedef struct s_mapinfo
 {
 	int		fd;
 	size_t	line_count;
-	char	*path;
+	char	*path;//path to what?
 	char	**grid;
 	size_t	player_x; //we can move these, I just put to easy testing bc I only init map
 	size_t	player_y; //we can move these, I just put to easy testing bc I only init map
@@ -164,12 +165,13 @@ void		error_message(char *str);
 void		error_message_simple(char *str, char **arr);
 void		ft_malloc_error(void);
 void		error_message_map(char *str, t_mapinfo *map);
+void		error_message_text(char *str, t_textinfo *text);
 
 //initialize_data.c
 void		ft_initialize_img(t_img *img);
 void		ft_initialize_ray(t_ray *ray);
 //void		ft_initialize_map(t_mapinfo *mapinfo);
-t_mapinfo 	*ft_initialize_map(char	**grid);
+t_mapinfo 	*ft_initialize_map(char	*grid);
 void		ft_initialize_player(t_player *player);
 void		ft_initialize_data(t_data *data);
 
@@ -198,7 +200,6 @@ char		*find_cardinal_paths(char **arr, char *s);
 char		*find_floor_ceiling(char **arr, int c);
 char		**update_grid(char **arr, char *path);
 char		**remove_empty_lines(char **arr);
-//int			check_access(char *path);
 
 //parsing/read_input.c
 void		check_extension(char *s);
@@ -207,4 +208,6 @@ char		**read_map(char *s);
 char		*ft_replace(char *s);
 char		**graphic_gnl(int size, int fd, char **arr, int i);
 
+
+t_textinfo	*ft_initialize_textinfo(char **arr);
 #endif

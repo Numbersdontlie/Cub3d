@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/20 14:02:42 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/26 13:10:32 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_initialize_ray(t_ray *ray)
 }
 
 //temp function to get the grid working for parse testing
-t_mapinfo 	*ft_initialize_map(char	**grid)
+t_mapinfo 	*ft_initialize_map(char	*grid)
 {
 	t_mapinfo	*mapinfo;
 
@@ -53,30 +53,14 @@ t_mapinfo 	*ft_initialize_map(char	**grid)
 		return (NULL);
 	mapinfo = (t_mapinfo *) ft_calloc (1, sizeof(t_mapinfo));
 	if (!mapinfo)
-	{
-		free_memory(grid);
-		error_message_simple("ERROR: malloc fail in grid init", grid);
-	}
-	mapinfo->grid = grid;
-	mapinfo->line_count = row_count(grid);
+		error_message_simple("ERROR: calloc fail in map_init", &grid);
+	mapinfo->grid = &grid;
+	mapinfo->line_count = row_count(&grid);
 	mapinfo->player_x = find_item(mapinfo->grid, 'x');
+	printf("x: %zu\n", mapinfo->player_x);
 	mapinfo->player_y = find_item(mapinfo->grid, 'y');
 	return (mapinfo);
 }
-
-//ORIGINAL
-//Function to initialize the map structure
-/*void	ft_initialize_map(t_mapinfo *mapinfo)
-{
-	
-	mapinfo->fd = 0;
-	mapinfo->file = NULL;
-	mapinfo->path = NULL;
-	mapinfo->line_count = 0;
-	mapinfo->height = 0;
-	mapinfo->width = 0;
-	mapinfo->idx_map_end = 0;
-}*/
 
 //Function to initialize the player structure
 void	ft_initialize_player(t_player *player)
