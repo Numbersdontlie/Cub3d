@@ -6,7 +6,7 @@
 /*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/19 22:33:52 by luifer           ###   ########.fr       */
+/*   Updated: 2024/08/26 12:07:55 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_initialize_image(t_data *data, t_img *image, int width, int height)
 	ft_initialize_img(image);
 	image->img = mlx_new_image(data->mlx_conn, width, height);
 	if (!image->img)
-		ft_clean_exit();//ToDo
+		ft_clean_exit(data, image);//ToDo
 	image->img_addr = (int *)mlx_get_data_addr(image->img, image->bpp, image->line_len, image->endian);
 	return ;
 }
@@ -33,15 +33,85 @@ void	ft_initialize_connection(t_data *data)
 {
 	data->mlx_conn = mlx_init();
 	if (!data->mlx_conn)
-		ft_clean_exit();//ToDo
+		error_message("Error with the mlx initialization\n");
 	data->mlx_window = mlx_new_window(data->mlx_conn, WIDTH, HEIGHT, "Cub3D");
 	if (!data->mlx_window)
-		ft_clean_exit();//ToDo
+		error_message("Error with the window cration\n");
 	return ;
 }
 
-//Function to initialize the textures
+//Function to initialize the textures into the image structure
+//it will load the xmp file into an image and get the data address
 void	ft_initialize_texture_img(t_data *data, t_img *image, char *path)
 {
+	ft_initialize_image(image);
+	image->img = mlx_xpm_file_to_image(data->mlx_conn, path, WIDTH, HEIGHT);
+	if (!image->img)
+		ft_clean_exit(data, image);
+	image->img_addr = (int *)mlx_get_data_addr(image->img, &image->bpp, &image->line_len, &image->endian);
+	if (!image->img_addr)
+		ft_clean_exit(data, image);
+	return ;
+}
 
+//Function to put the converted xpm image into an integer buffer
+//it load the
+int	*ft_put_img_into_buffer(t_data *data, char *path)
+{
+	t_img	tmp;
+	int		*buffer;
+	int		x;
+	int		y;
+
+	ft_initialize_texture_img(data, &tmp, path);
+	buffer = ft_calloc(1, sizeof(*buffer) * data->textinfo.size * data->textinfo.size);
+	if (!buffer)
+		ft_malloc_error();
+	y = 0;
+	while (y < data->textinfo.size)
+	{
+		x = 0;
+		while (x < data->textinfo.size)
+		{
+			buffer[y * data->textinfo.size + x] = image->img_addr[y * data->textinfo.size + x];
+			++x;
+		}
+		++y;
+	}
+	mlx_destroy_image(data->mlx_conn, tmp.img);
+	return (buffer);
+}
+
+//Function to initialize the textures (NORTH< SOUTH, WEST, EAST)
+//it allocate memory for the textures and call the put img into buffer function
+//to load the textures in the data structure
+void	ft_initialize_textures(t_data *data)
+{
+	data->textures = ft_calloc(5, sizeof * data->textures);
+	if (!data->textures)
+		ft_malloc_error();
+	data->textures[N] = ft_put_img_into_buffer(data, data->textinfo.north);
+	data->textures[S] = ft_put_img_into_buffer(data, data->textinfo.south);
+	data->textures[E] = ft_put_img_into_buffer(data, data->textinfo.east);
+	data->textures[W] = ft_put_img_into_buffer(data, data->textinfo.west);
+}
+
+//Function to initialize the textures information
+//structure, it initialize all to NULL and 0
+//except for the size, which is initialized to PIXELS (64)
+void	ft_initialize_textinfo(t_textinfo *textures)
+{
+	textures->north = NULL;
+	textures->south = NULL;
+	textures->east = NULL;
+	textures->west = NULL;
+	textures->ceiling = 0;
+	textures->floor = 0;
+	textures->hex_ceiling = 0x0;
+	textures->hex_floor = 0x0;
+	textures->size = PIXELS;
+	textures->step = 0.0;
+	textures->position = 0.0;
+	textures->x = 0;
+	textures->y = 0;
 }

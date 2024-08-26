@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/26 13:49:34 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/26 12:08:26 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,8 @@ void		ft_initialize_data(t_data *data);
 //initialize_window.c
 void		ft_initialize_image(t_data *data, t_img *image, int width, int height);
 void		ft_initialize_connection(t_data *data);
+void		ft_initialize_texture_img(t_data *data, t_img *image, char *path);
+int			*ft_put_img_into_buffer(t_data *data, t_img *image);
 
 //free_functions.c
 void		free_memory(char **arr);
