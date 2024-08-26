@@ -6,7 +6,7 @@
 #    By: luifer <luifer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/08/26 14:48:22 by luifer           ###   ########.fr        #
+#    Updated: 2024/08/26 15:51:25 by luifer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRCS = 	sources/main.c \
 		sources/parsing/flood_fill_check.c \
 		sources/parsing/parse_input.c \
 		sources/parsing/read_input.c \
-		sources/initialize_data.c \
+		sources/initializing/initialize_data.c \
+		sources/initializing/initialize_window.c \
 		sources/input_handler.c \
 
 LIBFT = libft/libft.a
