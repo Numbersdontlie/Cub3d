@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/27 12:25:21 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/27 18:32:09 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <memory.h>
 # include <time.h>
 # include <string.h>
-# include <X11/keysym.h>
-# include <X11/X.h>
+//# include <X11/keysym.h>
+//# include <X11/X.h>
 
 # define PIXELS 64
 # define WIDTH 640 
@@ -62,6 +62,7 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+
 //Structure for the text information of the game, it includes:
 //pointer to path of north, south, east and west. Color of floor and ceiling
 //
@@ -72,7 +73,9 @@ typedef struct s_textinfo
 	char			*west;
 	char			*east;
 	char			*floor;
+	char			**floor_rgb;
 	char			*ceiling;
+	char			**ceiling_rgb;
 	char			**grid;
 	unsigned long	hex_floor;
 	unsigned long	hex_ceiling;
@@ -217,7 +220,9 @@ int			ft_handle_key(int keysym, t_data *data);
 int			ft_release_key(int keysym, t_data *data, t_img *image);
 void		ft_initialize_events(t_data *data);
 
-
+//sources/initializing/initialize_text.c
 t_textinfo	*ft_initialize_textinfo(char **arr);
-char	**update_text_info(char **path, char **grid, char *s);
+char		**update_text_info(char **path, char **grid, char *s);
+t_textinfo	*populate_floor_and_ceiling_values(t_textinfo *text, char **grid);
+
 #endif

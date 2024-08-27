@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/27 10:16:10 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/27 18:29:50 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,22 +96,4 @@ void	ft_initialize_textures(t_data *data)
 	data->textures[W] = ft_put_img_into_buffer(data, data->textinfo.west);
 }
 
-//Function to initialize the textures information
-//structure, it initialize all to NULL and 0
-//except for the size, which is initialized to PIXELS (64)
-void	ft_initialize_textinfo(t_textinfo *textures)
-{
-	textures->north = NULL;
-	textures->south = NULL;
-	textures->east = NULL;
-	textures->west = NULL;
-	textures->ceiling = 0;
-	textures->floor = 0;
-	textures->hex_ceiling = 0x0;
-	textures->hex_floor = 0x0;
-	textures->size = PIXELS;
-	textures->step = 0.0;
-	textures->position = 0.0;
-	textures->x = 0;
-	textures->y = 0;
-}
+

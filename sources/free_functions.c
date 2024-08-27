@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/27 10:40:13 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/27 18:40:46 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,6 @@ void	ft_clean_exit(t_data *data, t_img *image)
 	free(data->mlx_conn);
 	exit(EXIT_SUCCESS);
 }
-
-/*void	free_game(t_game *game)
-{
-	if (game)
-	{
-		free_memory(game->grid);
-		free(game);
-	}
-}*/
-
-/*void	error_message_game(char *str, t_game *game)
-{
-	if (!game->grid)
-		free_game(game);
-	if (!game->img)
-	{
-		mlx_close_window(game->mlx);
-		mlx_terminate(game->mlx);
-		free(game->img);
-	}
-	error_message(str);
-}*/
 
 void	free_and_make_null(void **ptr)
 {

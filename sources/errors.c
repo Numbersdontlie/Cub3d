@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:47:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/27 10:29:39 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/27 18:39:21 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,6 @@ void	ft_malloc_error(void)
 	perror("Problem with memory allocation");
 	exit(EXIT_FAILURE);
 }
-
-/*void	error_message_map(char *str, t_mapinfo *map)
-{
-	if (!map->file)
-		free_game(file);
-
-	//free images here too
-	if (!map->img)
-	{
-		mlx_close_window(map->mlx);
-		mlx_terminate(map->mlx);
-		free(map->img);
-	}
-	error_message(str);
-}*/
 
 void	error_message_text(char *str, t_textinfo *text)
 {
