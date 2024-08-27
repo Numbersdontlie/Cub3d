@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_window.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/27 18:29:50 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/27 21:31:53 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	*ft_put_img_into_buffer(t_data *data, char *path)
 		x = 0;
 		while (x < data->textinfo.size)
 		{
-			buffer[y * data->textinfo.size + x] = image->img_addr[y * data->textinfo.size + x];
+			buffer[y * data->textinfo.size + x] = (&tmp)->img_addr[y * data->textinfo.size + x];
 			++x;
 		}
 		++y;
