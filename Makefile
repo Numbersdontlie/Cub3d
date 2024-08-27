@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/08/27 10:17:15 by kbolon           ###   ########.fr        #
+#    Updated: 2024/08/27 18:39:02 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,16 @@ SRCS = 	sources/main.c \
 		sources/parsing/parse_input.c \
 		sources/parsing/read_input.c \
 		sources/initializing/initialize_data.c \
-#		sources/input_handler.c \
-#		sources/initializing/initialize_window.c 
+		sources/initializing/initialize_text.c \
+		sources/input_handler.c \
+		sources/initializing/initialize_window.c 
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
 MLX = minilibx-linux/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 #colours
 
@@ -44,6 +45,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+#	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT)//for MAC
 	@$(MAKE) clean
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
