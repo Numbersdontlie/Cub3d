@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_window.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/26 12:07:55 by luifer           ###   ########.fr       */
+/*   Updated: 2024/08/27 10:16:10 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 //Function to initialize the image, it will initialize an empty image structure
 //create the new image using the mlx library and check that was correctly created

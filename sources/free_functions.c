@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/19 22:08:28 by luifer           ###   ########.fr       */
+/*   Updated: 2024/08/27 10:40:13 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,31 @@ void	ft_clean_exit(t_data *data, t_img *image)
 	}
 	error_message(str);
 }*/
+
+void	free_and_make_null(void **ptr)
+{
+	if (ptr && *ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
+}
+
+void	free_text(t_textinfo *text)
+{
+	if (text)
+	{
+		free_and_make_null((void **)&text->north);
+		free_and_make_null((void **)&text->south);
+		free_and_make_null((void **)&text->east);
+		free_and_make_null((void **)&text->west);
+		free_and_make_null((void **)&text->floor);
+		free_and_make_null((void **)&text->ceiling);
+	}
+	if (text->grid)
+	{
+		free_memory(text->grid);
+		text->grid = NULL;
+	}
+	free_and_make_null((void **)&text);
+}

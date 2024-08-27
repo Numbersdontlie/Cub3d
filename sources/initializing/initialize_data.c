@@ -6,11 +6,11 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/26 13:10:32 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/27 10:14:40 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 //Function to initialize the image structure
 void	ft_initialize_img(t_img *img)
