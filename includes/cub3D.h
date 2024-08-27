@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/26 15:51:00 by luifer           ###   ########.fr       */
+/*   Updated: 2024/08/27 12:25:21 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,8 @@ int			*ft_put_img_into_buffer(t_data *data, t_img *image);
 //free_functions.c
 void		free_memory(char **arr);
 void		ft_clean_exit(t_data *data, t_img *image);
+void		free_text(t_textinfo *text);
+void		free_and_make_null(void **ptr);
 //void		free_game(t_game *game);
 //void		error_message_game(char *str, t_game *game);
 
@@ -217,4 +219,5 @@ void		ft_initialize_events(t_data *data);
 
 
 t_textinfo	*ft_initialize_textinfo(char **arr);
+char	**update_text_info(char **path, char **grid, char *s);
 #endif

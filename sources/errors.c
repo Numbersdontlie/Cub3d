@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:47:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/26 13:48:43 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/27 10:29:39 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,7 @@ void	ft_malloc_error(void)
 
 void	error_message_text(char *str, t_textinfo *text)
 {
-	if (!text->north)
-		free (text->north);
-	if (!text->south)
-		free (text->south);	
-	if (!text->west)
-		free (text->west);
-	if (!text->east)
-		free (text->east);
-	if (!text->floor)
-		free (text->floor);
-	if (!text->ceiling)
-		free (text->ceiling);
-	if (!text->grid)
-		free_memory(text->grid);
+	free_text(text);
 	perror(str);
 	exit (1);
 }
