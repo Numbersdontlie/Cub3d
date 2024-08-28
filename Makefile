@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/08/28 10:50:42 by kbolon           ###   ########.fr        #
+#    Updated: 2024/08/28 12:16:17 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS = 	sources/main.c \
 		sources/parsing/read_input.c \
 		sources/initializing/initialize_data.c \
 		sources/initializing/initialize_text.c \
-#		sources/input_handler.c \
+		sources/moving/input_handler.c \
 		sources/initializing/initialize_window.c 
 
 LIBFT = libft/libft.a
