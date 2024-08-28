@@ -220,7 +220,7 @@ char		**read_map(char *s);
 char		*ft_replace(char *s);
 char		**graphic_gnl(int size, int fd, char **arr, int i);
 
-//input_handler.c
+//sources/moving/input_handler.c
 int			ft_handle_key(int keysym, t_data *data);
 int			ft_release_key(int keysym, t_data *data);
 void		ft_initialize_events(t_data *data);
@@ -230,5 +230,11 @@ t_textinfo	*ft_initialize_textinfo(char **arr);
 char		**update_text_info(char **path, char **grid, char *s);
 t_textinfo	*populate_floor_and_ceiling_values(t_textinfo *text, char **grid);
 void		check_rgb_for_illegal_chars(t_textinfo *text, char **arr);
+
+//sources/moving/initial_position.c
+void		ft_initialize_nort_sout(t_player *player);
+void		ft_initialize_weast_east(t_player *player);
+void		ft_init_player_dir(t_data *data);
+
 
 #endif

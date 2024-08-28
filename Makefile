@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
+#    By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/08/28 14:55:40 by kbolon           ###   ########.fr        #
+#    Updated: 2024/08/28 16:11:03 by lperez-h         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,9 @@ SRCS = 	sources/main.c \
 		sources/parsing/read_input.c \
 		sources/initializing/initialize_data.c \
 		sources/initializing/initialize_text.c \
-#		sources/moving/input_handler.c \
-		sources/initializing/initialize_window.c 
+		sources/moving/input_handler.c \
+		sources/initializing/initialize_window.c \
+		sources/moving/initial_position.c
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
