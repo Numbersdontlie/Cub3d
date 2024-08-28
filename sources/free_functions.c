@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/27 18:40:46 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:03:15 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_clean_exit(t_data *data, t_img *image)
 	mlx_destroy_window(data->mlx_conn, data->mlx_window);
 	mlx_destroy_display(data->mlx_conn);
 	free(data->mlx_conn);
-	exit(EXIT_SUCCESS);
 }
 
 void	free_and_make_null(void **ptr)
@@ -53,8 +52,16 @@ void	free_text(t_textinfo *text)
 		free_and_make_null((void **)&text->south);
 		free_and_make_null((void **)&text->east);
 		free_and_make_null((void **)&text->west);
-		free_and_make_null((void **)&text->floor);
-		free_and_make_null((void **)&text->ceiling);
+	}
+	if (text->ceiling_rgb)
+	{
+		free_memory(text->ceiling_rgb);
+		text->ceiling_rgb = NULL;
+	}
+	if (text->floor_rgb)
+	{
+		free_memory(text->floor_rgb);
+		text->floor_rgb = NULL;
 	}
 	if (text->grid)
 	{

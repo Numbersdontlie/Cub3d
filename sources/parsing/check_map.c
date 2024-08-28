@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/23 15:52:08 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/28 14:43:32 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	valid_chars(char **arr)
 			if (ft_strchr("01NSEW \n", arr[i][j]))
 				j++;
 			else
-				error_message_simple("ERROR: illegal character in map", arr);
+				error_message_simple("ERROR: illegal character in map\n", arr);
 		}
 		i++;
 	}
@@ -59,6 +59,6 @@ void	check_map_items(char **arr)
 	player = 0;
 	count_chars(arr, &player);
 	if (player != 1)
-		error_message_simple("ERROR: Map not valid, check content", arr);
+		error_message_simple("ERROR: Map not valid, check content\n", arr);
 }
 
