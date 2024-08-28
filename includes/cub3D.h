@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/28 12:17:41 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/28 14:52:24 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # include <memory.h>
 # include <time.h>
 # include <string.h>
-//# include <X11/keysym.h>
-//# include <X11/X.h>
+# include <mlx.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
 
 # define PIXELS 64
 # define WIDTH 640 
@@ -158,6 +159,7 @@ typedef struct s_data
 	t_player	player;
 	t_ray		ray;
 	t_textinfo	textinfo;
+	t_img		img;
 	char		**map;
 	int			**texture_pixels;
 	int			**textures;
@@ -179,16 +181,16 @@ void		ft_initialize_player(t_player *player);
 void		ft_initialize_data(t_data *data);
 
 //initialize_window.c
-void		ft_initialize_image(t_data *data, t_img *image, int width, int height);
-void		ft_initialize_connection(t_data *data);
-void		ft_initialize_texture_img(t_data *data, t_img *image, char *path);
+int			ft_initialize_image(t_data *data, t_img *image, int width, int height);
+int			ft_initialize_connection(t_data *data);
+int			ft_initialize_texture_img(t_data *data, t_img *image, char *path);
 int			*ft_put_img_into_buffer(t_data *data, char *path);
-void		ft_initialize_textures(t_data *data);
+int			ft_initialize_textures(t_data *data);
 
 
 //free_functions.c
 void		free_memory(char **arr);
-void		ft_clean_exit(t_data *data, t_img *image);
+int			ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
 void		free_and_make_null(void **ptr);
 //void		free_game(t_game *game);
@@ -218,8 +220,8 @@ char		*ft_replace(char *s);
 char		**graphic_gnl(int size, int fd, char **arr, int i);
 
 //input_handler.c
-int			ft_handle_key(int keysym, t_data *data, t_img *image);
-int			ft_release_key(int keysym, t_data *data, t_img *image);
+int			ft_handle_key(int keysym, t_data *data);
+int			ft_release_key(int keysym, t_data *data);
 void		ft_initialize_events(t_data *data);
 
 //sources/initializing/initialize_text.c
