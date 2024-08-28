@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/28 15:31:12 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/28 16:22:29 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	print_map(char **arr)
 
 void check_args(t_textinfo *text)
 {
-	valid_chars(text->grid);
-	check_map_items(text->grid);
+	valid_chars(text);
+	check_map_items(text);
+	check_rgb_for_illegal_chars(text, text->floor_rgb);
+	check_rgb_for_illegal_chars(text, text->ceiling_rgb);
 	flood_fill(text->grid);
 }
 
@@ -45,7 +47,9 @@ int	main(int ac, char **av)
 	if (!text)
 		error_message_text("ERROR: problem loading text", text);
 	check_args(text);
-//	printf("ceiling red: %s\n", text->ceiling_rgb[0]);
+//	printf("floor red: %s\n", text->floor_rgb[0]);
+//	printf("floor green: %s\n", text->floor_rgb[1]);
+//	printf("floor blue: %s\n", text->floor_rgb[2]);
 	printf("EVERYTHING OK\n");
 	free_text(text);
 	return (0);

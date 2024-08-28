@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/28 14:52:24 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:11:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,9 +197,10 @@ void		free_and_make_null(void **ptr);
 //void		error_message_game(char *str, t_game *game);
 
 //parsing/check_map.c
-void		valid_chars(char **arr);
-void		count_chars(char **arr, size_t *player);
-void		check_map_items(char **arr);
+void		valid_chars(t_textinfo *text);
+void	count_chars(char **arr, size_t *player);
+void		check_map_items(t_textinfo *text);
+
 
 //parsing/flood_fill_check.c
 int			find_item(char **grid, char axis);
@@ -228,5 +229,6 @@ void		ft_initialize_events(t_data *data);
 t_textinfo	*ft_initialize_textinfo(char **arr);
 char		**update_text_info(char **path, char **grid, char *s);
 t_textinfo	*populate_floor_and_ceiling_values(t_textinfo *text, char **grid);
+void		check_rgb_for_illegal_chars(t_textinfo *text, char **arr);
 
 #endif
