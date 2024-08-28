@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/28 11:07:48 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:07:35 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*find_cardinal_paths(char **arr, char *s)
 		{
 			path_found = ft_strdup(arr[i]);
 			if (!path_found)
-				error_message_simple("Memory Alloc failed", arr);
+				error_message_simple("ERROR: Memory Alloc failed\n", arr);
 			path_extension = ft_strrchr(path_found, '.');
 			if (path_extension)
 			{
@@ -40,11 +40,11 @@ char	*find_cardinal_paths(char **arr, char *s)
 			}
 		}
 	}
-	error_message_simple("ERROR: path not found", arr);
+	error_message_simple("ERROR: path not found\n", arr);
 	return (NULL);
 }
 
-char*find_floor_ceiling(char **arr, int c)
+char	*find_floor_ceiling(char **arr, int c)
 {
 	int		i;
 	int		count;
@@ -63,7 +63,7 @@ char*find_floor_ceiling(char **arr, int c)
 			{
 				path = ft_strdup(path);
 				if (!path)
-					error_message_simple("Error: mem alloc failed", arr);
+					error_message_simple("ERROR: mem alloc failed\n", arr);
 				return (path);
 			}
 		}
@@ -84,7 +84,7 @@ char	**update_grid(char **arr, char *path)
 	count = row_count(arr);
 	grid = (char **)ft_calloc(count, sizeof(char *));
 	if (!grid)
-		error_message_simple("calloc failed updating .cub\n", arr);
+		error_message_simple("ERROR: calloc failed updating .cub\n", arr);
 	while (i < count)
 	{
 		if (ft_strnstr(arr[i], path, ft_strlen(arr[i])))
@@ -113,7 +113,7 @@ char	**remove_empty_lines(char **arr)
 	count = row_count(arr);
 	updated_grid = (char **)ft_calloc(count + 1, sizeof(char *));
 	if (!updated_grid)
-		error_message_simple("Memory alloc failed with trimming", arr);
+		error_message_simple("ERROR: Memory alloc failed with trimming\n", arr);
 	while (i < count)
 	{
 		if (arr[i] && ft_strlen(arr[i]) > 0)

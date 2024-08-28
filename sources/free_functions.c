@@ -54,8 +54,16 @@ void	free_text(t_textinfo *text)
 		free_and_make_null((void **)&text->south);
 		free_and_make_null((void **)&text->east);
 		free_and_make_null((void **)&text->west);
-		free_and_make_null((void **)&text->floor);
-		free_and_make_null((void **)&text->ceiling);
+	}
+	if (text->ceiling_rgb)
+	{
+		free_memory(text->ceiling_rgb);
+		text->ceiling_rgb = NULL;
+	}
+	if (text->floor_rgb)
+	{
+		free_memory(text->floor_rgb);
+		text->floor_rgb = NULL;
 	}
 	if (text->grid)
 	{

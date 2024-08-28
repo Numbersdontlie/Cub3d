@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:14:37 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/19 14:04:07 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/28 13:25:02 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	check_extension(char *s)
 
 	len = ft_strlen(s);
 	if (len < 4 || ft_strncmp(&s[len - 4], ".cub", len - 4) != 0)
-		error_message("ERROR: please include a .cub file");
+		error_message("ERROR: please include a .cub file\n");
 }
 
 size_t	row_count(char **grid)
@@ -55,7 +55,7 @@ char	**read_map(char *s)
 	close(fd);
 	i = row_count(arr);
 	if (i == 0)
-		error_message_simple("Error\nempty map", arr);
+		error_message_simple("ERROR: empty file\n", arr);
 	return (arr);
 }
 
