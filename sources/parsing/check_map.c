@@ -6,27 +6,27 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/28 14:43:32 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/28 16:24:51 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void	valid_chars(char **arr)
+void	valid_chars(t_textinfo *text)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	while (arr[i] != NULL)
+	while (text->grid[i] != NULL)
 	{
 		j = 0;
-		while (arr[i][j] != '\0')
+		while (text->grid[i][j] != '\0')
 		{
-			if (ft_strchr("01NSEW \n", arr[i][j]))
+			if (ft_strchr("01NSEW \n", text->grid[i][j]))
 				j++;
 			else
-				error_message_simple("ERROR: illegal character in map\n", arr);
+				error_message_text("ERROR: illegal character in map\n", text);
 		}
 		i++;
 	}
@@ -52,13 +52,13 @@ void	count_chars(char **arr, size_t *player)
 	}
 }
 
-void	check_map_items(char **arr)
+void	check_map_items(t_textinfo *text)
 {
 	size_t		player;
 
 	player = 0;
-	count_chars(arr, &player);
+	count_chars(text->grid, &player);
 	if (player != 1)
-		error_message_simple("ERROR: Map not valid, check content\n", arr);
+		error_message_text("ERROR: Too many players, check content\n", text);
 }
 

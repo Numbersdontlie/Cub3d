@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/28 15:29:16 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/28 16:42:05 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,28 @@ char	**update_text_info(char **path, char **grid, char *s)
 	*path = find_cardinal_paths(grid, s);
 	temp_grid = update_grid(grid, *path);
 	return (temp_grid);
+}
+
+void	check_rgb_for_illegal_chars(t_textinfo *text, char **arr)
+{
+	int		i;
+	int		j;
+	int		count;
+
+	i = 0;
+	count = row_count(arr);
+	if (count < 3)
+		error_message_text("ERROR: RGB not valid\n", text);
+	while (i < count)
+	{
+		j = 0;
+		while (arr[i][j] != '\0')
+		{
+			if (ft_isdigit(arr[i][j]))
+				j++;
+			else
+				error_message_text("ERROR: RGB not valid\n", text);
+		}
+		i++;
+	}
 }
