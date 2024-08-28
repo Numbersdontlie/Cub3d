@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:53:26 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/28 12:16:34 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/28 14:46:08 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 //Function to handle the input from the keyboard
 //Escape close the program, WSAD move the player position
 //left and right arrow change the point of view (rotation)
-int	ft_handle_key(int keysym, t_data *data, t_img *image)
+int	ft_handle_key(int keysym, t_data *data)
 {
 	if (keysym == XK_ESCAPE)
-		ft_clean_exit(data, image);
+		ft_clean_exit(data);
 	if (keysym == LEFT)
 		data->player.rotate -= 1;
 	if (keysym == RIGHT)
@@ -36,10 +36,10 @@ int	ft_handle_key(int keysym, t_data *data, t_img *image)
 
 //Function to handle the release of the key after being 
 //hold pressed for a while
-int	ft_release_key(int keysym, t_data *data, t_img *image)
+int	ft_release_key(int keysym, t_data *data)
 {
 	if (keysym == XK_ESCAPE)
-		ft_clean_exit(data, image);
+		ft_clean_exit(data);
 	if (keysym == LEFT)
 		data->player.rotate -= 1;
 	if (keysym == RIGHT)
