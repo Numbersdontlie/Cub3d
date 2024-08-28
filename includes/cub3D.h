@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/27 21:33:42 by luifer           ###   ########.fr       */
+/*   Updated: 2024/08/28 12:17:41 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ char		*ft_replace(char *s);
 char		**graphic_gnl(int size, int fd, char **arr, int i);
 
 //input_handler.c
-int			ft_handle_key(int keysym, t_data *data);
+int			ft_handle_key(int keysym, t_data *data, t_img *image);
 int			ft_release_key(int keysym, t_data *data, t_img *image);
 void		ft_initialize_events(t_data *data);
 
