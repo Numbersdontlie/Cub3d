@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/28 16:11:31 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/08/30 11:15:42 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define PIXELS 64
 # define WIDTH 640 
 # define HEIGHT 480
+# define MOVEMENTSPEED 0.0125
+# define ROTATIONSPEED 0.015
 # define XK_ESCAPE 0xff1b //Escape
 # define FORWARD 0x77 //W
 # define BACKWARD 0x73 //S
@@ -39,6 +41,8 @@
 # define RIGHT 0xff53 //right arrow
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
+# define TRUE 10
+# define FALSE 20
 
 
 //set up enum for directions
