@@ -6,7 +6,7 @@
 /*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/30 11:15:42 by luifer           ###   ########.fr       */
+/*   Updated: 2024/08/31 14:59:24 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,5 +240,11 @@ void		ft_initialize_nort_sout(t_player *player);
 void		ft_initialize_weast_east(t_player *player);
 void		ft_init_player_dir(t_data *data);
 
+//sources/raycasting/implement_raycasting.c
+void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
+void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
+void		ft_implement_dda(t_data *data, t_ray *ray);
+void		ft_calculate_wall_height(t_data *data, t_player *player, t_ray *ray);
+int			ft_make_raycasting(t_player *player, t_data *data);
 
 #endif
