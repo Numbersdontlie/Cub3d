@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/31 14:59:24 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/02 12:49:37 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef	CUB3D_H
 # define CUB3D_H
@@ -23,7 +22,6 @@
 # include <memory.h>
 # include <time.h>
 # include <string.h>
-# include <mlx.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: luifer <luifer@student.42.fr>              +#+  +:+       +#+         #
+#    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/08/31 14:59:22 by luifer           ###   ########.fr        #
+#    Updated: 2024/09/02 12:52:34 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,15 +23,16 @@ SRCS = 	sources/main.c \
 		sources/initializing/initialize_text.c \
 		sources/moving/input_handler.c \
 		sources/initializing/initialize_window.c \
-		sources/moving/initial_position.c \
-		sources/raycasting/implement_raycasting.c
+		sources/moving/initial_position.c
+#		sources/raycasting/implement_raycasting.c
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
-MLX = minilibx-linux/libmlx.a
+MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+INCLUDE = -I/opt/X11/include
 
 #colours
 
@@ -46,8 +47,9 @@ RESET=\033[0m
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-#	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT)//for MAC
+	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+#for mac
+#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
 	@$(MAKE) clean
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
