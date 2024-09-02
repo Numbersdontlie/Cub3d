@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_raycasting.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/31 14:58:43 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/02 12:24:59 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_get_ray_step_and_distance(t_ray *ray, t_player *player)
 	else
 	{
 		ray->step_y = 1;
-		ray->sidedistance_y = (ray->map_y + 1.0 - player->pos_y) * ray->deltadistance_y
+		ray->sidedistance_y = (ray->map_y + 1.0 - player->pos_y) * ray->deltadistance_y;
 	}
 }
 
@@ -120,14 +120,14 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 	int		x;
 
 	x = 0;
-	ray = data->ray;
+	ray = &data->ray;
 	while (x < data->window_width)
 	{
 		ft_initialize_raycasting(x, ray, player);
 		ft_get_ray_step_and_distance(ray, player);
 		ft_implement_dda(data, ray);
 		ft_calculate_wall_height(data, player, ray);
-		ft_update_texture_pixels()//ToDo;
+		ft_update_texture_pixels();//ToDo
 		x++;
 	}
 	return (EXIT_SUCCESS);
