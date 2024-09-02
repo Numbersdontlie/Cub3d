@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/30 12:31:09 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/02 16:26:46 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_clean_exit(t_data *data)
 	mlx_destroy_window(data->mlx_conn, data->mlx_window);
 	mlx_destroy_display(data->mlx_conn);
 	free(data->mlx_conn);
+	free_text(&data->textinfo);
 	exit(EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }

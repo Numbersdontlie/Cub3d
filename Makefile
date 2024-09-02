@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/02 13:09:57 by kbolon           ###   ########.fr        #
+#    Updated: 2024/09/02 15:58:49 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ SRCS = 	sources/main.c \
 		sources/initializing/initialize_text.c \
 		sources/moving/input_handler.c \
 		sources/initializing/initialize_window.c \
-		sources/moving/initial_position.c \
-		sources/raycasting/implement_raycasting.c
+		sources/moving/initial_position.c 
+#		sources/raycasting/implement_raycasting.c
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux

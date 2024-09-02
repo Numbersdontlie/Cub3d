@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/28 15:07:35 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/02 16:23:39 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ char	**remove_empty_lines(char **arr)
 			updated_grid[j] = ft_strdup(arr[i]);
 			j++;
 		}
+		if (ft_strlen(arr[i]) == 0 || count == 0)
+			error_message_simple("ERROR: empty line found\n", arr);
 		i++;
 	}
 	free_memory(arr);
