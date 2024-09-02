@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/08/28 16:22:29 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/02 16:16:20 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void check_args(t_textinfo *text)
 {
 	valid_chars(text);
 	check_map_items(text);
+	print_map(text->grid);
 	check_rgb_for_illegal_chars(text, text->floor_rgb);
 	check_rgb_for_illegal_chars(text, text->ceiling_rgb);
 	flood_fill(text->grid);
