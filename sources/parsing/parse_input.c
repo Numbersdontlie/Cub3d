@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/02 16:23:39 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/03 19:30:55 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,63 +68,71 @@ char	*find_floor_ceiling(char **arr, int c)
 			}
 		}
 	}
-	perror("ERROR: RGB path not found\n");
+	error_message_simple("ERROR: RGB path not found\n", arr);
 	return (NULL);
-}
-
-char	**update_grid(char **arr, char *path)
-{
-	int		i;
-	int		j;
-	int		count;
-	char	**grid;
-
-	i = 0;
-	j = 0;
-	count = row_count(arr);
-	grid = (char **)ft_calloc(count, sizeof(char *));
-	if (!grid)
-		error_message_simple("ERROR: calloc failed updating .cub\n", arr);
-	while (i < count)
-	{
-		if (ft_strnstr(arr[i], path, ft_strlen(arr[i])))
-		{
-			i++;
-			continue ;
-		}
-		grid[j] = ft_strdup(arr[i]);
-		j++;
-		i++;
-	}
-	grid[j] = NULL;
-	free_memory(arr);
-	return (grid);
 }
 
 char	**remove_empty_lines(char **arr)
 {
 	int		i;
 	int		j;
-	int		count;
 	char	**updated_grid;
+	char	*trimmed;
 
-	i = 0;
 	j = 0;
-	count = row_count(arr);
-	updated_grid = (char **)ft_calloc(count + 1, sizeof(char *));
+	i = row_count(arr);
+	updated_grid = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (!updated_grid)
 		error_message_simple("ERROR: Memory alloc failed with trimming\n", arr);
-	while (i < count)
+	i = 0;
+	while (arr[i] != NULL)
 	{
-		if (arr[i] && ft_strlen(arr[i]) > 0)
+		trimmed = ft_trim_line(arr[i]);
+		if (*trimmed != '\0')
 		{
-			updated_grid[j] = ft_strdup(arr[i]);
+			copy_valid_lines(updated_grid[j], trimmed, arr);
 			j++;
 		}
-		if (ft_strlen(arr[i]) == 0 || count == 0)
-			error_message_simple("ERROR: empty line found\n", arr);
 		i++;
 	}
+	check_empty_lines(updated_grid, j);
 	free_memory(arr);
 	return (updated_grid);
+}
+
+t_textinfo	*find_grid(t_textinfo *text, char **grid)
+{
+	char	**temp;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = row_count(grid);
+	temp = (char **)ft_calloc(i + 1, sizeof(char *));
+	if (!temp)
+		error_message_simple("ERROR: calloc fail in text_init", grid);
+	i = 0;
+	while (grid[i] != NULL)
+	{
+		if (filter_grid_lines(grid[i]) == 0)
+		{
+			temp[j] = ft_strdup(grid[i]);
+			if (!temp[j])
+				error_message_text("ERROR: problems copying grid\n", text);
+			j++;
+		}
+		i++;
+	}
+	temp[j] = NULL;
+	text->grid = temp;
+	return (text);
+}
+
+int	filter_grid_lines(char *grid)
+{
+	if (ft_strstr(grid, "NO") || ft_strstr(grid, "SO") || ft_strstr(grid, "WE") || \
+	ft_strstr(grid, "EA") || ft_strstr(grid, "F") || ft_strstr(grid, "C") || \
+	ft_strlen(grid) == 0)
+		return (1);
+	return (0);
 }

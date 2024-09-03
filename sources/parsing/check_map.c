@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/02 16:04:26 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/03 19:26:23 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,36 @@ void	check_map_items(t_textinfo *text)
 
 	player = 0;
 	count_chars(text->grid, &player);
+	print_map(text->grid);
 	if (player != 1)
 		error_message_text("ERROR: Too many players, check content\n", text);
 }
 
+//this function has been tailored for cub3d
+int	ft_strstr(char *str, char *to_find)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (to_find[j] == '\0')
+		return (0);
+	while ((str[i] != '\0') && (to_find[j] != '\0'))
+	{
+		while (str[i + j] == to_find[j] && str[i + j] != '\0')
+			j++;
+		if (to_find[j] == '\0')
+			return (1);
+		i++;
+		j = 0;
+	}
+	return (0);
+}
+
+char	*ft_trim_line(char *str)
+{
+	while (*str== ' ' || *str == '\t')
+			str++;
+	return (str);
+}
