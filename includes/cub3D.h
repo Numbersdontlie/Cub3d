@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/02 12:25:03 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:32:20 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <math.h>
 # include <time.h>
 # include <string.h>
-# include <mlx.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
 
@@ -191,6 +190,7 @@ int			ft_initialize_connection(t_data *data);
 int			ft_initialize_texture_img(t_data *data, t_img *image, char *path);
 int			*ft_put_img_into_buffer(t_data *data, char *path);
 int			ft_initialize_textures(t_data *data);
+int			filter_grid_lines(char *grid);
 
 
 //free_functions.c
@@ -203,20 +203,26 @@ void		free_and_make_null(void **ptr);
 
 //parsing/check_map.c
 void		valid_chars(t_textinfo *text);
-void	count_chars(char **arr, size_t *player);
+void		count_chars(char **arr, size_t *player);
 void		check_map_items(t_textinfo *text);
-
+int			ft_strstr(char *str, char *to_find);
+char		*ft_trim_line(char *str);
 
 //parsing/flood_fill_check.c
 int			find_item(char **grid, char axis);
 int			path_checker(char **game, size_t y, size_t x);
 void		flood_fill(char **game);
 
+//parsing/helper_functions.c
+void	copy_valid_lines(char *grid, char *trimmed, char **arr);
+void	check_empty_lines(char **grid, int i);
+
 //parsing/parse_input.c
 char		*find_cardinal_paths(char **arr, char *s);
 char		*find_floor_ceiling(char **arr, int c);
-char		**update_grid(char **arr, char *path);
 char		**remove_empty_lines(char **arr);
+t_textinfo	*find_grid(t_textinfo *text, char **grid);
+int			filter_grid_lines(char *grid);
 
 //parsing/read_input.c
 void		check_extension(char *s);
@@ -232,7 +238,6 @@ void		ft_initialize_events(t_data *data);
 
 //sources/initializing/initialize_text.c
 t_textinfo	*ft_initialize_textinfo(char **arr);
-char		**update_text_info(char **path, char **grid, char *s);
 t_textinfo	*populate_floor_and_ceiling_values(t_textinfo *text, char **grid);
 void		check_rgb_for_illegal_chars(t_textinfo *text, char **arr);
 
@@ -247,5 +252,7 @@ void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
 void		ft_calculate_wall_height(t_data *data, t_player *player, t_ray *ray);
 int			ft_make_raycasting(t_player *player, t_data *data);
+
+void	print_map(char **arr);
 
 #endif

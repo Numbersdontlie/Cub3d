@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/02 15:58:49 by kbolon           ###   ########.fr        #
+#    Updated: 2024/09/03 19:33:35 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS = 	sources/main.c \
 		sources/free_functions.c \
 		sources/parsing/check_map.c \
 		sources/parsing/flood_fill_check.c \
+		sources/parsing/helper_functions.c \
 		sources/parsing/parse_input.c \
 		sources/parsing/read_input.c \
 		sources/initializing/initialize_data.c \
@@ -31,7 +32,7 @@ MLX_PATH = minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
 
 #colours
 
@@ -47,7 +48,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)//for MAC
+#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
 	@$(MAKE) clean
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
