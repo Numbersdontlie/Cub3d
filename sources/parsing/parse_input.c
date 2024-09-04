@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/03 19:30:55 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/04 14:44:36 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,33 @@ char	*find_cardinal_paths(char **arr, char *s)
 	{
 		if (!ft_strncmp(arr[i], s, 2))
 		{
-			path_found = ft_strdup(arr[i]);
+			path_found = ft_strdup(arr[i] + 2);
 			if (!path_found)
 				error_message_simple("ERROR: Memory Alloc failed\n", arr);
-			path_extension = ft_strrchr(path_found, '.');
-			if (path_extension)
-			{
-				path_extension = ft_strdup(path_extension);
-				free (path_found);
-				return (path_extension);
-			}
+			path_extension = path_extractor(arr, path_found);
+			return (path_extension);
 		}
 	}
 	error_message_simple("ERROR: path not found\n", arr);
 	return (NULL);
+}
+
+char 	*path_extractor(char **arr, char *str)
+{
+	char	*path;
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0' && (str[i] == ' ' || str[i] == '\t'))
+		i++;
+	path = ft_strdup(&str[i]);
+	if (!path)
+	{
+		free (str);
+		error_message_simple("ERROR: Memory Alloc failed\n", arr);
+	}
+	free (str);
+	return (path);
 }
 
 char	*find_floor_ceiling(char **arr, int c)
@@ -130,8 +143,8 @@ t_textinfo	*find_grid(t_textinfo *text, char **grid)
 
 int	filter_grid_lines(char *grid)
 {
-	if (ft_strstr(grid, "NO") || ft_strstr(grid, "SO") || ft_strstr(grid, "WE") || \
-	ft_strstr(grid, "EA") || ft_strstr(grid, "F") || ft_strstr(grid, "C") || \
+	if (ft_strstr(grid, "NO") || ft_strstr(grid, "SO") || ft_strstr(grid, "WE") \
+	|| ft_strstr(grid, "EA") || ft_strstr(grid, "F") || ft_strstr(grid, "C") || \
 	ft_strlen(grid) == 0)
 		return (1);
 	return (0);

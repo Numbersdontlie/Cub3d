@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/03 19:32:20 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/04 16:48:45 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ int			filter_grid_lines(char *grid);
 
 //free_functions.c
 void		free_memory(char **arr);
-int			ft_clean_exit(t_data *data);
+void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
 void		free_and_make_null(void **ptr);
 //void		free_game(t_game *game);
@@ -205,7 +205,7 @@ void		free_and_make_null(void **ptr);
 void		valid_chars(t_textinfo *text);
 void		count_chars(char **arr, size_t *player);
 void		check_map_items(t_textinfo *text);
-int			ft_strstr(char *str, char *to_find);
+
 char		*ft_trim_line(char *str);
 
 //parsing/flood_fill_check.c
@@ -253,6 +253,10 @@ void		ft_implement_dda(t_data *data, t_ray *ray);
 void		ft_calculate_wall_height(t_data *data, t_player *player, t_ray *ray);
 int			ft_make_raycasting(t_player *player, t_data *data);
 
-void	print_map(char **arr);
+//sources/helper_functions.c
+void		print_map(char **arr);
+char 		*path_extractor(char **arr, char *str);
+char		*ft_strndup(const char *s, size_t n);
+int			ft_strstr(char *str, char *to_find);
 
 #endif
