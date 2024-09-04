@@ -6,7 +6,7 @@
 /*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/02 12:24:59 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:57:08 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_get_ray_step_and_distance(ray, player);
 		ft_implement_dda(data, ray);
 		ft_calculate_wall_height(data, player, ray);
-		ft_update_texture_pixels();//ToDo
+		ft_update_texture_pixels(data, data->textinfo, ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);
