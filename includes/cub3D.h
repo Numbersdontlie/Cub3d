@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/03 19:32:20 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/04 14:57:24 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,10 @@ void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
 void		ft_calculate_wall_height(t_data *data, t_player *player, t_ray *ray);
 int			ft_make_raycasting(t_player *player, t_data *data);
+
+//sources/raycasting/handle_textures.c
+void		ft_update_texture_pixels(t_data *data, t_textinfo *text, t_ray *ray, int x);
+
 
 void	print_map(char **arr);
 
