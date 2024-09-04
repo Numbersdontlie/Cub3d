@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:53:26 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/28 14:46:08 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:54:28 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int	ft_release_key(int keysym, t_data *data)
 }
 
 
-void	ft_initialize_events(t_data *data)
+/*void	ft_initialize_events(t_data *data)
 {
 	mlx_hook(data->mlx_window, KeyPress, KeyPressMask, ft_handle_key, data);
 	mlx_hook(data->mlx_window, DestroyNotify, StructureNotifyMask, ft_clean_exit, data);
 	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);
 	//We're missing the hook to handle the input from mouse if we make the bonus
-}
+}*/

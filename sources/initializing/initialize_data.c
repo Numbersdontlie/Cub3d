@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/30 12:31:06 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/04 12:13:32 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_initialize_data(t_data *data)
 	data->window_height = HEIGHT;
 	data->window_width = WIDTH;
 	ft_initialize_player(&data->player);
-//	ft_initialize_textinfo(&data->textinfo);//ToDo
+//	ft_initialize_textinfo(&data->textinfo);
 	data->map = NULL;
 //	ft_initialize_map(&data->mapinfo);
 	data->texture_pixels = NULL;

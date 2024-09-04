@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_window.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/08/28 14:51:48 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:06:29 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 //assign the image address
 int	ft_initialize_image(t_data *data, t_img *image, int width, int height)
 {
+	printf("in init window\n");
 	ft_initialize_img(image);
 	image->img = mlx_new_image(data->mlx_conn, width, height);
 	if (!image->img)

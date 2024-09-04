@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/03 19:26:23 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/04 16:38:40 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	check_map_items(t_textinfo *text)
 
 	player = 0;
 	count_chars(text->grid, &player);
-	print_map(text->grid);
 	if (player != 1)
 		error_message_text("ERROR: Too many players, check content\n", text);
 }
