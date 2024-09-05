@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/04 12:13:32 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/05 16:49:00 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,50 +45,35 @@ void	ft_initialize_ray(t_ray *ray)
 }
 
 //temp function to get the grid working for parse testing
-t_mapinfo 	*ft_initialize_map(char	*grid)
+t_mapinfo 	*ft_initialize_map(t_data *data, t_textinfo *text)
 {
 	t_mapinfo	*mapinfo;
 
-	if (!grid)
+	if (!data)
 		return (NULL);
 	mapinfo = (t_mapinfo *) ft_calloc (1, sizeof(t_mapinfo));
 	if (!mapinfo)
-		error_message_simple("ERROR: calloc fail in map_init", &grid);
-	mapinfo->grid = &grid;
-	mapinfo->line_count = row_count(&grid);
+		error_message_data("ERROR: calloc fail in map_init", data, text);
+	mapinfo->grid = data->map;
+	mapinfo->line_count = row_count(data->map);
 	mapinfo->player_x = find_item(mapinfo->grid, 'x');
-	printf("x: %zu\n", mapinfo->player_x);
 	mapinfo->player_y = find_item(mapinfo->grid, 'y');
 	return (mapinfo);
 }
 
-//Function to initialize the player structure
-void	ft_initialize_player(t_player *player)
-{
-	player->direction = 0;
-	player->dir_x = 0.0;
-	player->dir_y = 0.0;
-	player->pos_x = 0.0;
-	player->pos_y = 0.0;
-	player->plane_x = 0.0;
-	player->plane_y = 0.0;
-	player->move_x = 0;
-	player->move_y = 0;
-	player->rotate = 0;
-	player->has_moved = 0;
-}
-
 //Function to initialize the global data of the program
-void	ft_initialize_data(t_data *data)
+t_data	*ft_initialize_data(t_textinfo *text)
 {
-	data->mlx_conn = NULL;
-	data->mlx_window = NULL;
+	t_data		*data;
+
+	data = (t_data *)ft_calloc(1, sizeof(t_data));
+	if (!data)
+		error_message_text("ERROR: problems copying grid in init\n", text);
 	data->window_height = HEIGHT;
 	data->window_width = WIDTH;
-	ft_initialize_player(&data->player);
-//	ft_initialize_textinfo(&data->textinfo);
-	data->map = NULL;
-//	ft_initialize_map(&data->mapinfo);
-	data->texture_pixels = NULL;
-	data->textures = NULL;
+	data->player = (t_player *)ft_calloc(1, sizeof(t_player));
+	if (!data->player)
+		error_message_data("ERROR: problems init player", data, text);
+	data->map = text->grid;
+	return (data);
 }

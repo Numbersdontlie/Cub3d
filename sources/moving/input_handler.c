@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handler.c                                    :+:      :+:    :+:   */
+/*   input_handler->c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42->fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:53:26 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/04 16:54:28 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/04 16:54:28 by kbolon           ###   ########->fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ int	ft_handle_key(int keysym, t_data *data)
 	if (keysym == XK_ESCAPE)
 		ft_clean_exit(data);
 	if (keysym == LEFT)
-		data->player.rotate -= 1;
+		data->player->rotate -= 1;
 	if (keysym == RIGHT)
-		data->player.rotate += 1;
+		data->player->rotate += 1;
 	if (keysym == FORWARD)
-		data->player.move_y = 1;
+		data->player->move_y = 1;
 	if (keysym == BACKWARD)
-		data->player.move_y = -1;
+		data->player->move_y = -1;
 	if (keysym == ROTATE_LEFT)
-		data->player.move_x = -1;
+		data->player->move_x = -1;
 	if (keysym == ROTATE_RIGHT)
-		data->player.move_x = 1;
+		data->player->move_x = 1;
 	return (0);
 }
 
@@ -41,17 +41,17 @@ int	ft_release_key(int keysym, t_data *data)
 	if (keysym == XK_ESCAPE)
 		ft_clean_exit(data);
 	if (keysym == LEFT)
-		data->player.rotate -= 1;
+		data->player->rotate -= 1;
 	if (keysym == RIGHT)
-		data->player.rotate += 1;
+		data->player->rotate += 1;
 	if (keysym == FORWARD)
-		data->player.move_y = 1;
+		data->player->move_y = 1;
 	if (keysym == BACKWARD)
-		data->player.move_y = -1;
+		data->player->move_y = -1;
 	if (keysym == ROTATE_LEFT)
-		data->player.move_x = -1;
+		data->player->move_x = -1;
 	if (keysym == ROTATE_RIGHT)
-		data->player.move_x = 1;
+		data->player->move_x = 1;
 	return (0);
 }
 

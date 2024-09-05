@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/04 12:06:29 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/05 14:16:15 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ int	*ft_put_img_into_buffer(t_data *data, char *path)
 	int		y;
 
 	ft_initialize_texture_img(data, &tmp, path);
-	buffer = ft_calloc(1, sizeof(*buffer) * data->textinfo.size * data->textinfo.size);
+	buffer = ft_calloc(1, sizeof(*buffer) * data->textinfo->size * data->textinfo->size);
 	if (!buffer)
 		ft_malloc_error();
 	y = 0;
-	while (y < data->textinfo.size)
+	while (y < data->textinfo->size)
 	{
 		x = 0;
-		while (x < data->textinfo.size)
+		while (x < data->textinfo->size)
 		{
-			buffer[y * data->textinfo.size + x] = (&tmp)->img_addr[y * data->textinfo.size + x];
+			buffer[y * data->textinfo->size + x] = (&tmp)->img_addr[y * data->textinfo->size + x];
 			++x;
 		}
 		++y;
@@ -95,10 +95,10 @@ int	ft_initialize_textures(t_data *data)
 	data->textures = ft_calloc(5, sizeof * data->textures);
 	if (!data->textures)
 		return (EXIT_FAILURE);
-	data->textures[N] = ft_put_img_into_buffer(data, data->textinfo.north);
-	data->textures[S] = ft_put_img_into_buffer(data, data->textinfo.south);
-	data->textures[E] = ft_put_img_into_buffer(data, data->textinfo.east);
-	data->textures[W] = ft_put_img_into_buffer(data, data->textinfo.west);
+	data->textures[N] = ft_put_img_into_buffer(data, data->textinfo->north);
+	data->textures[S] = ft_put_img_into_buffer(data, data->textinfo->south);
+	data->textures[E] = ft_put_img_into_buffer(data, data->textinfo->east);
+	data->textures[W] = ft_put_img_into_buffer(data, data->textinfo->west);
 	return (EXIT_SUCCESS);
 }
 
