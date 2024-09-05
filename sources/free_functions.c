@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/04 16:48:17 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/05 16:50:44 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,43 +36,56 @@ void	ft_clean_exit(t_data *data)
 		mlx_destroy_display(data->mlx_conn);
 		free(data->mlx_conn);
 	}
-	free_text(&data->textinfo);
-//	exit(EXIT_SUCCESS);
-//	return (EXIT_FAILURE);
-}
-
-void	free_and_make_null(void **ptr)
-{
-	if (ptr && *ptr)
+	if (data->mapinfo)
 	{
-		free(*ptr);
-		*ptr = NULL;
+		if (data->mapinfo->path)
+			free (data->mapinfo->path);
+		if (data->mapinfo->grid)
+			free_memory (data->mapinfo->grid);
+		free(data->mapinfo);
 	}
+//	if (data->map)
+//		free_memory(data->map);
+//		free(data->map);
+	if (data->textinfo)
+		free_text(data->textinfo);
+	if (data->player)
+		free(data->player);
+	free (data); 
 }
 
 void	free_text(t_textinfo *text)
 {
 	if (text)
 	{
-		free_and_make_null((void **)&text->north);
-		free_and_make_null((void **)&text->south);
-		free_and_make_null((void **)&text->east);
-		free_and_make_null((void **)&text->west);
+		if (text->north)
+			free(text->north);
+		if (text->south)
+			free(text->south);
+		if (text->east)
+			free(text->east);
+		if (text->west)
+			free(text->west);
+		if (text->ceiling_rgb)
+			free_memory(text->ceiling_rgb);
+		if (text->floor_rgb)
+			free_memory(text->floor_rgb);
+		if (text->grid)
+			free_memory(text->grid);
+		free (text);
 	}
-	if (text->ceiling_rgb)
+}
+
+void	free_map(t_mapinfo *map)
+{
+	if (map)
 	{
-		free_memory(text->ceiling_rgb);
-		text->ceiling_rgb = NULL;
+/*		if (map->fd)
+			close(map->fd);
+		if (map->path)
+			free (map->path);
+		if (map->grid)
+			free_memory(map->grid);*/
+		free (map);
 	}
-	if (text->floor_rgb)
-	{
-		free_memory(text->floor_rgb);
-		text->floor_rgb = NULL;
-	}
-	if (text->grid)
-	{
-		free_memory(text->grid);
-		text->grid = NULL;
-	}
-	free_and_make_null((void **)&text);
 }

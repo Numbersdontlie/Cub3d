@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/04 16:48:45 by kbolon           ###   ########.fr       */
-/*   Updated: 2024/09/04 14:57:24 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:49:32 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef	CUB3D_H
@@ -160,10 +160,10 @@ typedef struct s_data
 	void		*mlx_window;
 	int			window_height;
 	int			window_width;
-	t_mapinfo	mapinfo;
-	t_player	player;
+	t_mapinfo	*mapinfo;
+	t_player	*player;
 	t_ray		ray;
-	t_textinfo	textinfo;
+	t_textinfo	*textinfo;
 	t_img		img;
 	char		**map;
 	int			**texture_pixels;
@@ -176,14 +176,13 @@ void		error_message_simple(char *str, char **arr);
 void		ft_malloc_error(void);
 void		error_message_map(char *str, t_mapinfo *map);
 void		error_message_text(char *str, t_textinfo *text);
+void		error_message_data(char *str, t_data *data, t_textinfo *text);
 
 //initialize_data.c
 void		ft_initialize_img(t_img *img);
 void		ft_initialize_ray(t_ray *ray);
-//void		ft_initialize_map(t_mapinfo *mapinfo);
-t_mapinfo 	*ft_initialize_map(char	*grid);
-void		ft_initialize_player(t_player *player);
-void		ft_initialize_data(t_data *data);
+t_mapinfo 	*ft_initialize_map(t_data *data, t_textinfo *text);
+t_data		*ft_initialize_data(t_textinfo *text);
 
 //initialize_window.c
 int			ft_initialize_image(t_data *data, t_img *image, int width, int height);
@@ -199,8 +198,8 @@ void		free_memory(char **arr);
 void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
 void		free_and_make_null(void **ptr);
-//void		free_game(t_game *game);
-//void		error_message_game(char *str, t_game *game);
+void 		ft_free_textures(t_data *data);
+void		free_map(t_mapinfo *map);
 
 //parsing/check_map.c
 void		valid_chars(t_textinfo *text);
@@ -215,8 +214,8 @@ int			path_checker(char **game, size_t y, size_t x);
 void		flood_fill(char **game);
 
 //parsing/helper_functions.c
-void	copy_valid_lines(char *grid, char *trimmed, char **arr);
-void	check_empty_lines(char **grid, int i);
+void		copy_valid_lines(char *grid, char *trimmed, char **arr);
+void		check_empty_lines(char **grid, int i);
 
 //parsing/parse_input.c
 char		*find_cardinal_paths(char **arr, char *s);
