@@ -1,8 +1,8 @@
 NO ../walls/selva64.xpm 
-SO ./path_to_the_south_texture
+SO ../walls/selva64.xpm 
 
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+WE ../walls/arbol64.xpm 
+EA ../walls/pixgreen.xpm
 
 F 220,100,0
 
