@@ -6,43 +6,11 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/05 16:49:00 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/09 10:31:08 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
-
-//Function to initialize the image structure
-void	ft_initialize_img(t_img *img)
-{
-	img->img = NULL;
-	img->img_addr = NULL;
-	img->bpp = 0;
-	img->line_len = 0;
-	img->endian = 0;
-}
-
-//Function to initializ the ray structure
-void	ft_initialize_ray(t_ray *ray)
-{
-	ray->camera_x = 0;
-	ray->dir_x = 0;
-	ray->dir_y = 0;
-	ray->map_x = 0;
-	ray->map_y = 0;
-	ray->step_x = 0;
-	ray->step_y = 0;
-	ray->sidedistance_x = 0;
-	ray->sidedistance_y = 0;
-	ray->deltadistance_x = 0;
-	ray->deltadistance_y = 0;
-	ray->wall_distance = 0;
-	ray->wall_x = 0;
-	ray->side = 0;
-	ray->line_height = 0;
-	ray->draw_start = 0;
-	ray->draw_end = 0;
-}
 
 //temp function to get the grid working for parse testing
 t_mapinfo 	*ft_initialize_map(t_data *data, t_textinfo *text)

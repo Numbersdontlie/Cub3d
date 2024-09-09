@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/05 16:49:32 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/09 11:10:07 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ void		free_text(t_textinfo *text);
 void		free_and_make_null(void **ptr);
 void 		ft_free_textures(t_data *data);
 void		free_map(t_mapinfo *map);
+void		free_textures(int **arr);
 
 //parsing/check_map.c
 void		valid_chars(t_textinfo *text);

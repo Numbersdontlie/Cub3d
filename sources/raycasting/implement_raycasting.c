@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_raycasting.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/04 12:57:08 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/09/09 10:30:42 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 //values to camera, ray direction, ray position in map, and 
 //distance to the nearest line in the x or y direction in grid (next neighbor)
 void	ft_initialize_raycasting(int x, t_ray *ray, t_player *player)
-{
-	ft_initialize_ray(ray);
+{	
+	ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
+	if (!ray)
+		return (EXIT_FAILURE);
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
 	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
 	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;

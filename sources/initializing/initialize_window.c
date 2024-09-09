@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/05 14:16:15 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/09 11:11:13 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 //assign the image address
 int	ft_initialize_image(t_data *data, t_img *image, int width, int height)
 {
-	printf("in init window\n");
-	ft_initialize_img(image);
-	image->img = mlx_new_image(data->mlx_conn, width, height);
-	if (!image->img)
+	image = (t_img *)ft_calloc(1, sizeof(t_img));
+	if (!image)
 		return (EXIT_FAILURE);
-	image->img_addr = (int *)mlx_get_data_addr
-		(image->img, &image->bpp, &image->line_len, &image->endian);
-	if (!image->img_addr)
+	(image)->img = mlx_new_image(data->mlx_conn, width, height);
+	if (!(image)->img)
+		return (EXIT_FAILURE);
+	(image)->img_addr = (int *)mlx_get_data_addr
+		((image)->img, &image->bpp, &image->line_len, &image->endian);
+	if (!(image)->img_addr)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -48,27 +49,31 @@ int	ft_initialize_connection(t_data *data)
 //it will load the xmp file into an image and get the data address
 int	ft_initialize_texture_img(t_data *data, t_img *image, char *path)
 {
-	ft_initialize_image(data, image, WIDTH, HEIGHT);
-	image->img = mlx_xpm_file_to_image(data->mlx_conn, path, &data->window_width, &data->window_height);
-	if (!image->img)
-		return (EXIT_FAILURE);
-	image->img_addr = (int *)mlx_get_data_addr
-		(image->img, &image->bpp, &image->line_len, &image->endian);
-	if (!image->img_addr)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	if (ft_initialize_image(data, image, WIDTH, HEIGHT) == EXIT_SUCCESS)
+	{
+		image->img = mlx_xpm_file_to_image(data->mlx_conn, path, &data->window_width, &data->window_height);
+		if (!image->img)
+			return (EXIT_FAILURE);
+		image->img_addr = (int *)mlx_get_data_addr
+			(image->img, &image->bpp, &image->line_len, &image->endian);
+		if (!image->img_addr)
+			return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_FAILURE);
 }
 
 //Function to put the converted xpm image into an integer buffer
 //it load the
 int	*ft_put_img_into_buffer(t_data *data, char *path)
 {
-	t_img	tmp;
+	t_img	*tmp;
 	int		*buffer;
 	int		x;
 	int		y;
 
-	ft_initialize_texture_img(data, &tmp, path);
+	tmp = NULL;
+	ft_initialize_texture_img(data, tmp, path);
 	buffer = ft_calloc(1, sizeof(*buffer) * data->textinfo->size * data->textinfo->size);
 	if (!buffer)
 		ft_malloc_error();
@@ -78,12 +83,12 @@ int	*ft_put_img_into_buffer(t_data *data, char *path)
 		x = 0;
 		while (x < data->textinfo->size)
 		{
-			buffer[y * data->textinfo->size + x] = (&tmp)->img_addr[y * data->textinfo->size + x];
+			buffer[y * data->textinfo->size + x] = tmp->img_addr[y * data->textinfo->size + x];
 			++x;
 		}
 		++y;
 	}
-	mlx_destroy_image(data->mlx_conn, tmp.img);
+	mlx_destroy_image(data->mlx_conn, tmp->img);
 	return (buffer);
 }
 
