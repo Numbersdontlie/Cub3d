@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/05 17:01:11 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/09 11:21:00 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ int	main(int ac, char **av)
 	map = ft_initialize_map(data, text);
 	if (!map)
 		error_message_data("ERROR: problems copying grid in init\n", data, text);
-/*	printf("from map\n");
-	print_map(map->grid);
-	printf("\nfrom text\n");
-	print_map(text->grid);
-	printf("\nfrom data\n");
-	print_map(data->map);*/
+	if (ft_initialize_connection(data) == EXIT_FAILURE)
+		error_message_data("ERROR: problem initiating connection\n", data, text);
+	if (ft_initialize_textures(data) == EXIT_FAILURE)
+		error_message_data("ERROR: problem initiating textures\n", data, text);
 	free_text(text);
 	ft_clean_exit(data);
 	free_map(map);
