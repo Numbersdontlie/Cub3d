@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/09 11:11:13 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/10 12:25:53 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 //Function to initialize the image, it will initialize an empty image structure
 //create the new image using the mlx library and check that was correctly created
 //assign the image address
-int	ft_initialize_image(t_data *data, t_img *image, int width, int height)
+int	ft_initialize_image(t_data *data, t_img **image, int width, int height)
 {
-	image = (t_img *)ft_calloc(1, sizeof(t_img));
-	if (!image)
+	*image = (t_img *)ft_calloc(1, sizeof(t_img));
+	if (!(*image))
 		return (EXIT_FAILURE);
-	(image)->img = mlx_new_image(data->mlx_conn, width, height);
-	if (!(image)->img)
+	(*image)->img = mlx_new_image(data->mlx_conn, width, height);
+	if (!(*image)->img)
 		return (EXIT_FAILURE);
-	(image)->img_addr = (int *)mlx_get_data_addr
-		((image)->img, &image->bpp, &image->line_len, &image->endian);
-	if (!(image)->img_addr)
+	(*image)->img_addr = (int *)mlx_get_data_addr
+		((*image)->img, &(*image)->bpp, &(*image)->line_len, &(*image)->endian);
+	if (!(*image)->img_addr)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -49,7 +49,7 @@ int	ft_initialize_connection(t_data *data)
 //it will load the xmp file into an image and get the data address
 int	ft_initialize_texture_img(t_data *data, t_img *image, char *path)
 {
-	if (ft_initialize_image(data, image, WIDTH, HEIGHT) == EXIT_SUCCESS)
+	if (ft_initialize_image(data, &image, WIDTH, HEIGHT) == EXIT_SUCCESS)
 	{
 		image->img = mlx_xpm_file_to_image(data->mlx_conn, path, &data->window_width, &data->window_height);
 		if (!image->img)
@@ -97,13 +97,21 @@ int	*ft_put_img_into_buffer(t_data *data, char *path)
 //to load the textures in the data structure
 int	ft_initialize_textures(t_data *data)
 {
-	data->textures = ft_calloc(5, sizeof * data->textures);
+	data->textures = ft_calloc(4, sizeof(int *));
 	if (!data->textures)
 		return (EXIT_FAILURE);
 	data->textures[N] = ft_put_img_into_buffer(data, data->textinfo->north);
+	if (!data->textures[N])
+		return (EXIT_FAILURE);
 	data->textures[S] = ft_put_img_into_buffer(data, data->textinfo->south);
+	if (!data->textures[S])
+		return (EXIT_FAILURE);
 	data->textures[E] = ft_put_img_into_buffer(data, data->textinfo->east);
+	if (!data->textures[E])
+		return (EXIT_FAILURE);
 	data->textures[W] = ft_put_img_into_buffer(data, data->textinfo->west);
+	if (!data->textures[W])
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
