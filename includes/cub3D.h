@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/09 11:10:07 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/10 12:17:14 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ t_mapinfo 	*ft_initialize_map(t_data *data, t_textinfo *text);
 t_data		*ft_initialize_data(t_textinfo *text);
 
 //initialize_window.c
-int			ft_initialize_image(t_data *data, t_img *image, int width, int height);
+int			ft_initialize_image(t_data *data, t_img **image, int width, int height);
 int			ft_initialize_connection(t_data *data);
 int			ft_initialize_texture_img(t_data *data, t_img *image, char *path);
 int			*ft_put_img_into_buffer(t_data *data, char *path);
