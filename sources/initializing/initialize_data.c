@@ -6,27 +6,36 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/09 10:31:08 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/11 16:03:03 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
 //temp function to get the grid working for parse testing
-t_mapinfo 	*ft_initialize_map(t_data *data, t_textinfo *text)
+void 	ft_initialize_map(t_data *data)
 {
 	t_mapinfo	*mapinfo;
+	size_t		i;
 
 	if (!data)
-		return (NULL);
+		return ;
+	i = 0;
 	mapinfo = (t_mapinfo *) ft_calloc (1, sizeof(t_mapinfo));
 	if (!mapinfo)
-		error_message_data("ERROR: calloc fail in map_init", data, text);
-	mapinfo->grid = data->map;
+		error_message_data("ERROR: calloc fail in map_init", data, NULL);
 	mapinfo->line_count = row_count(data->map);
+	mapinfo->grid = ft_calloc (mapinfo->line_count + 1, sizeof(char *));
+	while (i < mapinfo->line_count)
+	{
+		mapinfo->grid[i] = ft_strdup(data->map[i]);
+		if (!mapinfo->grid[i])
+			error_message_data("ERROR: calloc fail in map_init", data, NULL);
+		i++;
+	}
+//	mapinfo->grid = data->map;
 	mapinfo->player_x = find_item(mapinfo->grid, 'x');
 	mapinfo->player_y = find_item(mapinfo->grid, 'y');
-	return (mapinfo);
 }
 
 //Function to initialize the global data of the program
@@ -42,6 +51,8 @@ t_data	*ft_initialize_data(t_textinfo *text)
 	data->player = (t_player *)ft_calloc(1, sizeof(t_player));
 	if (!data->player)
 		error_message_data("ERROR: problems init player", data, text);
-	data->map = text->grid;
+	ft_initialize_map(data);
+	if (!data->map)
+		error_message_data("ERROR: problems copying grid in init\n", data, text);
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/10 12:17:14 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:46:54 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ typedef struct s_data
 	t_player	*player;
 	t_ray		ray;
 	t_textinfo	*textinfo;
-	t_img		img;
+	t_img		*img;
 	char		**map;
 	int			**texture_pixels;
 	int			**textures;
@@ -181,7 +181,7 @@ void		error_message_data(char *str, t_data *data, t_textinfo *text);
 //initialize_data.c
 void		ft_initialize_img(t_img *img);
 void		ft_initialize_ray(t_ray *ray);
-t_mapinfo 	*ft_initialize_map(t_data *data, t_textinfo *text);
+void	 	ft_initialize_map(t_data *data);
 t_data		*ft_initialize_data(t_textinfo *text);
 
 //initialize_window.c

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/10 16:44:56 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:45:55 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_clean_exit(t_data *data)
 		free(data->img);
 	if (data->mlx_conn)
 	{
-		mlx_destroy_image(data->mlx_conn, data->img.img);
+		mlx_destroy_image(data->mlx_conn, data->img->img);
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
 		mlx_destroy_display(data->mlx_conn);
 		free(data->mlx_conn);

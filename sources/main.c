@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/10 16:43:55 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:06:42 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void check_args(t_textinfo *text)
 
 int	main(int ac, char **av)
 {
-	t_mapinfo	*map;
+//	t_mapinfo	*map;
 	t_textinfo	*text;
 	t_data		*data;
 
@@ -35,19 +35,19 @@ int	main(int ac, char **av)
 		error_message("ERROR: problem loading text");
 	check_args(text);
 	data = ft_initialize_data(text);
+	free_text(text);
 	if (!data)
 		error_message_text("ERROR: problem loading text", text);
-	map = ft_initialize_map(data, text);
-	if (!map)
-		error_message_data("ERROR: problems copying grid in init\n", data, text);
+//	map = ft_initialize_map(data, text);
+//	if (!map)
+//		error_message_data("ERROR: problems copying grid in init\n", data, text);
 	if (ft_initialize_connection(data) == EXIT_FAILURE)
-		error_message_data("ERROR: problem initiating connection\n", data, text);
+		error_message_data("ERROR: problem initiating connection\n", data, NULL);
 	if (ft_initialize_textures(data) == EXIT_FAILURE)
-		error_message_data("ERROR: problem initiating textures\n", data, text);
-	free_text(text);
+		error_message_data("ERROR: problem initiating textures\n", data, NULL);
 //	free(data->img)
 	ft_clean_exit(data);
-	free_map(map);
+//	free_map(map);
 	return (0);
 }
 
