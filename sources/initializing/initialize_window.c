@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/10 12:25:53 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:51:11 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,28 +68,32 @@ int	ft_initialize_texture_img(t_data *data, t_img *image, char *path)
 int	*ft_put_img_into_buffer(t_data *data, char *path)
 {
 	t_img	*tmp;
-	int		*buffer;
+	int		*buf;
 	int		x;
 	int		y;
 
 	tmp = NULL;
-	ft_initialize_texture_img(data, tmp, path);
-	buffer = ft_calloc(1, sizeof(*buffer) * data->textinfo->size * data->textinfo->size);
-	if (!buffer)
-		ft_malloc_error();
+	if (ft_initialize_texture_img(data, tmp, path) == EXIT_FAILURE)
+	{
+		free (path);
+		error_message_data("ERROR: problems initializing textures", data, NULL);
+	}
+	buf = ft_calloc(data->textinfo->size * data->textinfo->size, sizeof(int));
+	if (!buf)
+		error_message_data("ERROR: problems callocing img buffer", data, NULL);
 	y = 0;
 	while (y < data->textinfo->size)
 	{
 		x = 0;
 		while (x < data->textinfo->size)
 		{
-			buffer[y * data->textinfo->size + x] = tmp->img_addr[y * data->textinfo->size + x];
+			buf[y * data->textinfo->size + x] = tmp->img_addr[y * data->textinfo->size + x];
 			++x;
 		}
 		++y;
 	}
 	mlx_destroy_image(data->mlx_conn, tmp->img);
-	return (buffer);
+	return (buf);
 }
 
 //Function to initialize the textures (NORTH< SOUTH, WEST, EAST)
