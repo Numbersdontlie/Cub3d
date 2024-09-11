@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/11 16:03:03 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:50:30 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,20 @@ void 	ft_initialize_map(t_data *data)
 		error_message_data("ERROR: calloc fail in map_init", data, NULL);
 	mapinfo->line_count = row_count(data->map);
 	mapinfo->grid = ft_calloc (mapinfo->line_count + 1, sizeof(char *));
+	if (!mapinfo->grid)
+		error_message_data("ERROR: calloc fail in map_init", data, NULL);
 	while (i < mapinfo->line_count)
 	{
 		mapinfo->grid[i] = ft_strdup(data->map[i]);
 		if (!mapinfo->grid[i])
-			error_message_data("ERROR: calloc fail in map_init", data, NULL);
+			error_message_data("ERROR: ft_strdup fail in map_init", data, NULL);
 		i++;
 	}
+	mapinfo->grid[i] = NULL;
 //	mapinfo->grid = data->map;
 	mapinfo->player_x = find_item(mapinfo->grid, 'x');
 	mapinfo->player_y = find_item(mapinfo->grid, 'y');
+	data->mapinfo = mapinfo;
 }
 
 //Function to initialize the global data of the program
@@ -48,9 +52,11 @@ t_data	*ft_initialize_data(t_textinfo *text)
 		error_message_text("ERROR: problems copying grid in init\n", text);
 	data->window_height = HEIGHT;
 	data->window_width = WIDTH;
+	data->textinfo = text;
 	data->player = (t_player *)ft_calloc(1, sizeof(t_player));
 	if (!data->player)
 		error_message_data("ERROR: problems init player", data, text);
+	data->map = text->grid;
 	ft_initialize_map(data);
 	if (!data->map)
 		error_message_data("ERROR: problems copying grid in init\n", data, text);
