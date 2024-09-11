@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:14:37 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/04 16:26:55 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:52:46 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ size_t	row_count(char **grid)
 	size_t	i;
 
 	i = 0;
+	if (!grid)
+		return (0);
 	while (grid[i])
 		i++;
 	return (i);

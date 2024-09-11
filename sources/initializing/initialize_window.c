@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/11 15:51:11 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:46:32 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ int	ft_initialize_connection(t_data *data)
 
 //Function to initialize the textures into the image structure
 //it will load the xmp file into an image and get the data address
-int	ft_initialize_texture_img(t_data *data, t_img *image, char *path)
+int	ft_initialize_texture_img(t_data *data, t_img **image, char *path)
 {
-	if (ft_initialize_image(data, &image, WIDTH, HEIGHT) == EXIT_SUCCESS)
-	{
-		image->img = mlx_xpm_file_to_image(data->mlx_conn, path, &data->window_width, &data->window_height);
-		if (!image->img)
-			return (EXIT_FAILURE);
-		image->img_addr = (int *)mlx_get_data_addr
-			(image->img, &image->bpp, &image->line_len, &image->endian);
-		if (!image->img_addr)
-			return (EXIT_FAILURE);
-		return (EXIT_SUCCESS);
-	}
-	return (EXIT_FAILURE);
+	*image = (t_img *)ft_calloc(1, sizeof(t_img));
+	if (!(*image))
+		return (EXIT_FAILURE);
+//	if (ft_initialize_image(data, &image, WIDTH, HEIGHT) == EXIT_SUCCESS)
+//	{
+	(*image)->img = mlx_xpm_file_to_image(data->mlx_conn, path, &data->window_width, &data->window_height);
+	if (!(*image)->img)
+		return (EXIT_FAILURE);
+	(*image)->img_addr = (int *)mlx_get_data_addr((*image)->img, &(*image)->bpp, &(*image)->line_len, &(*image)->endian);
+	if (!(*image)->img_addr)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 //Function to put the converted xpm image into an integer buffer
@@ -73,7 +73,7 @@ int	*ft_put_img_into_buffer(t_data *data, char *path)
 	int		y;
 
 	tmp = NULL;
-	if (ft_initialize_texture_img(data, tmp, path) == EXIT_FAILURE)
+	if (ft_initialize_texture_img(data, &tmp, path) == EXIT_FAILURE)
 	{
 		free (path);
 		error_message_data("ERROR: problems initializing textures", data, NULL);
@@ -93,6 +93,7 @@ int	*ft_put_img_into_buffer(t_data *data, char *path)
 		++y;
 	}
 	mlx_destroy_image(data->mlx_conn, tmp->img);
+	free(tmp);
 	return (buf);
 }
 
