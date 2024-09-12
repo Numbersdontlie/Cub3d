@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/12 13:18:22 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/12 22:55:14 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
 # define TRUE 10
-# define FALSE 20
+# define FALSE 
+# define RED 0x7F7F7F
 
 
 //set up enum for directions
@@ -183,6 +184,7 @@ void		ft_initialize_img(t_img *img);
 void		ft_initialize_ray(t_ray *ray);
 void	 	ft_initialize_map(t_data *data);
 t_data		*ft_initialize_data(t_textinfo *text);
+void		ft_initialize_texture_pixels(t_data *data);
 
 //initialize_window.c
 int			ft_initialize_image(t_data *data, t_img **image, int width, int height);
@@ -262,6 +264,6 @@ char		*ft_strndup(const char *s, size_t n);
 int			ft_strstr(char *str, char *to_find);
 
 //sources/raycasting/handle_textures.c
-void		ft_update_texture_pixels(t_data *data, t_textinfo *text, t_ray *ray, int x);
+void		ft_update_texture(t_data *data, t_textinfo *text, t_ray *ray, int x);
 
 #endif

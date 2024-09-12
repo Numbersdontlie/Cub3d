@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_raycasting.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/09 10:30:42 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/12 22:22:33 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_get_ray_step_and_distance(ray, player);
 		ft_implement_dda(data, ray);
 		ft_calculate_wall_height(data, player, ray);
-		ft_update_texture_pixels(data, data->textinfo, ray, x);
+		ft_update_texture(data, data->textinfo, ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);
