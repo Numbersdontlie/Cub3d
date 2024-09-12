@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/12 17:15:44 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/12 23:07:42 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,26 @@ t_data	*ft_initialize_data(t_textinfo *text)
 		error_message_data("ERROR: problems copying grid in init\n", data, text);
 //	check_file_exists(data);
 	return (data);
+}
+
+//Function to initialize the texture pixels for the renderization
+//it checks if the textures are already used and free if necessary
+//and then allocate memory for the textures pixels to be rendered
+void	ft_initialize_texture_pixels(t_data *data)
+{
+	int	i;
+
+	if (data->texture_pixels)
+		free_memory((void **)data->texture_pixels);
+	data->texture_pixels = ft_calloc(data->window_height + 1, sizeof * data->texture_pixels);
+	if (!data->texture_pixels)
+		ft_clean_exit(data);
+	i = 0;
+	while (i < data->window_height)
+	{
+		data->texture_pixels[i] = ft_calloc(data->window_width + 1, sizeof * data->texture_pixels);
+		if (!data->texture_pixels)
+			ft_clean_exit(data);
+		i++;
+	}
 }
