@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/11 19:43:27 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/12 13:18:22 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ int			ft_initialize_texture_img(t_data *data, t_img **image, char *path);
 int			*ft_put_img_into_buffer(t_data *data, char *path);
 int			ft_initialize_textures(t_data *data);
 int			filter_grid_lines(char *grid);
+void		check_file_exists(t_data *data);
 
 
 //free_functions.c
