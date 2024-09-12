@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/11 19:50:30 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/12 17:15:44 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void 	ft_initialize_map(t_data *data)
 		i++;
 	}
 	mapinfo->grid[i] = NULL;
-//	mapinfo->grid = data->map;
 	mapinfo->player_x = find_item(mapinfo->grid, 'x');
 	mapinfo->player_y = find_item(mapinfo->grid, 'y');
 	data->mapinfo = mapinfo;
@@ -60,5 +59,6 @@ t_data	*ft_initialize_data(t_textinfo *text)
 	ft_initialize_map(data);
 	if (!data->map)
 		error_message_data("ERROR: problems copying grid in init\n", data, text);
+//	check_file_exists(data);
 	return (data);
 }

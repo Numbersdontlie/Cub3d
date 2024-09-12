@@ -1,8 +1,8 @@
-NO ../walls/selva64.xpm 
-SO ../walls/selva64.xpm 
+NO ./walls/pixgreen.xpm
+SO ./walls/pixgreen.xpm 
 
-WE ../walls/arbol64.xpm 
-EA ../walls/pixgreen.xpm
+WE ./walls/pixgreen.xpm
+EA ./walls/EA.xpm
 
 F 220,100,0
 

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/11 19:55:34 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/12 17:17:54 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void check_args(t_textinfo *text)
 
 int	main(int ac, char **av)
 {
-//	t_mapinfo	*map;
 	t_textinfo	*text;
 	t_data		*data;
 
@@ -37,25 +36,13 @@ int	main(int ac, char **av)
 	data = ft_initialize_data(text);
 	if (!data)
 		error_message_text("ERROR: problem loading text", text);
-//	map = ft_initialize_map(data, text);
-//	if (!map)
-//		error_message_data("ERROR: problems copying grid in init\n", data, text);
 	if (ft_initialize_connection(data) == EXIT_FAILURE)
 		error_message_data("ERROR: problem initiating connection\n", data, text);
-	if (ft_initialize_textures(data) == EXIT_FAILURE)
-		error_message_data("ERROR: problem initiating textures\n", data, text);
+//	if (ft_initialize_textures(data) == EXIT_FAILURE)
+//		error_message_data("ERROR: problem initiating textures\n", data, text);
 //	free(data->img)
 	free_text(text);
+	free(text);
 	ft_clean_exit(data);
-//	free_map(map);
 	return (0);
 }
-
-/*
-	mlx_key_hook(game->mlx, key_hook, game);
-	mlx_loop(game->mlx);
-	free(game->img);
-	mlx_close_window(game->mlx);
-	mlx_terminate(game->mlx);
-	free_game(game);*/
-
