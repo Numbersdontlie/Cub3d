@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/12 22:55:14 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/13 12:30:44 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ typedef struct s_data
 	t_player	*player;
 	t_ray		ray;
 	t_textinfo	*textinfo;
-	t_img		*img;
+	t_img		*imginfo;
 	char		**map;
 	int			**texture_pixels;
 	int			**textures;
@@ -174,8 +174,6 @@ typedef struct s_data
 //errors.c
 void		error_message(char *str);
 void		error_message_simple(char *str, char **arr);
-void		ft_malloc_error(void);
-void		error_message_map(char *str, t_mapinfo *map);
 void		error_message_text(char *str, t_textinfo *text);
 void		error_message_data(char *str, t_data *data, t_textinfo *text);
 
@@ -193,7 +191,7 @@ int			ft_initialize_texture_img(t_data *data, t_img **image, char *path);
 int			*ft_put_img_into_buffer(t_data *data, char *path);
 int			ft_initialize_textures(t_data *data);
 int			filter_grid_lines(char *grid);
-void		check_file_exists(t_data *data);
+int			check_file_exists(t_data *data);
 
 
 //free_functions.c
@@ -202,8 +200,8 @@ void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
 void		free_and_make_null(void **ptr);
 void 		ft_free_textures(t_data *data);
-void		free_map(t_mapinfo *map);
 void		free_textures(int **arr);
+void		free_pixels(t_data *data);
 
 //parsing/check_map.c
 void		valid_chars(t_textinfo *text);
