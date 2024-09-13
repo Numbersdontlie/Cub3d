@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/12 23:07:42 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/13 12:14:08 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ t_data	*ft_initialize_data(t_textinfo *text)
 	ft_initialize_map(data);
 	if (!data->map)
 		error_message_data("ERROR: problems copying grid in init\n", data, text);
-//	check_file_exists(data);
+//	if (check_file_exists(data) == EXIT_FAILURE)
+//		error_message_data("ERROR: problems checking file exists\n", data, text);
 	return (data);
 }
 
@@ -71,16 +72,18 @@ void	ft_initialize_texture_pixels(t_data *data)
 	int	i;
 
 	if (data->texture_pixels)
-		free_memory((void **)data->texture_pixels);
-	data->texture_pixels = ft_calloc(data->window_height + 1, sizeof * data->texture_pixels);
+		free_pixels(data);
+	data->texture_pixels = ft_calloc(data->window_height + 1, \
+		sizeof * data->texture_pixels);
 	if (!data->texture_pixels)
-		ft_clean_exit(data);
+		error_message_data("problems calloc texture_pixels\n", data, NULL);
 	i = 0;
 	while (i < data->window_height)
 	{
-		data->texture_pixels[i] = ft_calloc(data->window_width + 1, sizeof * data->texture_pixels);
+		data->texture_pixels[i] = ft_calloc(data->window_width + 1, \
+			sizeof * data->texture_pixels);
 		if (!data->texture_pixels)
-			ft_clean_exit(data);
+			error_message_data("problems calloc texture_pixels\n", data, NULL);
 		i++;
 	}
 }

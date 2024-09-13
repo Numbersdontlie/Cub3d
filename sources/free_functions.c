@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/12 22:58:07 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/13 12:40:46 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	free_memory(char **arr)
 //it destroy the image, window and display before freeing memory
 void	ft_clean_exit(t_data *data)
 {
-	if (data->img)
+	if (data->imginfo)
 	{
-		mlx_destroy_image(data->mlx_conn, data->img->img);
-		free(data->img);
+		mlx_destroy_image(data->mlx_conn, data->imginfo->img);
+		free(data->imginfo);
 	}
 	if (data->mlx_window)
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
@@ -52,10 +52,20 @@ void	ft_clean_exit(t_data *data)
 	}
 //	if (data->textinfo)
 //		free_text(data->textinfo);
+	if (data->texture_pixels)
+		free_pixels(data);
 	if (data->player)
 		free(data->player);
 	if (data->textures)
 		free_textures(data->textures);
+	if (data->imginfo)
+	{
+		if (data->imginfo->img)
+			free(data->imginfo->img);
+		if (data->imginfo->img_addr)
+			free(data->imginfo->img_addr);
+		free(data->imginfo);
+	}
 	free (data); 
 }
 
@@ -81,20 +91,6 @@ void	free_text(t_textinfo *text)
 	}
 }
 
-void	free_map(t_mapinfo *map)
-{
-	if (map)
-	{
-/*		if (map->fd)
-			close(map->fd);
-		if (map->path)
-			free (map->path);
-		if (map->grid)
-			free_memory(map->grid);*/
-		free (map);
-	}
-}
-
 void	free_textures(int **arr)
 {
 	int	i;
@@ -108,3 +104,21 @@ void	free_textures(int **arr)
 	}
 	free(arr);
 }
+
+void	free_pixels(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (data->texture_pixels)
+	{
+		while (i < data->window_height)
+		{
+			if (data->texture_pixels[i])
+				free(data->texture_pixels[i]);
+			i++;
+		}
+		free(data->texture_pixels);
+	}
+}
+
