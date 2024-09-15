@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/13 12:30:44 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/15 09:46:29 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,14 +161,16 @@ typedef struct s_data
 	void		*mlx_window;
 	int			window_height;
 	int			window_width;
+	int			image_height;//tile
+	int			image_width;//tile
 	t_mapinfo	*mapinfo;
 	t_player	*player;
 	t_ray		ray;
 	t_textinfo	*textinfo;
 	t_img		*imginfo;
+	t_img		**textures;
 	char		**map;
 	int			**texture_pixels;
-	int			**textures;
 }	t_data;
 
 //errors.c
@@ -200,7 +202,7 @@ void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
 void		free_and_make_null(void **ptr);
 void 		ft_free_textures(t_data *data);
-void		free_textures(int **arr);
+void		free_textures(t_data *data);
 void		free_pixels(t_data *data);
 
 //parsing/check_map.c
