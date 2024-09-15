@@ -1,8 +1,8 @@
-NO ./walls/pixgreen.xpm
-SO ./walls/pixgreen.xpm 
+NO walls/pixgreen.xpm
+SO walls/pixgreen.xpm 
 
-WE ./walls/pixgreen.xpm
-EA ./walls/EA.xpm
+WE walls/pixgreen.xpm
+EA walls/pixgreen.xpm
 
 F 220,100,0
 

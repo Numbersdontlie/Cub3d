@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/13 12:14:08 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/15 09:48:32 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_data	*ft_initialize_data(t_textinfo *text)
 		error_message_text("ERROR: problems copying grid in init\n", text);
 	data->window_height = HEIGHT;
 	data->window_width = WIDTH;
+	data->image_height = PIXELS;
+	data->image_width = PIXELS;
 	data->textinfo = text;
 	data->player = (t_player *)ft_calloc(1, sizeof(t_player));
 	if (!data->player)
