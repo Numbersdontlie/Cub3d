@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/15 09:48:32 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/16 16:23:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ t_data	*ft_initialize_data(t_textinfo *text)
 	ft_initialize_map(data);
 	if (!data->map)
 		error_message_data("ERROR: problems copying grid in init\n", data, text);
-//	if (check_file_exists(data) == EXIT_FAILURE)
-//		error_message_data("ERROR: problems checking file exists\n", data, text);
 	return (data);
 }
 
