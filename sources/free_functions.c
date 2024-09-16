@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/15 10:11:12 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/16 17:12:19 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,15 @@ void	free_memory(char **arr)
 //it destroy the image, window and display before freeing memory
 void	ft_clean_exit(t_data *data)
 {
-	if (data->imginfo && data->imginfo->img)
+	if (data->imginfo)
 	{
 		mlx_destroy_image(data->mlx_conn, data->imginfo->img);
 		free(data->imginfo);
-		data->imginfo = NULL;
 	}
-	if (data->textures)
-		free_textures(data);
 	if (data->mlx_window)
-	{
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
-		data->mlx_window = NULL;
-	}
-	if (data->mlx_conn)
-	{
-		mlx_destroy_display(data->mlx_conn);
-		free(data->mlx_conn);
-		data->mlx_conn = NULL;
-	}
+	if (data->texture_pixels)
+		free_pixels(data);
 	if (data->mapinfo)
 	{
 		if (data->mapinfo->path)
@@ -56,13 +46,15 @@ void	ft_clean_exit(t_data *data)
 		if (data->mapinfo->grid)
 			free_memory (data->mapinfo->grid);
 		free(data->mapinfo);
-		data->mapinfo = NULL;
 	}
-	if (data->texture_pixels)
-		free_pixels(data);
 	if (data->player)
 		free(data->player);
-	free (data); 
+	if (data->mlx_conn)
+	{
+		mlx_destroy_display(data->mlx_conn);
+		free(data->mlx_conn);
+	}
+	free (data);
 }
 
 void	free_text(t_textinfo *text)
@@ -87,7 +79,7 @@ void	free_text(t_textinfo *text)
 	}
 }
 
-void	free_textures(t_data *data)
+/*void	free_textures(t_data *data)
 {
 	int	i;
 
@@ -102,13 +94,12 @@ void	free_textures(t_data *data)
 				data->textures[i]->img = NULL;
 			}
 			free(data->textures[i]);
-			data->textures[i]->img = NULL;
 		}
 		i++;
 	}
 	free(data->textures);
 	data->textures = NULL;
-}
+}*/
 
 void	free_pixels(t_data *data)
 {
@@ -117,7 +108,7 @@ void	free_pixels(t_data *data)
 	i = 0;
 	if (data->texture_pixels)
 	{
-		while (i < data->window_height)
+		while (i < 4)
 		{
 			if (data->texture_pixels[i])
 				free(data->texture_pixels[i]);

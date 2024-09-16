@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/15 09:20:27 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/16 17:12:47 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ int	main(int ac, char **av)
 		error_message_data("ERROR: problem initiating connection\n", data, text);
 	if (ft_initialize_textures(data) == EXIT_FAILURE)
 		error_message_data("ERROR: problem initiating textures\n", data, text);
-//	free(data->img)
+    ft_initialize_events(data);
+//    mlx_loop(data->mlx_conn);
 	free_text(text);
 	free(text);
 	ft_clean_exit(data);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 /*int main(void)

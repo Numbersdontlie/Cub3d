@@ -56,10 +56,10 @@ int	ft_release_key(int keysym, t_data *data)
 }
 
 
-/*void	ft_initialize_events(t_data *data)
+void	ft_initialize_events(t_data *data)
 {
 	mlx_hook(data->mlx_window, KeyPress, KeyPressMask, ft_handle_key, data);
-	mlx_hook(data->mlx_window, DestroyNotify, StructureNotifyMask, ft_clean_exit, data);
 	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);
+	mlx_hook(data->mlx_window, DestroyNotify, StructureNotifyMask, ft_wrapper_exit, data);
 	//We're missing the hook to handle the input from mouse if we make the bonus
-}*/
+}
