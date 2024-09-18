@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/04 14:44:36 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/17 17:48:02 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char 	*path_extractor(char **arr, char *str)
 	return (path);
 }
 
-char	*find_floor_ceiling(char **arr, int c)
+char	*find_floor_ceiling(t_textinfo *text, char **arr, int c)
 {
 	int		i;
 	int		count;
@@ -72,17 +72,13 @@ char	*find_floor_ceiling(char **arr, int c)
 			path = arr[i] + 2;
 			while (*path && !ft_isdigit(*path))
 				path++;
-			if (*path)
-			{
-				path = ft_strdup(path);
-				if (!path)
-					error_message_simple("ERROR: mem alloc failed\n", arr);
+			if (*path && (path = ft_strdup(path)))
 				return (path);
-			}
+			free_memory(arr);
+			error_message_text("ERROR: mem alloc failed\n", text);
 		}
 	}
-	error_message_simple("ERROR: RGB path not found\n", arr);
-	return (NULL);
+	return(error_message_simple("ERROR: RGB path not found\n", arr), NULL);
 }
 
 char	**remove_empty_lines(char **arr)

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/16 17:06:59 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/17 18:04:44 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	char	*path;
 }	t_img;
 
 
@@ -80,9 +81,9 @@ typedef struct s_textinfo
 	char			*west;
 	char			*east;
 	char			*floor;
-	char			**floor_rgb;
+	int				*floor_rgb;
 	char			*ceiling;
-	char			**ceiling_rgb;
+	int				*ceiling_rgb;
 	char			**grid;
 	unsigned long	hex_floor;
 	unsigned long	hex_ceiling;
@@ -101,7 +102,7 @@ typedef struct s_mapinfo
 {
 	int		fd;
 	size_t	line_count;
-	char	*path;//path to what?
+//	char	*path;//path to what?
 	char	**grid;
 	size_t	player_x; //we can move these, I just put to easy testing bc I only init map
 	size_t	player_y; //we can move these, I just put to easy testing bc I only init map
@@ -159,8 +160,8 @@ typedef struct s_data
 {
 	void		*mlx_conn;
 	void		*mlx_window;
-	int			window_height;
-	int			window_width;
+//	int			window_height;
+//	int			window_width;
 	int			image_height;//tile
 	int			image_width;//tile
 	t_mapinfo	*mapinfo;
@@ -192,16 +193,14 @@ int			ft_initialize_texture_image(t_data *data, t_img **image, char *path);
 int			*ft_put_img_into_buffer(t_data *data, char *path);
 int			ft_initialize_textures(t_data *data);
 int			filter_grid_lines(char *grid);
-int			check_file_exists(t_data *data);
+void		check_path(char *path);
 
 
 //free_functions.c
 void		free_memory(char **arr);
 void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
-void		free_and_make_null(void **ptr);
 void 		ft_free_textures(t_data *data);
-void		free_textures(t_data *data);
 void		free_pixels(t_data *data);
 
 //parsing/check_map.c
@@ -222,7 +221,7 @@ void		check_empty_lines(char **grid, int i);
 
 //parsing/parse_input.c
 char		*find_cardinal_paths(char **arr, char *s);
-char		*find_floor_ceiling(char **arr, int c);
+char		*find_floor_ceiling(t_textinfo *text, char **arr, int c);
 char		**remove_empty_lines(char **arr);
 t_textinfo	*find_grid(t_textinfo *text, char **grid);
 int			filter_grid_lines(char *grid);
@@ -241,8 +240,11 @@ void		ft_initialize_events(t_data *data);
 
 //sources/initializing/initialize_text.c
 t_textinfo	*ft_initialize_textinfo(char **arr);
-t_textinfo	*populate_floor_and_ceiling_values(t_textinfo *text, char **grid);
-void		check_rgb_for_illegal_chars(t_textinfo *text, char **arr);
+int			check_rgb_for_illegal_chars(char **arr);
+int			*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value);
+int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_value);
+
+
 
 //sources/moving/initial_position.c
 void		ft_initialize_nort_sout(t_player *player);

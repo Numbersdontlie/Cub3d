@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/16 16:23:31 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:35:50 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ t_data	*ft_initialize_data(t_textinfo *text)
 	data = (t_data *)ft_calloc(1, sizeof(t_data));
 	if (!data)
 		error_message_text("ERROR: problems copying grid in init\n", text);
-	data->window_height = HEIGHT;
-	data->window_width = WIDTH;
-	data->image_height = PIXELS;
-	data->image_width = PIXELS;
+//	data->window_height = HEIGHT;
+//	data->window_width = WIDTH;
+//	data->image_height = PIXELS;
+//	data->image_width = PIXELS;
 	data->textinfo = text;
 	data->player = (t_player *)ft_calloc(1, sizeof(t_player));
 	if (!data->player)
@@ -72,17 +72,15 @@ void	ft_initialize_texture_pixels(t_data *data)
 	int	i;
 
 	if (data->texture_pixels)
-		free_pixels(data);
-	data->texture_pixels = ft_calloc(data->window_height + 1, \
-		sizeof * data->texture_pixels);
+		free(data->texture_pixels);
+	data->texture_pixels = ft_calloc(HEIGHT, sizeof(int *));
 	if (!data->texture_pixels)
 		error_message_data("problems calloc texture_pixels\n", data, NULL);
 	i = 0;
-	while (i < data->window_height)
+	while (i < HEIGHT)
 	{
-		data->texture_pixels[i] = ft_calloc(data->window_width + 1, \
-			sizeof * data->texture_pixels);
-		if (!data->texture_pixels)
+		data->texture_pixels[i] = ft_calloc(WIDTH, sizeof(int));
+		if (!data->texture_pixels[i])
 			error_message_data("problems calloc texture_pixels\n", data, NULL);
 		i++;
 	}

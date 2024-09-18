@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/16 16:34:54 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:41:21 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ int	ft_initialize_connection(t_data *data)
 	data->mlx_conn = mlx_init();
 	if (!data->mlx_conn)
 		error_message("ERROR: problems with mlx_init\n");
-	data->mlx_window = mlx_new_window(data->mlx_conn, data->window_height, \
-		data->window_width, "Cub3D");
+	data->mlx_window = mlx_new_window(data->mlx_conn, WIDTH, HEIGHT, "Cub3D");
 	if (!data->mlx_window)
 		error_message("ERROR: problems with mlx window\n");
 	return (EXIT_SUCCESS);
@@ -59,7 +58,8 @@ int	ft_initialize_texture_image(t_data *data, t_img **image, char *path)
 	}
 	if (!path)
 		error_message("ERROR: path missing\n");
-	printf("Loading texture from path: %s\n", path);//
+	check_path(path);
+//	printf("Loading texture from path: %s\n", path);
 	(*image)->img = mlx_xpm_file_to_image(data->mlx_conn, path, \
 		&data->image_width, &data->image_height);
 	if (!(*image)->img)
@@ -68,6 +68,7 @@ int	ft_initialize_texture_image(t_data *data, t_img **image, char *path)
 		((*image)->img, &(*image)->bpp, &(*image)->line_len, &(*image)->endian);
 	if (!(*image)->img_addr)
 		error_message("ERROR: failed to get image address\n");
+//	printf("image address: %p\n", (*image)->img_addr);
 	return (EXIT_SUCCESS);
 }
 
@@ -115,17 +116,30 @@ int	ft_initialize_textures(t_data *data)
 	data->texture_pixels = ft_calloc(4, sizeof(int *));
 	if (!data->texture_pixels)
 		error_message("ERROR: problems callocing texture pixels");
+//	printf("Loading NORTH texture from path: %s\n", data->textinfo->north);
 	data->texture_pixels[N] = ft_put_img_into_buffer(data, data->textinfo->north);
 	if (!data->texture_pixels[N])
 		error_message("ERROR: problem loading N texture");
-/*	data->texture_pixels[S] = ft_put_img_into_buffer(data, data->textinfo->south);
-	if (!data->texture_pixels[S])
-		error_message("ERROR: probelm loading S texture");
+//	printf("Loading EAST texture from path: %s\n", data->textinfo->east);
 	data->texture_pixels[E] = ft_put_img_into_buffer(data, data->textinfo->east);
 	if (!data->texture_pixels[E])
 		error_message("ERROR: problem loading E texture");
+//	printf("Loading SOUTH texture from path: %s\n", data->textinfo->south);
+	data->texture_pixels[S] = ft_put_img_into_buffer(data, data->textinfo->south);
+	if (!data->texture_pixels[S])
+		error_message("ERROR: probelm loading S texture");
+//	printf("Loading WEST texture from path: %s\n", data->textinfo->west);
 	data->texture_pixels[W] = ft_put_img_into_buffer(data, data->textinfo->west);
 	if (!data->texture_pixels[W])
-		error_message("ERROR: problem loading W texture");*/
+		error_message("ERROR: problem loading W texture");
 	return (EXIT_SUCCESS);
+}
+
+void	check_path(char *path)
+{
+	if (access(path, F_OK) == -1)
+	{
+		printf("ERROR: path not found or accessible: %s\n", path);
+		exit(EXIT_FAILURE);
+	}
 }
