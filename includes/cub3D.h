@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/17 18:04:44 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/18 16:54:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,16 +160,13 @@ typedef struct s_data
 {
 	void		*mlx_conn;
 	void		*mlx_window;
-//	int			window_height;
-//	int			window_width;
-	int			image_height;//tile
-	int			image_width;//tile
+	int			image_height;
+	int			image_width;
 	t_mapinfo	*mapinfo;
 	t_player	*player;
-	t_ray		ray;
+	t_ray		*ray;
 	t_textinfo	*textinfo;
 	t_img		*imginfo;
-	char		**map;
 	int			**texture_pixels;
 }	t_data;
 
@@ -181,10 +178,11 @@ void		error_message_data(char *str, t_data *data, t_textinfo *text);
 int			ft_wrapper_exit(t_data *data);
 
 //initialize_data.c
-//void		ft_initialize_ray(t_ray *ray);
-void	 	ft_initialize_map(t_data *data);
+int			ft_initialize_imginfo(t_data *data);
+void 		ft_initialize_map(t_data *data, t_textinfo *text);
 t_data		*ft_initialize_data(t_textinfo *text);
 void		ft_initialize_texture_pixels(t_data *data);
+
 
 //initialize_window.c
 int			ft_initialize_image(t_data *data, t_img **image, int width, int height);
@@ -244,18 +242,21 @@ int			check_rgb_for_illegal_chars(char **arr);
 int			*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value);
 int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_value);
 
-
+//sources/raycasting/rendering.c
+int			ft_game(t_data *data);
+void		ft_player_movement_forward_backword(t_data *data);
+void		ft_rotation(t_data *data);
 
 //sources/moving/initial_position.c
-void		ft_initialize_nort_sout(t_player *player);
-void		ft_initialize_weast_east(t_player *player);
+void		ft_initialize_north_south(t_player *player);
+void		ft_initialize_west_east(t_player *player);
 void		ft_init_player_dir(t_data *data);
 
 //sources/raycasting/implement_raycasting.c
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
 void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
-void		ft_calculate_wall_height(t_data *data, t_player *player, t_ray *ray);
+void		ft_calculate_wall_height(t_player *player, t_ray *ray);
 int			ft_make_raycasting(t_player *player, t_data *data);
 
 //sources/helper_functions.c

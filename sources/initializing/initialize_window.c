@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/17 16:41:21 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/18 16:43:00 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 //Function to initialize the image, it will initialize an empty image structure
 //create the new image using the mlx library and check that was correctly created
 //assign the image address
-/*int	ft_initialize_image(t_data *data, t_img **image, int width, int height)
+int	ft_initialize_imginfo(t_data *data)
 {
-	*image = (t_img *)ft_calloc(1, sizeof(t_img));
-	if (!(*image))
-		return (EXIT_FAILURE);
-	(*image)->img = mlx_new_image(data->mlx_conn, width, height);
-	if (!(*image)->img)
-		return (EXIT_FAILURE);
-	(*image)->img_addr = (int *)mlx_get_data_addr
-		((*image)->img, &(*image)->bpp, &(*image)->line_len, &(*image)->endian);
-	if (!(*image)->img_addr)
-		return (EXIT_FAILURE);
+	data->imginfo = (t_img *)ft_calloc(1, sizeof(t_img));
+	if (!data->imginfo)
+		error_message("ERROR: failed to initiate img\n");
+	data->imginfo->img = mlx_new_image(data->mlx_conn, WIDTH, HEIGHT);
+	if (!data->imginfo->img)
+		error_message("ERROR: failed to create image\n");
+	data->imginfo->img_addr = (int *)mlx_get_data_addr(data->imginfo->img, \
+		&data->imginfo->bpp, &data->imginfo->line_len, &data->imginfo->endian);
+	if (!data->imginfo->img_addr)
+		error_message("ERROR: failed to get img address\n");
 	return (EXIT_SUCCESS);
-}*/
+}
 
 
 //Function to initialize the connection with the minilibx library
@@ -50,16 +50,9 @@ int	ft_initialize_connection(t_data *data)
 //it will load the xmp file into an image and get the data address
 int	ft_initialize_texture_image(t_data *data, t_img **image, char *path)
 {
-	if (!(*image))
-	{
-		*image = (t_img *)ft_calloc(1, sizeof(t_img));
-		if (!(*image))
-			error_message("ERROR: failed to calloc t_img\n");
-	}
 	if (!path)
 		error_message("ERROR: path missing\n");
 	check_path(path);
-//	printf("Loading texture from path: %s\n", path);
 	(*image)->img = mlx_xpm_file_to_image(data->mlx_conn, path, \
 		&data->image_width, &data->image_height);
 	if (!(*image)->img)
@@ -68,7 +61,6 @@ int	ft_initialize_texture_image(t_data *data, t_img **image, char *path)
 		((*image)->img, &(*image)->bpp, &(*image)->line_len, &(*image)->endian);
 	if (!(*image)->img_addr)
 		error_message("ERROR: failed to get image address\n");
-//	printf("image address: %p\n", (*image)->img_addr);
 	return (EXIT_SUCCESS);
 }
 
@@ -78,16 +70,12 @@ int	ft_initialize_texture_image(t_data *data, t_img **image, char *path)
 //efficient
 int	*ft_put_img_into_buffer(t_data *data, char *path)
 {
-	t_img	*tmp;
 	int		*buf;
 	int		x;
 	int		y;
 
-	tmp = (t_img *)ft_calloc(1, sizeof(t_img));
-	if (!(tmp))
-		error_message("ERROR: problem callocing img\n");
-	if (ft_initialize_texture_image(data, &tmp, path) == EXIT_FAILURE)
-		error_message("ERROR: problems initializing textures");
+	if (ft_initialize_texture_image(data, &data->imginfo, path) == EXIT_FAILURE)
+		error_message("ERROR: problems initializing texture image\n");
 	buf = ft_calloc(data->textinfo->size * data->textinfo->size, sizeof(int));
 	if (!buf)
 		error_message("ERROR: problems callocing img buffer");
@@ -98,13 +86,12 @@ int	*ft_put_img_into_buffer(t_data *data, char *path)
 		while (x < data->textinfo->size)
 		{
 			buf[y * data->textinfo->size + x] = \
-				tmp->img_addr[y * data->textinfo->size + x];
+				data->imginfo->img_addr[y * data->textinfo->size + x];
 			++x;
 		}
 		++y;
 	}
-	mlx_destroy_image(data->mlx_conn, tmp->img);
-	free(tmp);
+	mlx_destroy_image(data->mlx_conn, data->imginfo);
 	return (buf);
 }
 
@@ -116,19 +103,15 @@ int	ft_initialize_textures(t_data *data)
 	data->texture_pixels = ft_calloc(4, sizeof(int *));
 	if (!data->texture_pixels)
 		error_message("ERROR: problems callocing texture pixels");
-//	printf("Loading NORTH texture from path: %s\n", data->textinfo->north);
 	data->texture_pixels[N] = ft_put_img_into_buffer(data, data->textinfo->north);
 	if (!data->texture_pixels[N])
 		error_message("ERROR: problem loading N texture");
-//	printf("Loading EAST texture from path: %s\n", data->textinfo->east);
 	data->texture_pixels[E] = ft_put_img_into_buffer(data, data->textinfo->east);
 	if (!data->texture_pixels[E])
 		error_message("ERROR: problem loading E texture");
-//	printf("Loading SOUTH texture from path: %s\n", data->textinfo->south);
 	data->texture_pixels[S] = ft_put_img_into_buffer(data, data->textinfo->south);
 	if (!data->texture_pixels[S])
 		error_message("ERROR: probelm loading S texture");
-//	printf("Loading WEST texture from path: %s\n", data->textinfo->west);
 	data->texture_pixels[W] = ft_put_img_into_buffer(data, data->textinfo->west);
 	if (!data->texture_pixels[W])
 		error_message("ERROR: problem loading W texture");

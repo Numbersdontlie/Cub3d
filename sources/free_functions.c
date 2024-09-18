@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/17 16:38:11 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/18 13:52:32 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	ft_clean_exit(t_data *data)
 	}
 	if (data->player)
 		free(data->player);
+	if (data->ray)
+		free(data->ray);
 	if (data->mlx_conn)
 	{
 		mlx_destroy_display(data->mlx_conn);
@@ -83,7 +85,7 @@ void	free_pixels(t_data *data)
 	i = 0;
 	if (data->texture_pixels)
 	{
-		while (i < HEIGHT)
+		while (i < 4)
 		{
 			if (data->texture_pixels[i])
 				free(data->texture_pixels[i]);
