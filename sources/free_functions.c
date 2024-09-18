@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/16 17:12:19 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:38:11 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	ft_clean_exit(t_data *data)
 		free_pixels(data);
 	if (data->mapinfo)
 	{
-		if (data->mapinfo->path)
-			free (data->mapinfo->path);
 		if (data->mapinfo->grid)
 			free_memory (data->mapinfo->grid);
 		free(data->mapinfo);
@@ -70,36 +68,13 @@ void	free_text(t_textinfo *text)
 		if (text->west)
 			free(text->west);
 		if (text->ceiling_rgb)
-			free_memory(text->ceiling_rgb);
+			free(text->ceiling_rgb);
 		if (text->floor_rgb)
-			free_memory(text->floor_rgb);
+			free(text->floor_rgb);
 		if (text->grid)
 			free_memory(text->grid);
-//		free (text);
 	}
 }
-
-/*void	free_textures(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (data->textures[i])
-		{
-			if(data->textures[i]->img)
-			{
-				mlx_destroy_image(data->mlx_conn, data->textures[i]->img);
-				data->textures[i]->img = NULL;
-			}
-			free(data->textures[i]);
-		}
-		i++;
-	}
-	free(data->textures);
-	data->textures = NULL;
-}*/
 
 void	free_pixels(t_data *data)
 {
@@ -108,7 +83,7 @@ void	free_pixels(t_data *data)
 	i = 0;
 	if (data->texture_pixels)
 	{
-		while (i < 4)
+		while (i < HEIGHT)
 		{
 			if (data->texture_pixels[i])
 				free(data->texture_pixels[i]);
@@ -117,4 +92,5 @@ void	free_pixels(t_data *data)
 		free(data->texture_pixels);
 	}
 }
+
 
