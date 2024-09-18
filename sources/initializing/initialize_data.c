@@ -6,39 +6,36 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/17 16:35:50 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/18 16:54:07 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
 //temp function to get the grid working for parse testing
-void 	ft_initialize_map(t_data *data)
+void 	ft_initialize_map(t_data *data, t_textinfo *text)
 {
-	t_mapinfo	*mapinfo;
 	size_t		i;
+	size_t		count;
 
 	if (!data)
 		return ;
 	i = 0;
-	mapinfo = (t_mapinfo *) ft_calloc (1, sizeof(t_mapinfo));
-	if (!mapinfo)
-		error_message_data("ERROR: calloc fail in map_init", data, NULL);
-	mapinfo->line_count = row_count(data->map);
-	mapinfo->grid = ft_calloc (mapinfo->line_count + 1, sizeof(char *));
-	if (!mapinfo->grid)
-		error_message_data("ERROR: calloc fail in map_init", data, NULL);
-	while (i < mapinfo->line_count)
+	data->mapinfo->line_count = row_count(text->grid);
+	count = data->mapinfo->line_count;
+	data->mapinfo->grid = (char **)ft_calloc (count + 1, sizeof(char *));
+	if (!data->mapinfo->grid)
+		error_message_data("ERROR: calloc fail in map_init", data, text);
+	while (i < count)
 	{
-		mapinfo->grid[i] = ft_strdup(data->map[i]);
-		if (!mapinfo->grid[i])
-			error_message_data("ERROR: ft_strdup fail in map_init", data, NULL);
+		data->mapinfo->grid[i] = ft_strdup(text->grid[i]);
+		if (!data->mapinfo->grid[i])
+			error_message_data("ERROR: ft_strdup fail in map_init", data, text);
 		i++;
 	}
-	mapinfo->grid[i] = NULL;
-	mapinfo->player_x = find_item(mapinfo->grid, 'x');
-	mapinfo->player_y = find_item(mapinfo->grid, 'y');
-	data->mapinfo = mapinfo;
+	data->mapinfo->grid[i] = NULL;
+	data->mapinfo->player_x = find_item(data->mapinfo->grid, 'x');
+	data->mapinfo->player_y = find_item(data->mapinfo->grid, 'y');
 }
 
 //Function to initialize the global data of the program
@@ -49,18 +46,20 @@ t_data	*ft_initialize_data(t_textinfo *text)
 	data = (t_data *)ft_calloc(1, sizeof(t_data));
 	if (!data)
 		error_message_text("ERROR: problems copying grid in init\n", text);
-//	data->window_height = HEIGHT;
-//	data->window_width = WIDTH;
-//	data->image_height = PIXELS;
-//	data->image_width = PIXELS;
 	data->textinfo = text;
 	data->player = (t_player *)ft_calloc(1, sizeof(t_player));
 	if (!data->player)
 		error_message_data("ERROR: problems init player", data, text);
-	data->map = text->grid;
-	ft_initialize_map(data);
-	if (!data->map)
-		error_message_data("ERROR: problems copying grid in init\n", data, text);
+	data->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
+	if (!data->ray)
+		error_message_data("ERROR: problems init ray", data, text);
+	data->mapinfo = (t_mapinfo *)ft_calloc(1, sizeof(t_mapinfo));
+	if (!data->mapinfo)
+		error_message_data("ERROR: problems init map", data, text);
+	ft_initialize_map(data, text);
+	data->imginfo = (t_img *)ft_calloc(1, sizeof(t_img));
+	if (!data->imginfo)
+		error_message_data("ERROR: problems init image struct\n", data, text);
 	return (data);
 }
 
