@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/18 16:54:01 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:44:48 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,18 @@ typedef struct s_data
 	t_ray		*ray;
 	t_textinfo	*textinfo;
 	t_img		*imginfo;
-	int			**texture_pixels;
+	void		*textures[6];//NESWFC
 }	t_data;
+
+/*typedef struct s_data
+{
+	void		*mlx_conn; // MLX pointer
+	void		*mlx_win; // MLX window pointer
+	int			img_width;
+	int			img_height;
+	void		*textures[5]; // MLX image pointers (on the stack)
+	t_mapinfo	*map; // Map pointer (contains map details - preferably kept on the stack)
+}	t_data;*/
 
 //errors.c
 void		error_message(char *str);
@@ -198,8 +208,8 @@ void		check_path(char *path);
 void		free_memory(char **arr);
 void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
-void 		ft_free_textures(t_data *data);
-void		free_pixels(t_data *data);
+//void 		ft_free_textures(t_data *data);
+void		free_textures(t_data *data);
 
 //parsing/check_map.c
 void		valid_chars(t_textinfo *text);
@@ -235,6 +245,7 @@ char		**graphic_gnl(int size, int fd, char **arr, int i);
 int			ft_handle_key(int keysym, t_data *data);
 int			ft_release_key(int keysym, t_data *data);
 void		ft_initialize_events(t_data *data);
+int			on_destroy(t_data *data);
 
 //sources/initializing/initialize_text.c
 t_textinfo	*ft_initialize_textinfo(char **arr);

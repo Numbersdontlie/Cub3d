@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/18 13:52:32 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:49:19 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,18 @@ void	free_memory(char **arr)
 //it destroy the image, window and display before freeing memory
 void	ft_clean_exit(t_data *data)
 {
-	if (data->imginfo)
+	free_textures(data);
+/*	if (data->imginfo && data->imginfo->img)
 	{
 		mlx_destroy_image(data->mlx_conn, data->imginfo->img);
 		free(data->imginfo);
-	}
+	}*/
 	if (data->mlx_window)
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
-	if (data->texture_pixels)
-		free_pixels(data);
 	if (data->mapinfo)
 	{
 		if (data->mapinfo->grid)
-			free_memory (data->mapinfo->grid);
+			free_memory(data->mapinfo->grid);
 		free(data->mapinfo);
 	}
 	if (data->player)
@@ -54,7 +53,8 @@ void	ft_clean_exit(t_data *data)
 		mlx_destroy_display(data->mlx_conn);
 		free(data->mlx_conn);
 	}
-	free (data);
+	if (data->textinfo)
+		free_text(data->textinfo);
 }
 
 void	free_text(t_textinfo *text)
@@ -78,21 +78,18 @@ void	free_text(t_textinfo *text)
 	}
 }
 
-void	free_pixels(t_data *data)
+void	free_textures(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	if (data->texture_pixels)
+	while (i < 4)
 	{
-		while (i < 4)
-		{
-			if (data->texture_pixels[i])
-				free(data->texture_pixels[i]);
-			i++;
-		}
-		free(data->texture_pixels);
+		if (data->textures[i])
+			mlx_destroy_image(data->mlx_conn, data->textures[i]);
+		i++;
 	}
+//	free(data->textures);
 }
 
 

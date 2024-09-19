@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:49:35 by lperez-h          #+#    #+#             */
-/*   Updated: 2024/09/18 13:34:52 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/19 16:45:56 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //if side is not zero, we're working on the y axis, else on the x
 //if dir_y is greather than zero then we're on South 
 //else North. If x axis is lower than zero is west else east
-void	ft_get_texture_idx(t_data *data, t_ray *ray)
+/*void	ft_get_texture_idx(t_data *data, t_ray *ray)
 {
 	if (ray->side != 0)
 	{
@@ -57,12 +57,12 @@ void	ft_update_texture(t_data *data, t_textinfo *texture, t_ray *ray, int x)
 	{
 		texture->x = (int)texture->position & (texture->size - 1);
 		texture->position += texture->step;
-		color = data->texture_pixels[texture->idx][texture->size \
+		color = data->textures[texture->idx][texture->size \
 			* texture->y + texture->x];
 		if (texture->idx == N || texture->idx == E)
 			color = (color >> 1) & RED;
 		if (color > 0)
-			data->texture_pixels[y][x] = color;
+			data->textures[y][x] = color;
 		y++;
 	}
-}
+}*/

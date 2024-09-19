@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/18 16:43:00 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:45:35 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_initialize_connection(t_data *data)
 
 //Function to initialize the textures into the image structure
 //it will load the xmp file into an image and get the data address
-int	ft_initialize_texture_image(t_data *data, t_img **image, char *path)
+/*int	ft_initialize_texture_image(t_data *data, t_img **image, char *path)
 {
 	if (!path)
 		error_message("ERROR: path missing\n");
@@ -62,13 +62,13 @@ int	ft_initialize_texture_image(t_data *data, t_img **image, char *path)
 	if (!(*image)->img_addr)
 		error_message("ERROR: failed to get image address\n");
 	return (EXIT_SUCCESS);
-}
+}*/
 
 //Function to put the converted xpm image into an integer buffer
 //use this function if we need to manipulate the image at all
 //otherwise, use the mlx_xpm_file_to_image function as it is more
 //efficient
-int	*ft_put_img_into_buffer(t_data *data, char *path)
+/*int	*ft_put_img_into_buffer(t_data *data, char *path)
 {
 	int		*buf;
 	int		x;
@@ -93,28 +93,37 @@ int	*ft_put_img_into_buffer(t_data *data, char *path)
 	}
 	mlx_destroy_image(data->mlx_conn, data->imginfo);
 	return (buf);
-}
+}*/
 
 //Function to initialize the textures (NORTH< SOUTH, WEST, EAST)
 //it allocate memory for the textures and call the put img into buffer function
 //to load the textures in the data structure
 int	ft_initialize_textures(t_data *data)
 {
-	data->texture_pixels = ft_calloc(4, sizeof(int *));
-	if (!data->texture_pixels)
-		error_message("ERROR: problems callocing texture pixels");
-	data->texture_pixels[N] = ft_put_img_into_buffer(data, data->textinfo->north);
-	if (!data->texture_pixels[N])
-		error_message("ERROR: problem loading N texture");
-	data->texture_pixels[E] = ft_put_img_into_buffer(data, data->textinfo->east);
-	if (!data->texture_pixels[E])
+//	data->textures = ft_calloc(4, sizeof(int *));
+//	if (!data->textures)
+//		error_message("ERROR: problems callocing texture pixels");
+//	data->textures[N] = ft_put_img_into_buffer(data, data->textinfo->north);
+	data->textures[N] = mlx_xpm_file_to_image(data->mlx_conn, data->textinfo->north, &data->image_width, &data->image_height);
+	if (!data->textures[N])
+	{
+		printf("Error loading texture: %s\n", data->textinfo->north);
+		mlx_destroy_window(data->mlx_conn, data->mlx_window);
+		mlx_destroy_display(data->mlx_conn);
+		free(data->mlx_conn);
+		return (1);	
+	}
+	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, data->textures[0], 0, 0);
+//		error_message("ERROR: problem loading N texture");
+/*	data->textures[E] = ft_put_img_into_buffer(data, data->textinfo->east);
+	if (!data->textures[E])
 		error_message("ERROR: problem loading E texture");
-	data->texture_pixels[S] = ft_put_img_into_buffer(data, data->textinfo->south);
-	if (!data->texture_pixels[S])
+	data->textures[S] = ft_put_img_into_buffer(data, data->textinfo->south);
+	if (!data->textures[S])
 		error_message("ERROR: probelm loading S texture");
-	data->texture_pixels[W] = ft_put_img_into_buffer(data, data->textinfo->west);
-	if (!data->texture_pixels[W])
-		error_message("ERROR: problem loading W texture");
+	data->textures[W] = ft_put_img_into_buffer(data, data->textinfo->west);
+	if (!data->textures[W])
+		error_message("ERROR: problem loading W texture");*/
 	return (EXIT_SUCCESS);
 }
 

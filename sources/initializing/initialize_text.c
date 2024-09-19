@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/18 06:40:59 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:47:58 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	*validate_and_convert(t_textinfo *text, char **arr, unsigned long *hex_value
 		{
 			free(rgb);
 			free_memory(arr);
-			error_message_text("ERROR: rgb is not valid", text);;
+			error_message_text("ERROR: rgb is not valid", text);
 		}
 	}
 	*hex_value = ((rgb[0] & 0xff) << 16) + ((rgb[1] & 0xff) << 8) + (rgb[2] & 0xff);
@@ -94,7 +94,7 @@ int	*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *he
 	rgb = validate_and_convert(text, arr, hex_value);
 	free_memory(arr);
 	return (rgb);
-}	
+}
 
 
 int	check_rgb_for_illegal_chars(char **arr)

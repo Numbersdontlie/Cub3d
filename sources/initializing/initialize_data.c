@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/18 16:54:07 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:24:38 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,31 @@ t_data	*ft_initialize_data(t_textinfo *text)
 	if (!data->mapinfo)
 		error_message_data("ERROR: problems init map", data, text);
 	ft_initialize_map(data, text);
-	data->imginfo = (t_img *)ft_calloc(1, sizeof(t_img));
-	if (!data->imginfo)
-		error_message_data("ERROR: problems init image struct\n", data, text);
+//	data->imginfo = (t_img *)ft_calloc(1, sizeof(t_img));
+//	if (!data->imginfo)
+//		error_message_data("ERROR: problems init image struct\n", data, text);
+//	free_text(text);
 	return (data);
 }
 
 //Function to initialize the texture pixels for the renderization
 //it checks if the textures are already used and free if necessary
 //and then allocate memory for the textures pixels to be rendered
-void	ft_initialize_texture_pixels(t_data *data)
+/*void	ft_initialize_texture_pixels(t_data *data)
 {
 	int	i;
 
-	if (data->texture_pixels)
-		free(data->texture_pixels);
-	data->texture_pixels = ft_calloc(HEIGHT, sizeof(int *));
-	if (!data->texture_pixels)
+	if (data->textures)
+		free(data->textures);
+	data->textures = ft_calloc(HEIGHT, sizeof(int *));
+	if (!data->textures)
 		error_message_data("problems calloc texture_pixels\n", data, NULL);
 	i = 0;
 	while (i < HEIGHT)
 	{
-		data->texture_pixels[i] = ft_calloc(WIDTH, sizeof(int));
-		if (!data->texture_pixels[i])
+		data->textures[i] = ft_calloc(WIDTH, sizeof(int));
+		if (!data->textures[i])
 			error_message_data("problems calloc texture_pixels\n", data, NULL);
 		i++;
 	}
-}
+}*/

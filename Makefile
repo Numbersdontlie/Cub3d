@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/18 13:35:26 by kbolon           ###   ########.fr        #
+#    Updated: 2024/09/19 16:43:10 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS = 	sources/main.c \
 		sources/raycasting/rendering.c \
 		sources/raycasting/implement_raycasting.c \
 		sources/raycasting/handle_textures.c
+#		sandbox/load_image.c
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
