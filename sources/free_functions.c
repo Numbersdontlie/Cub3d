@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/19 17:49:19 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:26:43 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ void	free_text(t_textinfo *text)
 			free(text->east);
 		if (text->west)
 			free(text->west);
+		if (text->floor)
+			free(text->floor);
+		if (text->ceiling)
+			free(text->ceiling);
 		if (text->ceiling_rgb)
 			free(text->ceiling_rgb);
 		if (text->floor_rgb)
@@ -89,7 +93,6 @@ void	free_textures(t_data *data)
 			mlx_destroy_image(data->mlx_conn, data->textures[i]);
 		i++;
 	}
-//	free(data->textures);
 }
 
 

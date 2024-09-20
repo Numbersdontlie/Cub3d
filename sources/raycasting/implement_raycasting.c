@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/19 16:46:15 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 08:37:04 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,18 +116,16 @@ void	ft_calculate_wall_height(t_player *player, t_ray *ray)
 //calculates wall height and updates textures
 int	ft_make_raycasting(t_player *player, t_data *data)
 {
-	t_ray	*ray;
 	int		x;
 
 	x = 0;
-	ray = data->ray;
 	while (x < WIDTH)
 	{
-		ft_initialize_raycasting(x, ray, player);
-		ft_get_ray_step_and_distance(ray, player);
-		ft_implement_dda(data, ray);
-		ft_calculate_wall_height(player, ray);
-//		ft_update_texture(data, data->textinfo, ray, x);
+		ft_initialize_raycasting(x, data->ray, player);
+		ft_get_ray_step_and_distance(data->ray, player);
+		ft_implement_dda(data, data->ray);
+		ft_calculate_wall_height(player, data->ray);
+		ft_update_texture(data, data->textinfo, data->ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);
