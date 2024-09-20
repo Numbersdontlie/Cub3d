@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:47:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/19 17:27:52 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:17:03 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ void	error_message_text(char *str, t_textinfo *text)
 void	error_message_data(char *str, t_data *data, t_textinfo *text)
 {
 	if (text)
-	{
 		free_text(text);
-//		free (text);
-	}
 	ft_putstr_fd(str, 2);
 	ft_clean_exit(data);
 	if (data->mlx_conn)

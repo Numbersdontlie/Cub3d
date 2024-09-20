@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/04 16:38:40 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:23:37 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,6 @@ int	ft_strstr(char *str, char *to_find)
 char	*ft_trim_line(char *str)
 {
 	while (*str== ' ' || *str == '\t')
-			str++;
+		str++;
 	return (str);
 }

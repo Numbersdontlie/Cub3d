@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/20 10:00:44 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 12:01:36 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef enum	e_direction
 	E = 1,
 	S = 2,
 	W = 3
-
 } t_direction;
 
 //Structure for the image it include:
@@ -246,8 +245,9 @@ int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_va
 int			ft_game(t_data *data);
 void		ft_player_movement_forward_backword(t_data *data);
 void		ft_rotation(t_data *data);
-void		ft_render_ceiling_and_floor(t_data *data);
 void		ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour);
+void		ft_render_ceiling_and_floor(t_data *data);
+void		ft_render_hex_sections(t_data *data);//
 
 //sources/moving/initial_position.c
 void		ft_initialize_north_south(t_player *player);

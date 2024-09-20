@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/20 09:43:31 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 12:41:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 int	ft_game(t_data *data)
 {
 	mlx_clear_window(data->mlx_conn, data->mlx_window);
-	ft_render_ceiling_and_floor(data);
+//	ft_render_ceiling_and_floor(data);
+	ft_render_hex_sections(data);
 	ft_make_raycasting(data->player, data);
 	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, \
 		data->imginfo->img, 0 , 0);
@@ -76,7 +77,6 @@ void	ft_rotation(t_data *data)
 	data->player->rotate = 0;
 }
 
-
 //function splits the screen into two parts and 
 //extracts colours for floor and ceiling
 void	ft_render_ceiling_and_floor(t_data *data)
@@ -112,4 +112,43 @@ void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)
 	bytes_per_pixel = imginfo->bpp/8;
 	pixel = (char *)imginfo->img_addr + (y * imginfo->line_len + x * bytes_per_pixel);
 	*(unsigned int *)pixel = colour;
+}
+
+void	ft_render_hex_sections(t_data *data)
+{
+	int	x;
+	int	y;
+	int	ceiling_colour;
+	int	floor_colour;
+	int	north_colour;
+	int	east_colour;
+	int	south_colour;
+	int	west_colour;
+
+	ceiling_colour = data->textinfo->hex_ceiling;
+	floor_colour = data->textinfo->hex_floor;
+	north_colour = 0xFFFFBF;
+	east_colour = 0xE89EB8;
+	south_colour = 0x98FB98;
+	west_colour = 0xB19CD9;
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		{
+			while (++x < WIDTH)
+			{
+				if (y < HEIGHT/3)
+					ft_put_pixel_to_img(data->imginfo, x, y, ceiling_colour);
+				else if (y >= HEIGHT/3 && y < 2 * HEIGHT/3 && x < WIDTH/3)
+					ft_put_pixel_to_img(data->imginfo, x, y, west_colour);					
+				else if (y >= HEIGHT/3 && y < 2 *HEIGHT/3 && x >= WIDTH/3 && x < 2*WIDTH/3)
+					ft_put_pixel_to_img(data->imginfo, x, y, north_colour);
+				else if (y >= HEIGHT/3 && y < 2 *HEIGHT/3 && x >= 2 * WIDTH/3)
+					ft_put_pixel_to_img(data->imginfo, x, y, east_colour);	
+				else
+					ft_put_pixel_to_img(data->imginfo, x, y, floor_colour);
+			}
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/20 08:44:25 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 12:39:57 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ void	free_memory(char **arr)
 void	ft_clean_exit(t_data *data)
 {
 	free_textures(data);
-/*	if (data->imginfo && data->imginfo->img)
+	if (data->imginfo && data->imginfo->img)
 	{
 		mlx_destroy_image(data->mlx_conn, data->imginfo->img);
 		free(data->imginfo);
-	}*/
-	if (data->mlx_window)
-		mlx_destroy_window(data->mlx_conn, data->mlx_window);
+	}
 	if (data->mapinfo)
 	{
 		if (data->mapinfo->grid)
@@ -48,13 +46,16 @@ void	ft_clean_exit(t_data *data)
 		free(data->player);
 	if (data->ray)
 		free(data->ray);
+	if (data->textinfo)
+		free_text(data->textinfo);
+	if (data->mlx_window)
+		mlx_destroy_window(data->mlx_conn, data->mlx_window);
 	if (data->mlx_conn)
 	{
 		mlx_destroy_display(data->mlx_conn);
 		free(data->mlx_conn);
 	}
-	if (data->textinfo)
-		free_text(data->textinfo);
+	free(data);
 }
 
 void	free_text(t_textinfo *text)
@@ -69,16 +70,17 @@ void	free_text(t_textinfo *text)
 			free(text->east);
 		if (text->west)
 			free(text->west);
-		if (text->floor)
-			free(text->floor);
-		if (text->ceiling)
-			free(text->ceiling);
+//		if (text->floor)
+//			free(text->floor);
+//		if (text->ceiling)
+//			free(text->ceiling);
 		if (text->ceiling_rgb)
 			free(text->ceiling_rgb);
 		if (text->floor_rgb)
 			free(text->floor_rgb);
 		if (text->grid)
 			free_memory(text->grid);
+		free(text);
 	}
 }
 
@@ -87,7 +89,7 @@ void	free_textures(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 6)
+	while (i < 2)
 	{
 		if (data->textures[i])
 			mlx_destroy_image(data->mlx_conn, data->textures[i]);

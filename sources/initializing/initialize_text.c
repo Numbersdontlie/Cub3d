@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/19 17:47:58 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:59:12 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 	text->south = find_cardinal_paths(grid, "SO");
 	text->west = find_cardinal_paths(grid, "WE");
 	text->east = find_cardinal_paths(grid, "EA");
-	text->ceiling_rgb = populate_rgb_values(text, grid, 'C', &text->hex_ceiling);
+	text->ceiling_rgb = populate_rgb_values(text, grid, 'C', \
+		&text->hex_ceiling);
 	text->floor_rgb = populate_rgb_values(text, grid, 'F', &text->hex_floor);
 	text->size = PIXELS;
 	text = find_grid(text, grid);
@@ -41,7 +42,8 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 }
 
 /*this function splits the rgb values for the floor and ceiling*/
-int	*validate_and_convert(t_textinfo *text, char **arr, unsigned long *hex_value)
+int	*validate_and_convert(t_textinfo *text, char **arr, \
+	unsigned long *hex_value)
 {
 	int		*rgb;
 	int		i;
@@ -63,11 +65,13 @@ int	*validate_and_convert(t_textinfo *text, char **arr, unsigned long *hex_value
 			error_message_text("ERROR: rgb is not valid", text);
 		}
 	}
-	*hex_value = ((rgb[0] & 0xff) << 16) + ((rgb[1] & 0xff) << 8) + (rgb[2] & 0xff);
+	*hex_value = ((rgb[0] & 0xff) << 16) + ((rgb[1] & 0xff) << 8) + \
+		(rgb[2] & 0xff);
 	return (rgb);
 }
 
-int	*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value)
+int	*populate_rgb_values(t_textinfo *text, char **grid, int c, 
+	unsigned long *hex_value)
 {
 	char	*temp;
 	char	**arr;
@@ -118,5 +122,5 @@ int	check_rgb_for_illegal_chars(char **arr)
 				error_message("ERROR: RGB not valid\n");
 		}
 	}
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
