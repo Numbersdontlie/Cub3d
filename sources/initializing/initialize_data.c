@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/19 17:24:38 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:28:21 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,6 @@ t_data	*ft_initialize_data(t_textinfo *text)
 	if (!data->mapinfo)
 		error_message_data("ERROR: problems init map", data, text);
 	ft_initialize_map(data, text);
-//	data->imginfo = (t_img *)ft_calloc(1, sizeof(t_img));
-//	if (!data->imginfo)
-//		error_message_data("ERROR: problems init image struct\n", data, text);
-//	free_text(text);
 	return (data);
 }
 
