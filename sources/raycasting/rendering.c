@@ -6,12 +6,14 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/20 08:38:47 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 09:43:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/cub3D.h"
 
+//function loads the game image (renders floor and ceiling
+//raycasts to render walls and displays final image)
 int	ft_game(t_data *data)
 {
 	mlx_clear_window(data->mlx_conn, data->mlx_window);

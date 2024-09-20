@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:49:35 by lperez-h          #+#    #+#             */
-/*   Updated: 2024/09/20 07:52:15 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 10:03:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_get_texture_idx(t_data *data, t_ray *ray)
 void	ft_update_texture(t_data *data, t_textinfo *texture, t_ray *ray, int x)
 {
 	int	y;
-	int	color;
+	int	colour;
 
 	ft_get_texture_idx(data, ray);
 	texture->x = (int)(ray->wall_x * texture->size);
@@ -57,12 +57,9 @@ void	ft_update_texture(t_data *data, t_textinfo *texture, t_ray *ray, int x)
 	{
 		texture->x = (int)texture->position & (texture->size - 1);
 		texture->position += texture->step;
-		color = data->textures[texture->idx][texture->size \
+		colour = data->textures[texture->idx][texture->size \
 			* texture->y + texture->x];
-		if (texture->idx == N || texture->idx == E)
-			color = (color >> 1) & RED;
-		if (color > 0)
-			data->textures[y][x] = color;
+		ft_put_pixel_to_img(data->imginfo, x, y, colour);
 		y++;
 	}
 }
@@ -89,10 +86,7 @@ void	ft_render_wall_texture(t_data *data, t_ray *ray, int x)
 		texture_y = (int)texture_pos & (data->textinfo->size - 1);
 		texture_pos += step;
 		colour = data->textures[data->textinfo->idx][data->textinfo->size * texture_y + texture_x];
-		if (ray->side == 1 && ray->dir_y  > 0)//south wall
-			colour = (colour >> 1) & 8355711;
 		ft_put_pixel_to_img(data->imginfo, x, y, colour);
 		y++;
 	}
-
 }

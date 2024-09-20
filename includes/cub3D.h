@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/20 08:14:58 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 10:00:44 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,16 +169,6 @@ typedef struct s_data
 	int			*textures[6];//NESWFC
 }	t_data;
 
-/*typedef struct s_data
-{
-	void		*mlx_conn; // MLX pointer
-	void		*mlx_win; // MLX window pointer
-	int			img_width;
-	int			img_height;
-	void		*textures[5]; // MLX image pointers (on the stack)
-	t_mapinfo	*map; // Map pointer (contains map details - preferably kept on the stack)
-}	t_data;*/
-
 //errors.c
 void		error_message(char *str);
 void		error_message_simple(char *str, char **arr);
@@ -268,7 +258,7 @@ void		ft_init_player_dir(t_data *data);
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
 void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
-void		ft_calculate_wall_height(t_player *player, t_ray *ray);
+void		ft_calculate_wall_height(t_ray *ray);
 int			ft_make_raycasting(t_player *player, t_data *data);
 
 //sources/helper_functions.c
