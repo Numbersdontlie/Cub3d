@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:49:35 by lperez-h          #+#    #+#             */
-/*   Updated: 2024/09/19 16:45:56 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 07:52:15 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 //if side is not zero, we're working on the y axis, else on the x
 //if dir_y is greather than zero then we're on South 
 //else North. If x axis is lower than zero is west else east
-/*void	ft_get_texture_idx(t_data *data, t_ray *ray)
+void	ft_get_texture_idx(t_data *data, t_ray *ray)
 {
-	if (ray->side != 0)
+	if (ray->side == 1)
 	{
 		if (ray->dir_y > 0)
 			data->textinfo->idx = S;
@@ -65,4 +65,34 @@ void	ft_update_texture(t_data *data, t_textinfo *texture, t_ray *ray, int x)
 			data->textures[y][x] = color;
 		y++;
 	}
-}*/
+}
+//function to render wall texture based on raycasting
+void	ft_render_wall_texture(t_data *data, t_ray *ray, int x)
+{
+	int		y;
+	int		colour;
+	int		texture_x;
+	int		texture_y;
+	double	step;
+	double	texture_pos;
+
+	ft_get_texture_idx(data, ray);
+	texture_x = (int)(ray->wall_x * (double)data->textinfo->size);
+	if (ray->side == 0 && ray->dir_x > 0)
+		texture_x = data->textinfo->size - texture_x - 1;
+	step = 1.0 * data->textinfo->size/ray->line_height;
+	texture_pos = (ray->draw_start - HEIGHT/2 + ray->line_height/2);
+//renders texture line by line
+	y = ray->draw_start;
+	while (y < ray->draw_end)
+	{
+		texture_y = (int)texture_pos & (data->textinfo->size - 1);
+		texture_pos += step;
+		colour = data->textures[data->textinfo->idx][data->textinfo->size * texture_y + texture_x];
+		if (ray->side == 1 && ray->dir_y  > 0)//south wall
+			colour = (colour >> 1) & 8355711;
+		ft_put_pixel_to_img(data->imginfo, x, y, colour);
+		y++;
+	}
+
+}

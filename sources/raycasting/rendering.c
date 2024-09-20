@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/18 16:53:13 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 08:38:47 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 int	ft_game(t_data *data)
 {
-	if (!data || !data->mapinfo || !data->imginfo->img)
-		error_message("ERROR: imginfo or img not initialized\n");
 	mlx_clear_window(data->mlx_conn, data->mlx_window);
+	ft_render_ceiling_and_floor(data);
 	ft_make_raycasting(data->player, data);
-	ft_player_movement_forward_backword(data);
-	ft_rotation(data);
 	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, \
 		data->imginfo->img, 0 , 0);
 	return (0);
@@ -75,4 +72,42 @@ void	ft_rotation(t_data *data)
 			data->player->plane_y * cos(speed);
 	}
 	data->player->rotate = 0;
+}
+
+
+//function splits the screen into two parts and 
+//extracts colours for floor and ceiling
+void	ft_render_ceiling_and_floor(t_data *data)
+{
+	int	x;
+	int	y;
+	int	ceiling_colour;
+	int	floor_colour;
+
+	ceiling_colour = data->textinfo->hex_ceiling;
+	floor_colour = data->textinfo->hex_floor;
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		{
+			while (++x < WIDTH)
+			{
+				if (y < HEIGHT/2)
+					ft_put_pixel_to_img(data->imginfo, x, y, ceiling_colour);
+				else
+					ft_put_pixel_to_img(data->imginfo, x, y, floor_colour);
+			}
+		}
+	}
+}
+
+void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)
+{
+	char	*pixel;
+	int		bytes_per_pixel;
+
+	bytes_per_pixel = imginfo->bpp/8;
+	pixel = (char *)imginfo->img_addr + (y * imginfo->line_len + x * bytes_per_pixel);
+	*(unsigned int *)pixel = colour;
 }

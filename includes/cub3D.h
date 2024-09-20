@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/19 17:44:48 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/20 08:14:58 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@
 # define TRUE 10
 # define FALSE 
 # define RED 0x7F7F7F
-
 
 //set up enum for directions
 typedef enum	e_direction
@@ -167,7 +166,7 @@ typedef struct s_data
 	t_ray		*ray;
 	t_textinfo	*textinfo;
 	t_img		*imginfo;
-	void		*textures[6];//NESWFC
+	int			*textures[6];//NESWFC
 }	t_data;
 
 /*typedef struct s_data
@@ -257,6 +256,8 @@ int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_va
 int			ft_game(t_data *data);
 void		ft_player_movement_forward_backword(t_data *data);
 void		ft_rotation(t_data *data);
+void		ft_render_ceiling_and_floor(t_data *data);
+void		ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour);
 
 //sources/moving/initial_position.c
 void		ft_initialize_north_south(t_player *player);
@@ -278,5 +279,5 @@ int			ft_strstr(char *str, char *to_find);
 
 //sources/raycasting/handle_textures.c
 void		ft_update_texture(t_data *data, t_textinfo *text, t_ray *ray, int x);
-
+void		ft_render_wall_texture(t_data *data, t_ray *ray, int x);
 #endif

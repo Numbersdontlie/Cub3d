@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/19 17:45:35 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/19 20:06:29 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ int	ft_initialize_textures(t_data *data)
 //		error_message("ERROR: problems callocing texture pixels");
 //	data->textures[N] = ft_put_img_into_buffer(data, data->textinfo->north);
 	data->textures[N] = mlx_xpm_file_to_image(data->mlx_conn, data->textinfo->north, &data->image_width, &data->image_height);
-	if (!data->textures[N])
+	data->textures[E] = mlx_xpm_file_to_image(data->mlx_conn, data->textinfo->east, &data->image_width, &data->image_height);
+	data->textures[S] = mlx_xpm_file_to_image(data->mlx_conn, data->textinfo->south, &data->image_width, &data->image_height);
+	data->textures[W] = mlx_xpm_file_to_image(data->mlx_conn, data->textinfo->west, &data->image_width, &data->image_height);
+	if (!data->textures[N] || !data->textures[E] || !data->textures[S] || !data->textures[W])
 	{
 		printf("Error loading texture: %s\n", data->textinfo->north);
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
@@ -113,7 +116,8 @@ int	ft_initialize_textures(t_data *data)
 		free(data->mlx_conn);
 		return (1);	
 	}
-	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, data->textures[0], 0, 0);
+
+//	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, data->textures[0], 0, 0);
 //		error_message("ERROR: problem loading N texture");
 /*	data->textures[E] = ft_put_img_into_buffer(data, data->textinfo->east);
 	if (!data->textures[E])
