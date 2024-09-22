@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/20 12:41:31 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/21 09:42:43 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,14 @@ void	ft_render_hex_sections(t_data *data)
 	int	floor_colour;
 	int	north_colour;
 	int	east_colour;
-	int	south_colour;
+//	int	south_colour;
 	int	west_colour;
 
 	ceiling_colour = data->textinfo->hex_ceiling;
 	floor_colour = data->textinfo->hex_floor;
 	north_colour = 0xFFFFBF;
 	east_colour = 0xE89EB8;
-	south_colour = 0x98FB98;
+//	south_colour = 0x98FB98;
 	west_colour = 0xB19CD9;
 	y = -1;
 	while (++y < HEIGHT)
