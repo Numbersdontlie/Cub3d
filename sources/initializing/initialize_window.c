@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/20 09:42:20 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/23 14:21:55 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 //assign the image address
 int	ft_initialize_imginfo(t_data *data)
 {
+	if (data->imginfo && data->imginfo->img)
+		mlx_destroy_image(data->mlx_conn, data->imginfo);
 	data->imginfo = (t_img *)ft_calloc(1, sizeof(t_img));
 	if (!data->imginfo)
 		error_message("ERROR: failed to initiate img\n");
@@ -69,20 +71,33 @@ int	ft_initialize_connection(t_data *data)
 //to load the textures in the data structure
 int	ft_initialize_textures(t_data *data)
 {
-	data->textures[N] = mlx_xpm_file_to_image(data->mlx_conn, data->textinfo->north, &data->image_width, &data->image_height);
-	data->textures[E] = mlx_xpm_file_to_image(data->mlx_conn, data->textinfo->east, &data->image_width, &data->image_height);
-	data->textures[S] = mlx_xpm_file_to_image(data->mlx_conn, data->textinfo->south, &data->image_width, &data->image_height);
-	data->textures[W] = mlx_xpm_file_to_image(data->mlx_conn, data->textinfo->west, &data->image_width, &data->image_height);
-	if (!data->textures[N] || !data->textures[E] || !data->textures[S] || !data->textures[W])
-		error_message("ERROR: problems loading textures\n");
+	data->textures[N] = mlx_xpm_file_to_image(data->mlx_conn, \
+		data->textinfo->north, &data->image_width, &data->image_height);
+	if (!data->textures[N])
+		error_message("ERROR: problems loading N texture\n");
+	data->textures[E] = mlx_xpm_file_to_image(data->mlx_conn, \
+		data->textinfo->east, &data->image_width, &data->image_height);
+	if (!data->textures[E])
+	{
+		mlx_destroy_image(data->mlx_conn, data->textures[N]);
+		error_message("ERROR: problems loading E texture\n");
+	}
+	data->textures[S] = mlx_xpm_file_to_image(data->mlx_conn, \
+		data->textinfo->south, &data->image_width, &data->image_height);
+	if (!data->textures[S])
+	{
+		mlx_destroy_image(data->mlx_conn, data->textures[N]);
+		mlx_destroy_image(data->mlx_conn, data->textures[E]);
+		error_message("ERROR: problems loading S texture\n");
+	}
+	data->textures[W] = mlx_xpm_file_to_image(data->mlx_conn, \
+		data->textinfo->west, &data->image_width, &data->image_height);
+	if (!data->textures[W])
+	{
+		mlx_destroy_image(data->mlx_conn, data->textures[N]);
+		mlx_destroy_image(data->mlx_conn, data->textures[E]);
+		mlx_destroy_image(data->mlx_conn, data->textures[S]);
+		error_message("ERROR: problems loading W texture\n");
+	}
 	return (EXIT_SUCCESS);
 }
-
-/*void	check_path(char *path)
-{
-	if (access(path, F_OK) == -1)
-	{
-		printf("ERROR: path not found or accessible: %s\n", path);
-		exit(EXIT_FAILURE);
-	}
-}*/

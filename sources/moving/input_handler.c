@@ -34,8 +34,31 @@ int	ft_handle_key(int keysym, t_data *data)
 	return (0);
 }
 
+//Function to handle the release of the key after being 
+//hold pressed for a while
+int	ft_release_key(int keysym, t_data *data)
+{
+	if (keysym == XK_ESCAPE)
+		ft_clean_exit(data);
+	if (keysym == LEFT)
+		data->player->rotate -= 1;
+	if (keysym == RIGHT)
+		data->player->rotate += 1;
+	if (keysym == FORWARD)
+		data->player->move_y = 1;
+	if (keysym == BACKWARD)
+		data->player->move_y = -1;
+	if (keysym == ROTATE_LEFT)
+		data->player->move_x = -1;
+	if (keysym == ROTATE_RIGHT)
+		data->player->move_x = 1;
+	return (0);
+}
+
 int on_destroy(t_data *data)
 {
+/*	if (data->textures[0])
+		mlx_destroy_image(data->mlx_conn, data->textures[0]);
 	if (data->mlx_window)
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
 	mlx_loop_end(data->mlx_conn);
@@ -43,7 +66,9 @@ int on_destroy(t_data *data)
 	{
 		mlx_destroy_display(data->mlx_conn);
 		free(data->mlx_conn);
-	}
+	}*/
+	mlx_loop_end(data->mlx_conn);
+	ft_clean_exit(data);
 	exit(0);
 	return (0);
 }
@@ -51,13 +76,10 @@ int on_destroy(t_data *data)
 
 void	ft_initialize_events(t_data *data)
 {
-	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, &ft_handle_key, data);
+	mlx_hook(data->mlx_window, KeyPress, KeyPressMask, ft_handle_key, data);
+	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);
 //	mlx_hook(data->mlx_window, DestroyNotify, StructureNotifyMask, ft_wrapper_exit, data);
 	mlx_loop(data->mlx_conn);
-	if (data->mlx_conn)
-	{
-		mlx_destroy_display(data->mlx_conn);
-		free(data->mlx_conn);
-	}
+
 	//We're missing the hook to handle the input from mouse if we make the bonus
 }
