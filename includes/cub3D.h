@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/20 12:01:36 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/23 13:51:19 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ typedef struct s_data
 	t_ray		*ray;
 	t_textinfo	*textinfo;
 	t_img		*imginfo;
-	int			*textures[6];//NESWFC
+	int			*textures[4];//NESW
 }	t_data;
 
 //errors.c
@@ -173,7 +173,7 @@ void		error_message(char *str);
 void		error_message_simple(char *str, char **arr);
 void		error_message_text(char *str, t_textinfo *text);
 void		error_message_data(char *str, t_data *data, t_textinfo *text);
-int			ft_wrapper_exit(t_data *data);
+//int			ft_wrapper_exit(t_data *data);
 
 //initialize_data.c
 int			ft_initialize_imginfo(t_data *data);
@@ -238,7 +238,7 @@ int			on_destroy(t_data *data);
 //sources/initializing/initialize_text.c
 t_textinfo	*ft_initialize_textinfo(char **arr);
 int			check_rgb_for_illegal_chars(char **arr);
-int			*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value);
+int			*populate_rgb_values(t_textinfo *text, char **grid, int c, un		free(data->textures[E]);signed long *hex_value);
 int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_value);
 
 //sources/raycasting/rendering.c

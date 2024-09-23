@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/20 12:41:12 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/23 12:55:19 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void check_args(t_textinfo *text)
 	check_map_items(text);
 	flood_fill(text->grid);
 }
+
 
 int	main(int ac, char **av)
 {
@@ -35,15 +36,15 @@ int	main(int ac, char **av)
 	if (!data)
 		error_message_text("ERROR: problem loading text", text);
 	if (ft_initialize_connection(data) == EXIT_FAILURE)
-		error_message_data("ERROR: problem initiating connection\n", data, text);
+		error_message_data("ERROR: problem initiating connection\n", data, NULL);
 	if (ft_initialize_imginfo(data) == EXIT_FAILURE)
 		error_message_data("ERROR: problem initiating imginfo\n", data, NULL);
 	if (ft_initialize_textures(data) == EXIT_FAILURE)
-		error_message_data("ERROR: problem initiating textures\n", data, text);
+		error_message_data("ERROR: problem initiating textures\n", data, NULL);
 	ft_game(data);
 	ft_initialize_events(data);
 	ft_clean_exit(data);
-	free_text(text);
-	free(data);
+//	free_text(text);
+//	free(data);
 	return (EXIT_SUCCESS);
 }

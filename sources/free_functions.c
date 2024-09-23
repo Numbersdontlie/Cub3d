@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/20 12:39:57 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/23 13:43:36 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	ft_clean_exit(t_data *data)
 		mlx_destroy_image(data->mlx_conn, data->imginfo->img);
 		free(data->imginfo);
 	}
+	if (data->mlx_window)
+		mlx_destroy_window(data->mlx_conn, data->mlx_window);
 	if (data->mapinfo)
 	{
 		if (data->mapinfo->grid)
@@ -48,14 +50,14 @@ void	ft_clean_exit(t_data *data)
 		free(data->ray);
 	if (data->textinfo)
 		free_text(data->textinfo);
-	if (data->mlx_window)
-		mlx_destroy_window(data->mlx_conn, data->mlx_window);
 	if (data->mlx_conn)
 	{
+//		mlx_loop_end(data->mlx_conn);
 		mlx_destroy_display(data->mlx_conn);
 		free(data->mlx_conn);
 	}
 	free(data);
+	exit(0);
 }
 
 void	free_text(t_textinfo *text)
@@ -70,10 +72,6 @@ void	free_text(t_textinfo *text)
 			free(text->east);
 		if (text->west)
 			free(text->west);
-//		if (text->floor)
-//			free(text->floor);
-//		if (text->ceiling)
-//			free(text->ceiling);
 		if (text->ceiling_rgb)
 			free(text->ceiling_rgb);
 		if (text->floor_rgb)
