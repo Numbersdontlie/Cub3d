@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_raycasting.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/20 09:54:12 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/24 00:44:01 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	ft_implement_dda(t_data *data, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-//		if (ray->map_y < 0.25 || ray->map_x < 0.25 || ray->map_y > data->mapinfo->height - 0.25 || ray->map_x > data->mapinfo->width - 1.25)
-//			break ;
-		if (data->mapinfo->grid[ray->map_y][ray->map_x] > '0')
+		if (ray->map_y < 0.25 || ray->map_x < 0.25 || ray->map_y > data->mapinfo->height - 0.25 || ray->map_x > data->mapinfo->width - 1.25)
+			break ;
+		else if (data->mapinfo->grid[ray->map_y][ray->map_x] > '0')
 			contact = 1;
 	}
 }
@@ -89,7 +89,7 @@ void	ft_implement_dda(t_data *data, t_ray *ray)
 //Function to calculate the wall height based on the distance
 //to the wall and the player's view angle. 1st we get the distance 
 //to the wall and them derive the draw start and end position.
-void	ft_calculate_wall_height(t_ray *ray)
+void	ft_calculate_wall_height(t_ray *ray, t_player *player)
 {
 	if (ray->side == 0)
 		ray->wall_distance = (ray->sidedistance_x - ray->deltadistance_x);
@@ -102,11 +102,11 @@ void	ft_calculate_wall_height(t_ray *ray)
 	ray->draw_end = (ray->line_height / 2) + (HEIGHT / 2);
 	if (ray->draw_end >= HEIGHT)
 		ray->draw_end = HEIGHT - 1;
-//	if (ray->side == 0)
-//		ray->wall_x = player->pos_y + ray->wall_distance * ray->dir_y;
-//	else
-//		ray->wall_x = player->pos_x + ray->wall_distance * ray->dir_x;
-//	ray->wall_x -= floor(ray->wall_x);
+	if (ray->side == 0)
+		ray->wall_x = player->pos_y + ray->wall_distance * ray->dir_y;
+	else
+		ray->wall_x = player->pos_x + ray->wall_distance * ray->dir_x;
+	ray->wall_x -= floor(ray->wall_x);
 }
 
 //Function to make the raycasting.  It iterates through the width of 
@@ -124,7 +124,7 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_initialize_raycasting(x, data->ray, player);
 		ft_get_ray_step_and_distance(data->ray, player);
 		ft_implement_dda(data, data->ray);
-		ft_calculate_wall_height(data->ray);
+		ft_calculate_wall_height(data->ray, data->player);
 		ft_update_texture(data, data->textinfo, data->ray, x);
 		x++;
 	}

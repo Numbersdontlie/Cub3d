@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/23 13:51:19 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/24 01:28:18 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-	char	*path;
+	//char	*path;
 }	t_img;
 
 
@@ -78,9 +78,9 @@ typedef struct s_textinfo
 	char			*south;
 	char			*west;
 	char			*east;
-	char			*floor;
+	int				*floor;
 	int				*floor_rgb;
-	char			*ceiling;
+	int				*ceiling;
 	int				*ceiling_rgb;
 	char			**grid;
 	unsigned long	hex_floor;
@@ -166,6 +166,7 @@ typedef struct s_data
 	t_textinfo	*textinfo;
 	t_img		*imginfo;
 	int			*textures[4];//NESW
+	int			**texture_pixels;
 }	t_data;
 
 //errors.c
@@ -185,7 +186,7 @@ void		ft_initialize_texture_pixels(t_data *data);
 //initialize_window.c
 int			ft_initialize_image(t_data *data, t_img **image, int width, int height);
 int			ft_initialize_connection(t_data *data);
-int			ft_initialize_texture_image(t_data *data, t_img **image, char *path);
+int			ft_initialize_texture_image(t_data *data, t_img *image, char *path);
 int			*ft_put_img_into_buffer(t_data *data, char *path);
 int			ft_initialize_textures(t_data *data);
 int			filter_grid_lines(char *grid);
@@ -238,8 +239,11 @@ int			on_destroy(t_data *data);
 //sources/initializing/initialize_text.c
 t_textinfo	*ft_initialize_textinfo(char **arr);
 int			check_rgb_for_illegal_chars(char **arr);
-int			*populate_rgb_values(t_textinfo *text, char **grid, int c, un		free(data->textures[E]);signed long *hex_value);
+int			*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value);
 int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_value);
+void		ft_init_textinfo(t_textinfo *textures);
+void		ft_initialize_texture_pixels(t_data *data);
+
 
 //sources/raycasting/rendering.c
 int			ft_game(t_data *data);
@@ -258,7 +262,7 @@ void		ft_init_player_dir(t_data *data);
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
 void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
-void		ft_calculate_wall_height(t_ray *ray);
+void		ft_calculate_wall_height(t_ray *ray, t_player *player);
 int			ft_make_raycasting(t_player *player, t_data *data);
 
 //sources/helper_functions.c
