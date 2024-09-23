@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
+#    By: luifer <luifer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/23 11:43:56 by kbolon           ###   ########.fr        #
+#    Updated: 2024/09/24 00:43:54 by luifer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCS = 	sources/main.c \
 		sources/moving/initial_position.c \
 		sources/raycasting/rendering.c \
 		sources/raycasting/implement_raycasting.c \
-		sources/raycasting/handle_textures.c
+		sources/raycasting/handle_textures.c \
+		sources/raycasting/renderV2.c \
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
