@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderV2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 23:25:59 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/24 01:33:44 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/24 10:18:18 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	ft_draw_image_in_window(t_data *data)
 	int		x;
 	int		y;
 
-	img->img = NULL;
+//	img->img = NULL;
+	img = ft_calloc(1, sizeof(t_img));
 	ft_initialize_imginfo(data);
 	y = 0;
 	while (y < HEIGHT)
@@ -44,18 +45,19 @@ void	ft_draw_image_in_window(t_data *data)
 		x = 0;
 		while (x < WIDTH)
 		{
-			ft_update_pixels_img(data, &img, x, y);
+			ft_update_pixels_img(data, img, x, y);
 			x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, img->img, 0, 0);
 	mlx_destroy_image(data->mlx_conn, img->img);
+	free(img);
 }
 
 void	ft_render_ray(t_data *data)
 {
 	ft_initialize_texture_pixels(data);
-	ft_make_raycasting(&data->player, data);
+	ft_make_raycasting(data->player, data);
 	ft_draw_image_in_window(data);
 }

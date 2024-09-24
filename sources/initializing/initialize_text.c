@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_text.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/24 01:27:53 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/24 10:14:35 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	ft_initialize_texture_pixels(t_data *data)
 	int	i;
 
 	if (data->texture_pixels)
-		free_memory(data->texture_pixels);
+		free(data->texture_pixels);
 	data->texture_pixels = ft_calloc(HEIGHT + 1, sizeof * data->texture_pixels);
 	if (!data->texture_pixels)
 		ft_clean_exit(data);
