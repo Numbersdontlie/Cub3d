@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/24 16:02:19 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 00:33:31 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,13 @@ void		ft_render_hex_sections(t_data *data);//
 void		ft_initialize_north_south(t_player *player);
 void		ft_initialize_west_east(t_player *player);
 void		ft_init_player_dir(t_data *data);
+
+//sources/moving/move_player.c
+int			ft_move_player_fw(t_data *data);
+int			ft_move_player_bw(t_data *data);
+int			ft_move_player_left(t_data *data);
+int			ft_move_player_right(t_data *data);
+int			ft_move_player(t_data *data);
 
 //sources/raycasting/implement_raycasting.c
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
