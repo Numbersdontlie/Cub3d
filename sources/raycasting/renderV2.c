@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderV2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 23:25:59 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/24 10:26:40 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 00:39:53 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,24 @@ void	ft_draw_image_in_window(t_data *data)
 	free(img);
 }
 
+//Function to render the ray structure of the game
+//it will initialize the texture pixels, implement the raycasting
+//algorithm and draw the resulting image in the window
 void	ft_render_ray(t_data *data)
 {
 	ft_initialize_texture_pixels(data);
 	ft_make_raycasting(data->player, data);
 	ft_draw_image_in_window(data);
+}
+
+//Function to render the game, it will check if the player
+//has moved and update the player new position accordingly
+//the raycast is render after this verification
+void	ft_render(t_data *data)
+{
+	data->player->has_moved += ft_move_player(data);
+	if (data->player->has_moved == 0)
+		return (EXIT_SUCCESS);
+	ft_render_ray(data);
+	return (EXIT_SUCCESS);
 }
