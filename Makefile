@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/24 10:19:57 by kbolon           ###   ########.fr        #
+#    Updated: 2024/09/24 16:06:22 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS = 	sources/main.c \
 		sources/raycasting/implement_raycasting.c \
 		sources/raycasting/handle_textures.c \
 		sources/raycasting/renderV2.c \
+		sources/render/mini_map.c
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/24 01:28:18 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/24 16:02:19 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <X11/X.h>
 
 # define PIXELS 64
+# define MINI 16
 # define WIDTH 640 
 # define HEIGHT 480
 # define MOVEMENTSPEED 0.0125
@@ -45,6 +46,8 @@
 # define TRUE 10
 # define FALSE 
 # define RED 0x7F7F7F
+# define BLACK 0x000000
+# define WHITE 0xFFFFFF
 
 //set up enum for directions
 typedef enum	e_direction
@@ -151,6 +154,18 @@ typedef struct s_player
 	int		rotate;
 }	t_player;
 
+typedef struct s_mini
+{
+	char	**map;
+	t_img	*img;
+	int		size;
+	int		dist;
+	int		tile;
+	int		mini_y;//offset
+	int		mini_x;//offset
+} t_mini;
+
+
 //Structure to store the global data of the game, it includes:
 //pointer to minilibx connection and window, window height and width, pointer to
 //map, player, ray and textinfo. It also includes map and textures
@@ -165,6 +180,7 @@ typedef struct s_data
 	t_ray		*ray;
 	t_textinfo	*textinfo;
 	t_img		*imginfo;
+	t_mini		minimap;
 	int			*textures[4];//NESW
 	int			**texture_pixels;
 }	t_data;
@@ -179,7 +195,7 @@ void		error_message_data(char *str, t_data *data, t_textinfo *text);
 //initialize_data.c
 int			ft_initialize_imginfo(t_data *data);
 void 		ft_initialize_map(t_data *data, t_textinfo *text);
-t_data		*ft_initialize_data(t_textinfo *text);
+int			ft_initialize_data(t_data **data, t_textinfo *text);
 void		ft_initialize_texture_pixels(t_data *data);
 
 
@@ -274,4 +290,9 @@ int			ft_strstr(char *str, char *to_find);
 //sources/raycasting/handle_textures.c
 void		ft_update_texture(t_data *data, t_textinfo *text, t_ray *ray, int x);
 void		ft_render_wall_texture(t_data *data, t_ray *ray, int x);
+
+//sources/render/mini_map.c
+void	make_tiles(t_data *data, int x, int y, int colour);
+void	render_map(t_data *data);
+
 #endif

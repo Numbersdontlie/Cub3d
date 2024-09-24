@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 23:25:59 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/24 10:18:18 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/24 10:26:40 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_draw_image_in_window(t_data *data)
 	int		x;
 	int		y;
 
-//	img->img = NULL;
 	img = ft_calloc(1, sizeof(t_img));
 	ft_initialize_imginfo(data);
 	y = 0;

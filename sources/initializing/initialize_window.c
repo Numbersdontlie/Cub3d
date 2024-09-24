@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_window.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/24 00:22:54 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/24 14:45:17 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,10 @@ int	ft_initialize_connection(t_data *data)
 {
 	data->mlx_conn = mlx_init();
 	if (!data->mlx_conn)
-		//error_message("ERROR: problems with mlx_init\n");
-		ft_clean_exit(data);
+		error_message_data("ERROR: problems with mlx_init\n", data, NULL);
 	data->mlx_window = mlx_new_window(data->mlx_conn, WIDTH, HEIGHT, "Cub3D");
 	if (!data->mlx_window)
-		//error_message("ERROR: problems with mlx window\n");
-		ft_clean_exit(data);
+		error_message_data("ERROR: problems with mlx window\n", data, NULL);
 	return (EXIT_SUCCESS);
 }
 
@@ -59,8 +57,7 @@ int	ft_initialize_texture_image(t_data *data, t_img *image, char *path)
 	image->img = mlx_xpm_file_to_image(data->mlx_conn, path, \
 		&data->image_width, &data->image_height);
 	if (!image->img)
-		//error_message("ERROR: failed to load texture image\n");
-		ft_clean_exit(data);
+		error_message_data("ERROR: failed to load texture image\n", data, NULL);
 	image->img_addr = (int *)mlx_get_data_addr\
 		(image->img, &image->bpp, &image->line_len, &image->endian);
 	return (EXIT_SUCCESS);
