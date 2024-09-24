@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/23 13:39:09 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/24 14:40:32 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,23 @@ void 	ft_initialize_map(t_data *data, t_textinfo *text)
 }
 
 //Function to initialize the global data of the program
-t_data	*ft_initialize_data(t_textinfo *text)
+int	ft_initialize_data(t_data **data, t_textinfo *text)
 {
-	t_data		*data;
-
-	data = (t_data *)ft_calloc(1, sizeof(t_data));
-	if (!data)
+	*data = (t_data *)ft_calloc(1, sizeof(t_data));
+	if (!*data)
 		error_message_text("ERROR: problems copying grid in init\n", text);
-	data->textinfo = text;
-	data->player = (t_player *)ft_calloc(1, sizeof(t_player));
-	if (!data->player)
-		error_message_data("ERROR: problems init player", data, text);
-	data->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
-	if (!data->ray)
-		error_message_data("ERROR: problems init ray", data, text);
-	data->mapinfo = (t_mapinfo *)ft_calloc(1, sizeof(t_mapinfo));
-	if (!data->mapinfo)
-		error_message_data("ERROR: problems init map", data, text);
-	ft_initialize_map(data, text);
-	return (data);
+	(*data)->textinfo = text;
+	(*data)->player = (t_player *)ft_calloc(1, sizeof(t_player));
+	if (!(*data)->player)
+		error_message_data("ERROR: problems init player", *data, text);
+	(*data)->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
+	if (!(*data)->ray)
+		error_message_data("ERROR: problems init ray", *data, text);
+	(*data)->mapinfo = (t_mapinfo *)ft_calloc(1, sizeof(t_mapinfo));
+	if (!(*data)->mapinfo)
+		error_message_data("ERROR: problems init map", *data, text);
+	ft_initialize_map(*data, text);
+	return (EXIT_SUCCESS);
 }
 
 //Function to initialize the texture pixels for the renderization
