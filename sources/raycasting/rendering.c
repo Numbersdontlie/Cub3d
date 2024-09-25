@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/23 14:29:43 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 11:40:10 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 int	ft_game(t_data *data)
 {
 	mlx_clear_window(data->mlx_conn, data->mlx_window);
-//	ft_render_ceiling_and_floor(data);
-	ft_render_hex_sections(data);
+	ft_render_ceiling_and_floor(data);
+//	ft_render_hex_sections(data);
 	ft_make_raycasting(data->player, data);
 	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, \
 		data->imginfo->img, 0 , 0);
@@ -122,14 +122,12 @@ void	ft_render_hex_sections(t_data *data)
 	int	floor_colour;
 	int	north_colour;
 	int	east_colour;
-//	int	south_colour;
 	int	west_colour;
 
 	ceiling_colour = data->textinfo->hex_ceiling;
 	floor_colour = data->textinfo->hex_floor;
 	north_colour = 0xFFFFBF;
 	east_colour = 0xE89EB8;
-//	south_colour = 0x98FB98;
 	west_colour = 0xB19CD9;
 	y = -1;
 	while (++y < HEIGHT)

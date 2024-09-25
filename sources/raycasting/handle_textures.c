@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:49:35 by lperez-h          #+#    #+#             */
-/*   Updated: 2024/09/20 10:03:01 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:58:33 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,25 @@ void	ft_get_texture_idx(t_data *data, t_ray *ray)
 //it flip the textures based on the direction the ray hits the wall
 //it applies a shadow by applying a bitwise operation to darken textures based
 //on the direction (north or east)
-void	ft_update_texture(t_data *data, t_textinfo *texture, t_ray *ray, int x)
+void	ft_update_texture(t_data *data, int *texture, t_ray *ray, int x)
 {
 	int	y;
 	int	colour;
 
 	ft_get_texture_idx(data, ray);
-	texture->x = (int)(ray->wall_x * texture->size);
+	data->textinfo->x = (int)(ray->wall_x * data->textinfo->size);
 	if ((ray->side == 0 && ray->dir_x < 0) || \
 		(ray->side == 1 && ray->dir_y > 0))
-		texture->x = texture->size - texture->x - 1;
-	texture->step = 1.0 * texture->size / ray->line_height;
-	texture->position = (ray->draw_start - HEIGHT / 2 + \
-		ray->line_height / 2) * texture->step;
+		data->textinfo->x = data->textinfo->size - data->textinfo->x - 1;
+	data->textinfo->step = 1.0 * data->textinfo->size / ray->line_height;
+	data->textinfo->position = (ray->draw_start - HEIGHT / 2 + \
+		ray->line_height / 2) * data->textinfo->step;
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{
-		texture->x = (int)texture->position & (texture->size - 1);
-		texture->position += texture->step;
-		colour = data->textures[texture->idx][texture->size \
-			* texture->y + texture->x];
+		data->textinfo->y = (int)data->textinfo->position & (data->textinfo->size - 1);
+		data->textinfo->position += data->textinfo->step;
+		colour = texture[data->textinfo->size * data->textinfo->y + data->textinfo->x];
 		ft_put_pixel_to_img(data->imginfo, x, y, colour);
 		y++;
 	}

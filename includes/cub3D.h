@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/25 14:02:22 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/25 14:48:04 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef	CUB3D_H
 # define CUB3D_H
@@ -218,6 +216,7 @@ int			*ft_put_img_into_buffer(t_data *data, char *path);
 int			ft_initialize_textures(t_data *data);
 int			filter_grid_lines(char *grid);
 void		check_path(char *path);
+int			ft_destroy_texture(t_data *data, int wall);
 
 
 //free_functions.c
@@ -269,8 +268,6 @@ int			check_rgb_for_illegal_chars(char **arr);
 int			*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value);
 int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_value);
 void		ft_init_textinfo(t_textinfo *textures);
-void		ft_initialize_texture_pixels(t_data *data);
-
 
 //sources/raycasting/rendering.c
 int			ft_game(t_data *data);
@@ -316,11 +313,12 @@ char		*ft_strndup(const char *s, size_t n);
 int			ft_strstr(char *str, char *to_find);
 
 //sources/raycasting/handle_textures.c
-void		ft_update_texture(t_data *data, t_textinfo *text, t_ray *ray, int x);
+void		ft_update_texture(t_data *data, int *text, t_ray *ray, int x);
 void		ft_render_wall_texture(t_data *data, t_ray *ray, int x);
+void		ft_get_texture_idx(t_data *data, t_ray *ray);
 
 //sources/render/mini_map.c
 void	make_tiles(t_data *data, int x, int y, int colour);
 void	render_map(t_data *data);
-
+void ft_render_texture(t_data *data, int *texture, t_ray *ray, int x);
 #endif

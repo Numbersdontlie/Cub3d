@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:59:22 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/25 12:06:52 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/25 11:50:56 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //player x and y position after movement. It will add the x_dir to pos_x 
 //to update new x position. It will add dir_y to pos_y to update new y position
 //it will call the validate movement function to check if move is valid in the map.
-int	ft_move_player_fw(t_data *data)
+/*int	ft_move_player_fw(t_data *data)
 {
 	double	x_after;
 	double	y_after;
@@ -87,4 +87,4 @@ int	ft_move_player(t_data *data)
 	if (data->player->move_x == 1)
 		move += ft_move_player_right(data);
 	return (move);
-}
+}*/

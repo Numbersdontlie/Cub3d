@@ -3,9 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderV2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 23:25:59 by luifer            #+#    #+#             */
+/*   Updated: 2024/09/25 12:39:59 by kbolon           ###   ########.fr       */
 /*   Updated: 2024/09/25 14:02:27 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -69,6 +70,11 @@ void	ft_render_ray(t_data *data)
 
 //Function to render the game, it will check if the player
 //has moved and update the player new position accordingly
+//the raycast is render after this verification
+int	ft_render(t_data *data)
+{
+//	data->player->has_moved += ft_move_player(data);
+	if (data->player->has_moved == 0)
 //the raycast is render after this verification to display the new
 //view perspective or keep the current one
 int	ft_render(t_data *data)
