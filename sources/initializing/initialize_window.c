@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/24 14:45:17 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 14:50:05 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,30 +71,31 @@ int	ft_initialize_textures(t_data *data)
 	data->textures[N] = mlx_xpm_file_to_image(data->mlx_conn, \
 		data->textinfo->north, &data->image_width, &data->image_height);
 	if (!data->textures[N])
-		error_message("ERROR: problems loading N texture\n");
+		return(ft_destroy_texture(data, 1));
 	data->textures[E] = mlx_xpm_file_to_image(data->mlx_conn, \
 		data->textinfo->east, &data->image_width, &data->image_height);
 	if (!data->textures[E])
-	{
-		mlx_destroy_image(data->mlx_conn, data->textures[N]);
-		error_message("ERROR: problems loading E texture\n");
-	}
+		return(ft_destroy_texture(data, 2));
 	data->textures[S] = mlx_xpm_file_to_image(data->mlx_conn, \
 		data->textinfo->south, &data->image_width, &data->image_height);
 	if (!data->textures[S])
-	{
-		mlx_destroy_image(data->mlx_conn, data->textures[N]);
-		mlx_destroy_image(data->mlx_conn, data->textures[E]);
-		error_message("ERROR: problems loading S texture\n");
-	}
+		return (ft_destroy_texture(data, 3));
 	data->textures[W] = mlx_xpm_file_to_image(data->mlx_conn, \
 		data->textinfo->west, &data->image_width, &data->image_height);
 	if (!data->textures[W])
-	{
-		mlx_destroy_image(data->mlx_conn, data->textures[N]);
-		mlx_destroy_image(data->mlx_conn, data->textures[E]);
-		mlx_destroy_image(data->mlx_conn, data->textures[S]);
-		error_message("ERROR: problems loading W texture\n");
-	}
+		return (ft_destroy_texture(data, 4));
 	return (EXIT_SUCCESS);
+}
+
+int	ft_destroy_texture(t_data *data, int wall)
+{
+	int	i;
+
+	i = -1;
+	while (++i < wall)
+	{
+		mlx_destroy_image(data->mlx_conn, data->textures[i]);
+	}
+	error_message("ERROR: problems loading texture\n");
+	return (EXIT_FAILURE);
 }

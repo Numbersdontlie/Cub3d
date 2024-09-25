@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_raycasting.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/24 00:44:01 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:36:42 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,15 @@ void	ft_implement_dda(t_data *data, t_ray *ray)
 		}
 		else
 		{
-			ray->sidedistance_y += ray->sidedistance_y;
+			ray->sidedistance_y += ray->deltadistance_y;
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ray->map_y < 0.25 || ray->map_x < 0.25 || ray->map_y > data->mapinfo->height - 0.25 || ray->map_x > data->mapinfo->width - 1.25)
+		if (ray->map_y < 0.25 || ray->map_x < 0.25 || \
+			ray->map_y > data->mapinfo->height - 0.25 || \
+			ray->map_x > data->mapinfo->width - 1.25)
 			break ;
-		else if (data->mapinfo->grid[ray->map_y][ray->map_x] > '0')
+		if (data->mapinfo->grid[ray->map_y][ray->map_x] > '0')
 			contact = 1;
 	}
 }
@@ -125,8 +127,34 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_get_ray_step_and_distance(data->ray, player);
 		ft_implement_dda(data, data->ray);
 		ft_calculate_wall_height(data->ray, data->player);
-		ft_update_texture(data, data->textinfo, data->ray, x);
+		ft_get_texture_idx(data, data->ray);
+		ft_update_texture(data, data->textures[data->textinfo->idx], data->ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);
+}
+void ft_render_texture(t_data *data, int *texture, t_ray *ray, int x)
+{
+	int y;
+	int tex_x;
+	int tex_y;
+	int color;
+
+	// Calculate texture X coordinate
+	tex_x = (int)(ray->wall_x * (double)data->image_width);
+	if (ray->side == 0 && ray->dir_x > 0)  // Adjust for perspective if necessary
+		tex_x = data->image_width - tex_x - 1;
+
+	// Loop over the pixels in the vertical slice
+	for (y = ray->draw_start; y < ray->draw_end; y++)
+	{
+		// Calculate the corresponding Y coordinate in the texture
+		tex_y = (((y * 2 - HEIGHT + ray->line_height) * data->image_height) / ray->line_height) / 2;
+
+		// Get the pixel color from the texture
+		color = texture[tex_y * data->image_width + tex_x];
+
+		// Put the pixel to the image
+		ft_put_pixel_to_img(data->imginfo, x, y, color);
+	}
 }

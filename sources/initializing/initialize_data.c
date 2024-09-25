@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/24 14:40:32 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:02:51 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,22 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 		i++;
 	}
 }*/
+
+void	ft_initialize_texture_pixels(t_data *data)
+{
+	int	i;
+
+	if (data->texture_pixels)
+		free(data->texture_pixels);
+	data->texture_pixels = ft_calloc(HEIGHT + 1, sizeof * data->texture_pixels);
+	if (!data->texture_pixels)
+		ft_clean_exit(data);
+	i = 0;
+	while (i < HEIGHT)
+	{
+		data->texture_pixels[i] = ft_calloc(WIDTH + 1, sizeof * data->texture_pixels);
+		if (!data->texture_pixels[i])
+			ft_clean_exit(data);
+		i++;
+	}
+}

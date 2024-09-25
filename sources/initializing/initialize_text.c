@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/24 10:14:35 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:04:53 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,48 +123,4 @@ int	check_rgb_for_illegal_chars(char **arr)
 		}
 	}
 	return (EXIT_SUCCESS);
-}
-
-//Function to initialize the textures information
-//structure, it initialize all to NULL and 0
-//except for the size, which is initialized to PIXELS (64)
-void	ft_init_textinfo(t_textinfo *textures)
-{
-	textures->north = NULL;
-	textures->south = NULL;
-	textures->west = NULL;
-	textures->east = NULL;
-	textures->floor = 0;
-	textures->ceiling = 0;
-	textures->hex_ceiling = 0x0;
-	textures->hex_floor = 0x0;
-	textures->size = PIXELS;
-	textures->step = 0.0;
-	textures->position = 0.0;
-	textures->x = 0;
-	textures->y = 0;
-	textures->floor_rgb = 0;
-	textures->ceiling_rgb = 0;
-}
-
-//Function to initialize a 2D array of pixel values
-//it checks if the texture is already allocated and free it if neccesary
-//it allocate memory for each row of of texture pixel
-void	ft_initialize_texture_pixels(t_data *data)
-{
-	int	i;
-
-	if (data->texture_pixels)
-		free(data->texture_pixels);
-	data->texture_pixels = ft_calloc(HEIGHT + 1, sizeof * data->texture_pixels);
-	if (!data->texture_pixels)
-		ft_clean_exit(data);
-	i = 0;
-	while (i < HEIGHT)
-	{
-		data->texture_pixels[i] = ft_calloc(WIDTH + 1, sizeof * data->texture_pixels);
-		if (!data->texture_pixels[i])
-			ft_clean_exit(data);
-		i++;
-	}
 }
