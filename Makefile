@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
+#    By: luifer <luifer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/25 15:03:31 by kbolon           ###   ########.fr        #
+#    Updated: 2024/09/25 23:15:05 by luifer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS = 	sources/main.c \
 		sources/initializing/initialize_window.c \
 		sources/moving/initial_position.c \
 		sources/moving/check_position.c \
+		sources/moving/rotate.c \
 		sources/moving/move_player.c \
 		sources/raycasting/rendering.c \
 		sources/raycasting/implement_raycasting.c \
