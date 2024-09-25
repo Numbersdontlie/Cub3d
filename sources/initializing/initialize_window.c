@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/25 14:50:05 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 15:51:59 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,18 @@
 //assign the image address
 int	ft_initialize_imginfo(t_data *data)
 {
-	//if (data->imginfo && data->imginfo->img)
-	//	mlx_destroy_image(data->mlx_conn, data->imginfo);
+	if (data->imginfo && data->imginfo->img)
+		mlx_destroy_image(data->mlx_conn, data->imginfo);
 	data->imginfo = (t_img *)ft_calloc(1, sizeof(t_img));
 	if (!data->imginfo)
 		error_message("ERROR: failed to initiate img\n");
 	data->imginfo->img = mlx_new_image(data->mlx_conn, WIDTH, HEIGHT);
 	if (!data->imginfo->img)
-		//error_message("ERROR: failed to create image\n");
-		ft_clean_exit(data);
+		error_message("ERROR: failed to create image\n");
 	data->imginfo->img_addr = (int *)mlx_get_data_addr(data->imginfo->img, \
 		&data->imginfo->bpp, &data->imginfo->line_len, &data->imginfo->endian);
-	//if (!data->imginfo->img_addr)
-	//	error_message("ERROR: failed to get img address\n");
+	if (!data->imginfo->img_addr)
+		error_message("ERROR: failed to get img address\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -58,8 +57,8 @@ int	ft_initialize_texture_image(t_data *data, t_img *image, char *path)
 		&data->image_width, &data->image_height);
 	if (!image->img)
 		error_message_data("ERROR: failed to load texture image\n", data, NULL);
-	image->img_addr = (int *)mlx_get_data_addr\
-		(image->img, &image->bpp, &image->line_len, &image->endian);
+	image->img_addr = (int *)mlx_get_data_addr(image->img, &image->bpp, \
+		&image->line_len, &image->endian);
 	return (EXIT_SUCCESS);
 }
 
@@ -68,6 +67,9 @@ int	ft_initialize_texture_image(t_data *data, t_img *image, char *path)
 //to load the textures in the data structure
 int	ft_initialize_textures(t_data *data)
 {
+	data->textures = ft_calloc(4, sizeof(int *));
+	if (!data->textures)
+		error_message("ERROR: Memory allocation fail for textures\n");
 	data->textures[N] = mlx_xpm_file_to_image(data->mlx_conn, \
 		data->textinfo->north, &data->image_width, &data->image_height);
 	if (!data->textures[N])
@@ -94,8 +96,9 @@ int	ft_destroy_texture(t_data *data, int wall)
 	i = -1;
 	while (++i < wall)
 	{
-		mlx_destroy_image(data->mlx_conn, data->textures[i]);
+		if (data->textures[i])
+			mlx_destroy_image(data->mlx_conn, data->textures[i]);
 	}
-	error_message("ERROR: problems loading texture\n");
+	free(data->textures);
 	return (EXIT_FAILURE);
 }

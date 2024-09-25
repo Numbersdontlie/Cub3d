@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:49:35 by lperez-h          #+#    #+#             */
-/*   Updated: 2024/09/25 12:58:33 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 15:09:23 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	ft_update_texture(t_data *data, int *texture, t_ray *ray, int x)
 		(ray->side == 1 && ray->dir_y > 0))
 		data->textinfo->x = data->textinfo->size - data->textinfo->x - 1;
 	data->textinfo->step = 1.0 * data->textinfo->size / ray->line_height;
-	data->textinfo->position = (ray->draw_start - HEIGHT / 2 + \
+	data->textinfo->pos = (ray->draw_start - HEIGHT / 2 + \
 		ray->line_height / 2) * data->textinfo->step;
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{
-		data->textinfo->y = (int)data->textinfo->position & (data->textinfo->size - 1);
-		data->textinfo->position += data->textinfo->step;
+		data->textinfo->y = (int)data->textinfo->pos & (data->textinfo->size - 1);
+		data->textinfo->pos += data->textinfo->step;
 		colour = texture[data->textinfo->size * data->textinfo->y + data->textinfo->x];
 		ft_put_pixel_to_img(data->imginfo, x, y, colour);
 		y++;

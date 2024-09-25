@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/23 13:43:36 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 16:08:37 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,36 @@ void	free_memory(char **arr)
 //it destroy the image, window and display before freeing memory
 void	ft_clean_exit(t_data *data)
 {
-	free_textures(data);
-	if (data->imginfo && data->imginfo->img)
+	if (data->textures)
 	{
-		mlx_destroy_image(data->mlx_conn, data->imginfo->img);
+		ft_destroy_texture(data, 4);
+		free(data->textures);
+		data->textures = NULL;
+	}
+	if (data->imginfo)
+	{
+		if (data->imginfo->img)
+		{
+			mlx_destroy_image(data->mlx_conn, data->imginfo->img);
+			data->imginfo->img = NULL;
+		}
 		free(data->imginfo);
+		data->imginfo = NULL;
 	}
 	if (data->mlx_window)
+	{
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
+		data->mlx_window = NULL;
+	}
 	if (data->mapinfo)
 	{
 		if (data->mapinfo->grid)
+		{
 			free_memory(data->mapinfo->grid);
+			data->mapinfo->grid = NULL;
+		}
 		free(data->mapinfo);
+		data->mapinfo = NULL;
 	}
 	if (data->player)
 		free(data->player);
@@ -52,9 +69,9 @@ void	ft_clean_exit(t_data *data)
 		free_text(data->textinfo);
 	if (data->mlx_conn)
 	{
-//		mlx_loop_end(data->mlx_conn);
 		mlx_destroy_display(data->mlx_conn);
 		free(data->mlx_conn);
+		data->mlx_conn = NULL;
 	}
 	free(data);
 	exit(0);
@@ -86,12 +103,14 @@ void	free_textures(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < 2)
+	i = -1;
+	while (++i < 4)
 	{
 		if (data->textures[i])
+		{
 			mlx_destroy_image(data->mlx_conn, data->textures[i]);
-		i++;
+			data->textures[i] = NULL;
+		}
 	}
 }
 

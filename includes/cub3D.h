@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/25 14:48:04 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 15:29:54 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_textinfo
 	int				size;
 	int				idx;
 	double			step;
-	double			position;
+	double			pos;
 	int				x;
 	int				y;
 }	t_textinfo;
@@ -190,7 +190,7 @@ typedef struct s_data
 	t_textinfo	*textinfo;
 	t_img		*imginfo;
 	t_mini		minimap;
-	int			*textures[4];//NESW
+	int			**textures;//NESW
 	int			**texture_pixels;
 }	t_data;
 

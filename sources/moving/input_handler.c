@@ -57,8 +57,8 @@ int	ft_release_key(int keysym, t_data *data)
 
 int on_destroy(t_data *data)
 {
-/*	if (data->textures[0])
-		mlx_destroy_image(data->mlx_conn, data->textures[0]);
+	if (data->textures[0])
+		ft_destroy_texture(data, 4);
 	if (data->mlx_window)
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
 	mlx_loop_end(data->mlx_conn);
@@ -66,7 +66,7 @@ int on_destroy(t_data *data)
 	{
 		mlx_destroy_display(data->mlx_conn);
 		free(data->mlx_conn);
-	}*/
+	}
 	mlx_loop_end(data->mlx_conn);
 	ft_clean_exit(data);
 	exit(EXIT_SUCCESS);
