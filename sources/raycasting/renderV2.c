@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 23:25:59 by luifer            #+#    #+#             */
 /*   Updated: 2024/09/25 12:39:59 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 14:02:27 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +19,11 @@
 //region and draw the ceiling or floor color if no texture is present
 void	ft_update_pixels_img(t_data *data, t_img *img, int x, int y)
 {
-	if (data->texture_pixels[y][x] > 0)
-		ft_put_pixel_to_img(img, x, y, data->texture_pixels[y][x]);
+	int	pix;
+
+	pix = data->texture_pixels[y][x];
+	if (pix > 0)
+		ft_put_pixel_to_img(img, x, y, pix);
 	else if (y < HEIGHT / 2)
 		ft_put_pixel_to_img(img, x, y, data->textinfo->hex_ceiling);
 	else if (y < HEIGHT - 1)
@@ -71,6 +75,15 @@ int	ft_render(t_data *data)
 {
 //	data->player->has_moved += ft_move_player(data);
 	if (data->player->has_moved == 0)
+//the raycast is render after this verification to display the new
+//view perspective or keep the current one
+int	ft_render(t_data *data)
+{
+	int	move;
+
+	move = data->player->has_moved;
+	move += ft_move_player(data);
+	if (move == 0)
 		return (EXIT_SUCCESS);
 	ft_render_ray(data);
 	return (EXIT_SUCCESS);

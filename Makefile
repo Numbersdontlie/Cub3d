@@ -6,7 +6,7 @@
 #    By: luifer <luifer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/25 00:40:50 by luifer           ###   ########.fr        #
+#    Updated: 2024/09/25 11:49:31 by luifer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SRCS = 	sources/main.c \
 		sources/moving/input_handler.c \
 		sources/initializing/initialize_window.c \
 		sources/moving/initial_position.c \
+		sources/moving/check_position.c \
+		sources/moving/move_player.c \
 		sources/moving/move_player.c \
 		sources/raycasting/rendering.c \
 		sources/raycasting/implement_raycasting.c \

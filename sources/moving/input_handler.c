@@ -19,19 +19,19 @@ int	ft_handle_key(int keysym, t_data *data)
 {
 	if (keysym == XK_ESCAPE)
 		on_destroy(data);
-	if (keysym == LEFT)
-		data->player->rotate -= 1;
-	if (keysym == RIGHT)
-		data->player->rotate += 1;
 	if (keysym == FORWARD)
 		data->player->move_y = 1;
 	if (keysym == BACKWARD)
 		data->player->move_y = -1;
-	if (keysym == ROTATE_LEFT)
+	if (keysym == MOVE_LEFT)
 		data->player->move_x = -1;
-	if (keysym == ROTATE_RIGHT)
+	if (keysym == MOVE_RIGHT)
 		data->player->move_x = 1;
-	return (0);
+	if (keysym == ROTATE_LEFT)
+		data->player->rotate -= 1;
+	if (keysym == ROTATE_RIGHT)
+		data->player->rotate += 1;
+	return (EXIT_SUCCESS);
 }
 
 //Function to handle the release of the key after being 
@@ -40,19 +40,19 @@ int	ft_release_key(int keysym, t_data *data)
 {
 	if (keysym == XK_ESCAPE)
 		ft_clean_exit(data);
-	if (keysym == LEFT)
+	if (keysym == FORWARD && data->player->move_y == 1)
+		data->player->move_y = 0;
+	if (keysym == BACKWARD && data->player->move_y == -1)
+		data->player->move_y = 0;
+	if (keysym == MOVE_LEFT && data->player->move_x == -1)
+		data->player->move_x += 1;
+	if (keysym == MOVE_RIGHT && data->player->move_x == 1)
 		data->player->rotate -= 1;
-	if (keysym == RIGHT)
-		data->player->rotate += 1;
-	if (keysym == FORWARD)
-		data->player->move_y = 1;
-	if (keysym == BACKWARD)
-		data->player->move_y = -1;
-	if (keysym == ROTATE_LEFT)
-		data->player->move_x = -1;
-	if (keysym == ROTATE_RIGHT)
-		data->player->move_x = 1;
-	return (0);
+	if (keysym == ROTATE_LEFT && data->player->rotate <= 1)
+		data->player->rotate = 0;
+	if (keysym == ROTATE_RIGHT && data->player->rotate >= -1)
+		data->player->rotate = 0;
+	return (EXIT_SUCCESS);
 }
 
 int on_destroy(t_data *data)
@@ -69,8 +69,8 @@ int on_destroy(t_data *data)
 	}*/
 	mlx_loop_end(data->mlx_conn);
 	ft_clean_exit(data);
-	exit(0);
-	return (0);
+	exit(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 
