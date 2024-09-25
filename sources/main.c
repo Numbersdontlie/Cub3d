@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/25 12:07:24 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 16:13:34 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,17 @@ int	main(int ac, char **av)
 	if (ft_initialize_imginfo(data) == EXIT_FAILURE)
 		error_message_data("ERROR: problem initiating imginfo\n", data, NULL);
 	if (ft_initialize_textures(data) == EXIT_FAILURE)
+	{
+		mlx_destroy_image(data->mlx_conn, data->imginfo->img);
+		free(data->imginfo);
+		mlx_destroy_window(data->mlx_conn, data->mlx_window);
 		error_message_data("ERROR: problem initiating textures\n", data, NULL);
+	}
 	ft_game(data);
 //	render_map(data); mini map
 	ft_initialize_events(data);
 	ft_clean_exit(data);
-//	free_text(text);
-//	free(data);
+	free_text(text);
+	free(data);
 	return (EXIT_SUCCESS);
 }

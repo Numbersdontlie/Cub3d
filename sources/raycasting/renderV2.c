@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 23:25:59 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/25 15:00:25 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 15:40:45 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_render(t_data *data)
 	int	move;
 
 	move = data->player->has_moved;
-//	move += ft_move_player(data);
+	move += ft_move_player(data);
 	if (move == 0)
 		return (EXIT_SUCCESS);
 	ft_render_ray(data);
