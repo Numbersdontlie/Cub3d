@@ -6,7 +6,7 @@
 /*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/25 12:22:59 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/25 14:02:22 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@
 # define PSYCHEDELIC_PURPLE 0x660866
 # define ELECTRIC_BLUE 0x0066FF
 # define LAVA_RED 0xFF3300
+
+# ifndef BONUS
+#  define BONUS 1
+# endif
 
 //set up enum for directions
 typedef enum	e_direction
@@ -274,7 +278,11 @@ void		ft_player_movement_forward_backword(t_data *data);
 void		ft_rotation(t_data *data);
 void		ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour);
 void		ft_render_ceiling_and_floor(t_data *data);
-void		ft_render_hex_sections(t_data *data);//
+void		ft_render_hex_sections(t_data *data);
+void		ft_update_pixels_img(t_data *data, t_img *img, int x, int y);
+void		ft_draw_image_in_window(t_data *data);
+void		ft_render_ray(t_data *data);
+int			ft_render(t_data *data);
 
 //sources/moving/initial_position.c
 void		ft_initialize_north_south(t_player *player);
@@ -290,7 +298,7 @@ int			ft_move_player(t_data *data);
 
 //sources/moving/check_position.c
 int			ft_check_if_empty(t_data *data, double x, double y);
-int			ft_check_if_inside_map(t_data *data, double x, double y);
+int			ft_check_if_inside_map(double x, double y);
 int			ft_allow_movement(t_data *data, double x, double y);
 int			ft_validate_movement(t_data * data, double x_after, double y_after);
 

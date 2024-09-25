@@ -6,7 +6,7 @@
 /*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:56:54 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/25 11:53:22 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/25 13:58:57 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_check_if_empty(t_data *data, double x, double y)
 //Function to check if the new position is inside the bounds of the map
 //it assures that the new player position stays inside the map limits (height and width)
 //in which case returns success status
-int	ft_check_if_inside_map(t_data *data, double x, double y)
+int	ft_check_if_inside_map(double x, double y)
 {
 	if (x < 0.25 || x >= WIDTH - 1.25)
 		return (EXIT_FAILURE);
@@ -49,8 +49,8 @@ int	ft_allow_movement(t_data *data, double x, double y)
 	}
 	else
 	{
-		if (ft_check_if_inside_map(data, x, y))
-			return (EXIT_SUCCESS)
+		if (ft_check_if_inside_map(x, y))
+			return (EXIT_SUCCESS);
 	}
 	return (EXIT_FAILURE);
 }
