@@ -39,7 +39,7 @@ int	ft_handle_key(int keysym, t_data *data)
 int	ft_release_key(int keysym, t_data *data)
 {
 	if (keysym == XK_ESCAPE)
-		ft_clean_exit(data);
+		on_destroy(data);
 	if (keysym == FORWARD && data->player->move_y == 1)
 		data->player->move_y = 0;
 	if (keysym == BACKWARD && data->player->move_y == -1)

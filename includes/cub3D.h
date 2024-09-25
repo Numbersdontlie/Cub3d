@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/25 15:29:54 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/25 23:14:13 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,13 @@ typedef struct s_mini
 	int		tile;
 	int		mini_y;//offset
 	int		mini_x;//offset
-} t_mini;
+}	t_mini;
 
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
 
 //Structure to store the global data of the game, it includes:
 //pointer to minilibx connection and window, window height and width, pointer to
@@ -298,6 +303,10 @@ int			ft_check_if_empty(t_data *data, double x, double y);
 int			ft_check_if_inside_map(double x, double y);
 int			ft_allow_movement(t_data *data, double x, double y);
 int			ft_validate_movement(t_data * data, double x_after, double y_after);
+
+//sources/moving/rotate.c
+int			ft_rotate_player_dir_vector(t_data *data, double speedrot);
+int			ft_execute_rotation(t_data *data, double dirrot);
 
 //sources/raycasting/implement_raycasting.c
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
