@@ -6,7 +6,7 @@
 /*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/25 00:33:31 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:22:59 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,23 @@
 # define XK_ESCAPE 0xff1b //Escape
 # define FORWARD 0x77 //W
 # define BACKWARD 0x73 //S
-# define ROTATE_LEFT 0x61 //A
-# define ROTATE_RIGHT 0x64 //D
-# define LEFT 0xff51 //left arrow
-# define RIGHT 0xff53 //right arrow
+# define MOVE_LEFT 0x61 //A
+# define MOVE_RIGHT 0x64 //D
+# define ROTATE_LEFT 0xff51 //left arrow
+# define ROTATE_RIGHT 0xff53 //right arrow
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
 # define TRUE 10
-# define FALSE 
+# define FALSE 20
 # define RED 0x7F7F7F
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
+# define MAGENTA_BURST 0xFF00FF
+# define LIME_SHOCK 0xCCFF00
+# define NEON_ORANGE 0xFF6600
+# define PSYCHEDELIC_PURPLE 0x660866
+# define ELECTRIC_BLUE 0x0066FF
+# define LAVA_RED 0xFF3300
 
 //set up enum for directions
 typedef enum	e_direction
@@ -177,6 +183,7 @@ typedef struct s_data
 	int			image_width;
 	t_mapinfo	*mapinfo;
 	t_player	*player;
+	char		**map;//will charge the map in an array to access from function to check movement
 	t_ray		*ray;
 	t_textinfo	*textinfo;
 	t_img		*imginfo;
@@ -280,6 +287,12 @@ int			ft_move_player_bw(t_data *data);
 int			ft_move_player_left(t_data *data);
 int			ft_move_player_right(t_data *data);
 int			ft_move_player(t_data *data);
+
+//sources/moving/check_position.c
+int			ft_check_if_empty(t_data *data, double x, double y);
+int			ft_check_if_inside_map(t_data *data, double x, double y);
+int			ft_allow_movement(t_data *data, double x, double y);
+int			ft_validate_movement(t_data * data, double x_after, double y_after);
 
 //sources/raycasting/implement_raycasting.c
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);

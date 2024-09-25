@@ -6,7 +6,7 @@
 /*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:59:22 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/25 00:39:56 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:06:52 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_move_player_fw(t_data *data)
 
 	x_after = data->player->pos_x + data->player->dir_x * MOVEMENTSPEED;
 	y_after = data->player->pos_y + data->player->dir_y * MOVEMENTSPEED;
-	return (ft_validate_movement());//ToDo
+	return (ft_validate_movement(data, x_after, y_after));
 }
 
 //Function to move the player backward, it will take 2 variables to update
@@ -37,7 +37,7 @@ int	ft_move_player_bw(t_data *data)
 
 	x_after = data->player->pos_x - data->player->dir_x * MOVEMENTSPEED;
 	y_after = data->player->pos_y - data->player->dir_y * MOVEMENTSPEED;
-	return (ft_validate_movement());//ToDo
+	return (ft_validate_movement(data, x_after, y_after));
 }
 
 //Function to move the player to the left, it will take 2 variables to update
@@ -51,7 +51,7 @@ int	ft_move_player_left(t_data *data)
 
 	x_after = data->player->pos_x + data->player->dir_y * MOVEMENTSPEED;
 	y_after = data->player->pos_y - data->player->dir_y * MOVEMENTSPEED;
-	return (ft_validate_movement());//ToDo
+	return (ft_validate_movement(data, x_after, y_after));
 }
 
 //Function to move the player to the right, it will take 2 variables to update
@@ -65,7 +65,7 @@ int	ft_move_player_right(t_data *data)
 
 	x_after = data->player->pos_x - data->player->dir_y * MOVEMENTSPEED;
 	y_after = data->player->pos_y + data->player->dir_x * MOVEMENTSPEED;
-	return (ft_validate_movement());//ToDo
+	return (ft_validate_movement(data, x_after, y_after));
 }
 
 //Function to move the player through the map world
