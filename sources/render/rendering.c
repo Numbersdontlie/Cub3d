@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/25 16:12:33 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 06:51:15 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,20 @@ void	ft_render_ceiling_and_floor(t_data *data)
 	}
 }
 
-void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)
+/*void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)
 {
 	char	*pixel;
 	int		bytes_per_pixel;
 
 	bytes_per_pixel = imginfo->bpp/8;
 	pixel = (char *)imginfo->img_addr + (y * imginfo->line_len + x * bytes_per_pixel);
+	*(unsigned int *)pixel = colour;
+}*/
+void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)
+{
+	char	*pixel;
+
+	pixel = (char *)imginfo->img_addr + (y * imginfo->line_len + x * \
+		imginfo->bpp/8);
 	*(unsigned int *)pixel = colour;
 }

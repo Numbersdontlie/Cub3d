@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: luifer <luifer@student.42.fr>              +#+  +:+       +#+         #
+#    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/25 23:15:05 by luifer           ###   ########.fr        #
+#    Updated: 2024/09/26 07:02:24 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,10 @@ SRCS = 	sources/main.c \
 		sources/moving/check_position.c \
 		sources/moving/rotate.c \
 		sources/moving/move_player.c \
-		sources/raycasting/rendering.c \
+		sources/render/rendering.c \
 		sources/raycasting/implement_raycasting.c \
 		sources/raycasting/handle_textures.c \
-		sources/raycasting/renderV2.c \
+		sources/render/renderV2.c \
 		sources/render/mini_map.c
 
 LIBFT = libft/libft.a

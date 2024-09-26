@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:02:47 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/25 23:15:02 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/26 06:50:39 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/cub3D.h"
+
+/*****I COMMENTED OUT BECAUSE IT MADE ERRORS WITH THE TVECTOR*****
+
 
 //Function to apply the rotation formula
 static void	ft_rotate(t_vector *vector, double speedrot)
@@ -32,10 +35,11 @@ int	ft_rotate_player_dir_vector(t_data *data, double speedrot)
 	t_player	*ply;
 	t_vector	*tmp;
 
-	ply = &data->player;
-	tmp = {&ply->dir_x, &ply->dir_y};
+	tmp = NULL;
+	ply = data->player;
+	tmp = {ply->dir_x, ply->dir_y};
 	ft_rotate(tmp, speedrot);
-	tmp = {&ply->plane_x, &ply->plane_y};
+	tmp = {ply->plane_x, ply->plane_y};
 	ft_rotate(tmp, speedrot);
 	return (EXIT_FAILURE);
 }
@@ -50,4 +54,4 @@ int	ft_execute_rotation(t_data *data, double dirrot)
 	speed_rotation = ROTATIONSPEED * dirrot;
 	move += ft_rotate_player_dir_vector(data, speed_rotation);
 	return (move);
-}
+}*/

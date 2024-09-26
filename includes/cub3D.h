@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/25 23:14:13 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/26 06:58:57 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-	//char	*path;
 }	t_img;
 
 
@@ -111,7 +110,6 @@ typedef struct s_mapinfo
 {
 	int		fd;
 	size_t	line_count;
-//	char	*path;//path to what?
 	char	**grid;
 	size_t	player_x; //we can move these, I just put to easy testing bc I only init map
 	size_t	player_y; //we can move these, I just put to easy testing bc I only init map
@@ -184,19 +182,20 @@ typedef struct s_vector
 //map, player, ray and textinfo. It also includes map and textures
 typedef struct s_data
 {
-	void		*mlx_conn;
-	void		*mlx_window;
-	int			image_height;
-	int			image_width;
-	t_mapinfo	*mapinfo;
-	t_player	*player;
-	char		**map;//will charge the map in an array to access from function to check movement
-	t_ray		*ray;
-	t_textinfo	*textinfo;
-	t_img		*imginfo;
-	t_mini		minimap;
-	int			**textures;//NESW
-	int			**texture_pixels;
+	void			*mlx_conn;
+	void			*mlx_window;
+	int				image_height;
+	int				image_width;
+	t_mapinfo		*mapinfo;
+	t_player		*player;
+	char			**map;//will charge the map in an array to access from function to check movement
+	t_ray			*ray;
+	t_textinfo		*textinfo;
+	t_img			*imginfo;
+	t_mini			minimap;
+	int				**textures;//NESW
+	int				**texture_pixels;
+	unsigned int	colour;
 }	t_data;
 
 //errors.c
