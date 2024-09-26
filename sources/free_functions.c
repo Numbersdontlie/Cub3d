@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/25 16:08:37 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 13:15:40 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	free_memory(char **arr)
 //it destroy the image, window and display before freeing memory
 void	ft_clean_exit(t_data *data)
 {
-	if (data->textures)
+/*	if (data->textures)
 	{
 		ft_destroy_texture(data, 4);
 		free(data->textures);
 		data->textures = NULL;
-	}
+	}*/
 	if (data->imginfo)
 	{
 		if (data->imginfo->img)
@@ -106,10 +106,10 @@ void	free_textures(t_data *data)
 	i = -1;
 	while (++i < 4)
 	{
-		if (data->textures[i])
+		if (data->texture.textures[i])
 		{
-			mlx_destroy_image(data->mlx_conn, data->textures[i]);
-			data->textures[i] = NULL;
+			mlx_destroy_image(data->mlx_conn, data->texture.textures[i]);
+			data->texture.textures[i] = NULL;
 		}
 	}
 }

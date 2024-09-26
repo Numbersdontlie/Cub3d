@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/17 17:48:02 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 12:38:50 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ char	*find_cardinal_paths(char **arr, char *s)
 		{
 			path_found = ft_strdup(arr[i] + 2);
 			if (!path_found)
-				error_message_simple("ERROR: Memory Alloc failed\n", arr);
+				error_message("ERROR: Memory Alloc failed\n", arr);
 			path_extension = path_extractor(arr, path_found);
 			return (path_extension);
 		}
 	}
-	error_message_simple("ERROR: path not found\n", arr);
+	error_message("ERROR: path not found\n", arr);
 	return (NULL);
 }
 
@@ -51,7 +51,7 @@ char 	*path_extractor(char **arr, char *str)
 	if (!path)
 	{
 		free (str);
-		error_message_simple("ERROR: Memory Alloc failed\n", arr);
+		error_message("ERROR: Memory Alloc failed\n", arr);
 	}
 	free (str);
 	return (path);
@@ -75,10 +75,10 @@ char	*find_floor_ceiling(t_textinfo *text, char **arr, int c)
 			if (*path && (path = ft_strdup(path)))
 				return (path);
 			free_memory(arr);
-			error_message_text("ERROR: mem alloc failed\n", text);
+			error_exit("ERROR: mem alloc failed\n", NULL, text);
 		}
 	}
-	return(error_message_simple("ERROR: RGB path not found\n", arr), NULL);
+	return(error_message("ERROR: RGB path not found\n", arr), NULL);
 }
 
 char	**remove_empty_lines(char **arr)
@@ -92,7 +92,7 @@ char	**remove_empty_lines(char **arr)
 	i = row_count(arr);
 	updated_grid = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (!updated_grid)
-		error_message_simple("ERROR: Memory alloc failed with trimming\n", arr);
+		error_message("ERROR: Memory alloc failed with trimming\n", arr);
 	i = 0;
 	while (arr[i] != NULL)
 	{
@@ -119,7 +119,7 @@ t_textinfo	*find_grid(t_textinfo *text, char **grid)
 	i = row_count(grid);
 	temp = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (!temp)
-		error_message_simple("ERROR: calloc fail in text_init", grid);
+		error_message("ERROR: calloc fail in text_init", grid);
 	i = 0;
 	while (grid[i] != NULL)
 	{
@@ -127,7 +127,7 @@ t_textinfo	*find_grid(t_textinfo *text, char **grid)
 		{
 			temp[j] = ft_strdup(grid[i]);
 			if (!temp[j])
-				error_message_text("ERROR: problems copying grid\n", text);
+				error_exit("ERROR: problems copying grid\n",  NULL, text);
 			j++;
 		}
 		i++;
