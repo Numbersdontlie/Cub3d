@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:44:09 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/04 15:12:13 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 12:42:17 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	flood_fill(char **game)
 	player_y = find_item(game, 'y');
 	arr = (char **) malloc (sizeof(char *) * (row_count(game) + 1));
 	if (!arr)
-		error_message("Error\nmemory allocation fail in tmp.grid");
+		error_message("Error\nmemory allocation fail in tmp.grid", NULL);
 	while (i < row_count(game))
 	{
 		arr[i] = ft_strdup(game[i]);
@@ -88,7 +88,7 @@ void	flood_fill(char **game)
 	if (path_checker(arr, player_y, player_x)) 
 	{
 		free_memory(game);
-		error_message_simple("ERROR: Map is not enclosed\n", arr);
+		error_message("ERROR: Map is not enclosed\n", arr);
 	}
 	free_memory(arr);
 }

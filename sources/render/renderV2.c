@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 23:25:59 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/25 15:40:45 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 13:13:33 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_update_pixels_img(t_data *data, t_img *img, int x, int y)
 {
 	int	pix;
 
-	pix = data->texture_pixels[y][x];
+	pix = data->texture.textures[y][x];
 	if (pix > 0)
 		ft_put_pixel_to_img(img, x, y, pix);
 	else if (y < HEIGHT / 2)

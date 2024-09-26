@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/25 12:04:53 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 12:40:20 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 
 	grid = read_map(*arr);
 	if (!grid)
-		error_message("ERROR: problem reading map");
+		error_message("ERROR: problem reading map", NULL);
 	text = (t_textinfo *) ft_calloc (1, sizeof(t_textinfo));
 	if (!text)
-		error_message_simple("ERROR: calloc fail in text_init", grid);
+		error_message("ERROR: calloc fail in text_init", grid);
 	text->north = find_cardinal_paths(grid, "NO");
 	text->south = find_cardinal_paths(grid, "SO");
 	text->west = find_cardinal_paths(grid, "WE");
@@ -36,7 +36,7 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 	text->size = PIXELS;
 	text = find_grid(text, grid);
 	if (!text->grid)
-		error_message_text("ERROR: problems copying grid in init\n", text);
+		error_exit("ERROR: problems copying grid in init\n", NULL, text);
 	free_memory(grid);
 	return (text);
 }
@@ -53,7 +53,7 @@ int	*validate_and_convert(t_textinfo *text, char **arr, \
 	if (!rgb)
 	{
 		free_memory(arr);
-		error_message_text("ERROR: problem with allocating rgb", text);
+		error_exit("ERROR: problem with allocating rgb", NULL, text);
 	}
 	while (++i < 3)
 	{
@@ -62,7 +62,7 @@ int	*validate_and_convert(t_textinfo *text, char **arr, \
 		{
 			free(rgb);
 			free_memory(arr);
-			error_message_text("ERROR: rgb is not valid", text);
+			error_exit("ERROR: rgb is not valid", NULL, text);
 		}
 	}
 	*hex_value = ((rgb[0] & 0xff) << 16) + ((rgb[1] & 0xff) << 8) + \
@@ -81,19 +81,19 @@ int	*populate_rgb_values(t_textinfo *text, char **grid, int c,
 	if (!temp)
 	{
 		free_memory(grid);
-		error_message_text("ERROR: floor/ceiling values not found\n", text);
+		error_exit("ERROR: floor/ceiling values not found\n", NULL, text);
 	}
 	arr = ft_split(temp, ',');
 	free(temp);
 	if (!arr)
 	{
 		free_memory(grid);
-		error_message_text("problem with splitting rgb", text);
+		error_exit("problem with splitting rgb", NULL, text);
 	}
 	if (check_rgb_for_illegal_chars(arr) == EXIT_FAILURE)
 	{
 		free_memory(grid);
-		error_message_text("problem with splitting rgb", text);
+		error_exit("problem with splitting rgb", NULL, text);
 	}
 	rgb = validate_and_convert(text, arr, hex_value);
 	free_memory(arr);
@@ -110,7 +110,7 @@ int	check_rgb_for_illegal_chars(char **arr)
 	i = -1;
 	count = row_count(arr);
 	if (count < 3)
-		error_message("ERROR: RGB not valid\n");
+		error_exit("ERROR: RGB not valid\n", NULL, NULL);
 	while (++i < count)
 	{
 		j = 0;
@@ -119,7 +119,7 @@ int	check_rgb_for_illegal_chars(char **arr)
 			if (ft_isdigit(arr[i][j]))
 				j++;
 			else
-				error_message("ERROR: RGB not valid\n");
+				error_exit("ERROR: RGB not valid\n", NULL, NULL);
 		}
 	}
 	return (EXIT_SUCCESS);

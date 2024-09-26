@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:49:35 by lperez-h          #+#    #+#             */
-/*   Updated: 2024/09/25 15:09:23 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 13:12:35 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_render_wall_texture(t_data *data, t_ray *ray, int x)
 	{
 		texture_y = (int)texture_pos & (data->textinfo->size - 1);
 		texture_pos += step;
-		colour = data->textures[data->textinfo->idx][data->textinfo->size * texture_y + texture_x];
+		colour = data->texture.textures[data->textinfo->idx][data->textinfo->size * texture_y + texture_x];
 		ft_put_pixel_to_img(data->imginfo, x, y, colour);
 		y++;
 	}

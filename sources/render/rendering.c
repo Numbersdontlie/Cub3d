@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/26 06:51:15 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 11:08:07 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,7 @@ void	ft_render_ceiling_and_floor(t_data *data)
 {
 	int	x;
 	int	y;
-	int	ceiling_colour;
-	int	floor_colour;
 
-	ceiling_colour = data->textinfo->hex_ceiling;
-	floor_colour = data->textinfo->hex_floor;
 	y = -1;
 	while (++y < HEIGHT)
 	{
@@ -95,23 +91,16 @@ void	ft_render_ceiling_and_floor(t_data *data)
 			while (++x < WIDTH)
 			{
 				if (y < HEIGHT/2)
-					ft_put_pixel_to_img(data->imginfo, x, y, ceiling_colour);
+					ft_put_pixel_to_img(data->imginfo, x, y, \
+						data->textinfo->hex_ceiling);
 				else
-					ft_put_pixel_to_img(data->imginfo, x, y, floor_colour);
+					ft_put_pixel_to_img(data->imginfo, x, y, \
+						data->textinfo->hex_floor);
 			}
 		}
 	}
 }
 
-/*void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)
-{
-	char	*pixel;
-	int		bytes_per_pixel;
-
-	bytes_per_pixel = imginfo->bpp/8;
-	pixel = (char *)imginfo->img_addr + (y * imginfo->line_len + x * bytes_per_pixel);
-	*(unsigned int *)pixel = colour;
-}*/
 void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)
 {
 	char	*pixel;

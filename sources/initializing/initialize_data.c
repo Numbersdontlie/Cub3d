@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/26 06:54:16 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 12:33:25 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void 	ft_initialize_map(t_data *data, t_textinfo *text)
 	count = data->mapinfo->line_count;
 	data->mapinfo->grid = (char **)ft_calloc (count + 1, sizeof(char *));
 	if (!data->mapinfo->grid)
-		error_message_data("ERROR: calloc fail in map_init", data, text);
+		error_exit("ERROR: calloc fail in map_init", data, text);
 	while (i < count)
 	{
 		data->mapinfo->grid[i] = ft_strdup(text->grid[i]);
 		if (!data->mapinfo->grid[i])
-			error_message_data("ERROR: ft_strdup fail in map_init", data, text);
+			error_exit("ERROR: ft_strdup fail in map_init", data, text);
 		i++;
 	}
 	data->mapinfo->grid[i] = NULL;
@@ -43,17 +43,17 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 {
 	*data = (t_data *)ft_calloc(1, sizeof(t_data));
 	if (!*data)
-		error_message_text("ERROR: problems copying grid in init\n", text);
+		error_exit("ERROR: problems copying grid in init\n", NULL, text);
 	(*data)->textinfo = text;
 	(*data)->player = (t_player *)ft_calloc(1, sizeof(t_player));
 	if (!(*data)->player)
-		error_message_data("ERROR: problems init player", *data, text);
+		error_exit("ERROR: problems init player", *data, text);
 	(*data)->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
 	if (!(*data)->ray)
-		error_message_data("ERROR: problems init ray", *data, text);
+		error_exit("ERROR: problems init ray", *data, text);
 	(*data)->mapinfo = (t_mapinfo *)ft_calloc(1, sizeof(t_mapinfo));
 	if (!(*data)->mapinfo)
-		error_message_data("ERROR: problems init map", *data, text);
+		error_exit("ERROR: problems init map", *data, text);
 	ft_initialize_map(*data, text);
 	return (EXIT_SUCCESS);
 }
@@ -69,13 +69,13 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 		free(data->textures);
 	data->textures = ft_calloc(HEIGHT, sizeof(int *));
 	if (!data->textures)
-		error_message_data("problems calloc texture_pixels\n", data, NULL);
+		error_exit("problems calloc texture_pixels\n", data, NULL);
 	i = 0;
 	while (i < HEIGHT)
 	{
 		data->textures[i] = ft_calloc(WIDTH, sizeof(int));
 		if (!data->textures[i])
-			error_message_data("problems calloc texture_pixels\n", data, NULL);
+			error_exit("problems calloc texture_pixels\n", data, NULL);
 		i++;
 	}
 }*/
