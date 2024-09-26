@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/26 06:58:57 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 13:08:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,13 @@ typedef struct s_vector
 	double	y;
 }	t_vector;
 
+typedef struct s_texture
+{
+	int		*textures[4];
+	t_img	*imgtextures[4];
+}	t_texture;
+
+
 //Structure to store the global data of the game, it includes:
 //pointer to minilibx connection and window, window height and width, pointer to
 //map, player, ray and textinfo. It also includes map and textures
@@ -192,17 +199,14 @@ typedef struct s_data
 	t_ray			*ray;
 	t_textinfo		*textinfo;
 	t_img			*imginfo;
+	t_texture		texture;
 	t_mini			minimap;
-	int				**textures;//NESW
-	int				**texture_pixels;
 	unsigned int	colour;
 }	t_data;
 
 //errors.c
-void		error_message(char *str);
-void		error_message_simple(char *str, char **arr);
-void		error_message_text(char *str, t_textinfo *text);
-void		error_message_data(char *str, t_data *data, t_textinfo *text);
+void		error_message(char *str, char **arr);
+void		error_exit(char *str, t_data *data, t_textinfo *text);
 //int			ft_wrapper_exit(t_data *data);
 
 //initialize_data.c
@@ -219,8 +223,8 @@ int			ft_initialize_texture_image(t_data *data, t_img *image, char *path);
 int			*ft_put_img_into_buffer(t_data *data, char *path);
 int			ft_initialize_textures(t_data *data);
 int			filter_grid_lines(char *grid);
-void		check_path(char *path);
-int			ft_destroy_texture(t_data *data, int wall);
+//void		check_path(char *path);
+void			ft_destroy_texture(t_data *data, int wall);
 
 
 //free_functions.c

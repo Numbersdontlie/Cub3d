@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/25 15:41:03 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 13:12:15 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_implement_dda(data, data->ray);
 		ft_calculate_wall_height(data->ray, data->player);
 		ft_get_texture_idx(data, data->ray);
-		ft_update_texture(data, data->textures[data->textinfo->idx], data->ray, x);
+		ft_update_texture(data, data->texture.textures[data->textinfo->idx], data->ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/20 11:23:37 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 12:34:56 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	valid_chars(t_textinfo *text)
 			if (ft_strchr("01NSEW \t\n", text->grid[i][j]))
 				j++;
 			else
-				error_message_text("ERROR: illegal character in map\n", text);
+				error_exit("ERROR: illegal character in map\n", NULL, text);
 		}
 		i++;
 	}
@@ -59,7 +59,7 @@ void	check_map_items(t_textinfo *text)
 	player = 0;
 	count_chars(text->grid, &player);
 	if (player != 1)
-		error_message_text("ERROR: Too many players, check content\n", text);
+		error_exit("ERROR: Too many players, check content\n", NULL, text);
 }
 
 //this function has been tailored for cub3d
