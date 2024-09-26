@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_raycasting.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/25 15:41:03 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/26 23:19:20 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ void	ft_get_ray_step_and_distance(t_ray *ray, t_player *player)
 //grid line in x and y (it also notes which side of the wall was hit x or y)
 void	ft_implement_dda(t_data *data, t_ray *ray)
 {
-	int	contact;
-
-	contact = 0;
-	while (contact == 0)
+	while (1)
 	{
 		if (ray->sidedistance_x < ray->sidedistance_y)
 		{
@@ -80,16 +77,17 @@ void	ft_implement_dda(t_data *data, t_ray *ray)
 			ray->side = 1;
 		}
 		if (ray->map_y < 0.25 || ray->map_x < 0.25 || \
-			ray->map_y > data->mapinfo->height - 0.25 || \
-			ray->map_x > data->mapinfo->width - 1.25)
-			break ;
+			ray->map_y > HEIGHT - 0.25 || \
+			ray->map_x > WIDTH - 1.25)
+			return ;
 		if (data->mapinfo->grid[ray->map_y][ray->map_x] > '0')
-			contact = 1;
+			return ;
 	}
 }
 
-//Function to calculate the wall height based on the distance
-//to the wall and the player's view angle. 1st we get the distance 
+//Function to calculate how tall the wall height appears on the screen
+//it calculates the wall distance based if the ray hit in a vertical 
+//or horizontal wall (defined by ray->side)
 //to the wall and them derive the draw start and end position.
 void	ft_calculate_wall_height(t_ray *ray, t_player *player)
 {
