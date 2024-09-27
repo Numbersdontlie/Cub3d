@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/26 11:08:07 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/27 14:11:47 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,62 +19,59 @@ int	ft_game(t_data *data)
 	mlx_clear_window(data->mlx_conn, data->mlx_window);
 	ft_render_ceiling_and_floor(data);
 	ft_make_raycasting(data->player, data);
-	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, \
-		data->imginfo->img, 0 , 0);
-	return (0);
+	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, data->img_FC->img, 0, 0);
+//	ft_render_scene(data);
+	return (EXIT_SUCCESS);
 }
 
-//function moves player forward and backword
-void	ft_player_movement_forward_backword(t_data *data)
+//function splits the screen into two parts and 
+//extracts colours for floor and ceiling
+/*void	ft_render_ceiling_and_floor(t_data *data)
 {
-	if (data->player->move_y == 1)
-	{
-		if (data->mapinfo->grid[(int)(data->player->pos_y + data->player->dir_y \
-			* MOVEMENTSPEED)][(int)(data->player->pos_x)] == '0')
-			data->player->pos_y += data->player->dir_y * MOVEMENTSPEED;
-		if (data->mapinfo->grid[(int)(data->player->pos_y)][(int)(data->player->pos_x \
-			+ data->player->dir_x * MOVEMENTSPEED)] == '0')
-			data->player->pos_x += data->player->dir_x * MOVEMENTSPEED;
-	}
-	if (data->player->move_y == -1)
-	{
-		if (data->mapinfo->grid[(int)(data->player->pos_y + data->player->dir_y \
-			* MOVEMENTSPEED)][(int)(data->player->pos_x)] == '0')
-			data->player->pos_y -= data->player->dir_y * MOVEMENTSPEED;
-		if (data->mapinfo->grid[(int)(data->player->pos_y)][(int)(data->player->pos_x \
-			+ data->player->dir_x * MOVEMENTSPEED)] == '0')
-			data->player->pos_x -= data->player->dir_x * MOVEMENTSPEED;
-	}
-	data->player->move_y = 0;
-}
+	data->img_FC = (t_img *)ft_calloc(1, sizeof(t_img));
+	if (!data->img_FC)
+		error_exit("ERROR: calloc failed in floor/ceiling\n", data, NULL);
+	data->img_FC->img = mlx_new_image(data->mlx_conn, WIDTH, HEIGHT);
+	if (!data->img_FC->img)
+		error_exit("ERROR: Failed to load floor img\n", data, NULL);
+	data->img_FC->img_addr = mlx_get_data_addr(data->img_FC->img, \
+		&data->img_FC->bpp, &data->img_FC->line_len, &data->img_FC->endian);
+	if (!data->img_FC->img_addr)
+		error_exit("ERROR: failure to get floor address\n", data, NULL);
+	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, data->img_FC->img, 0, 0);
+}*/
 
-//function moves player rotate left and right
-void	ft_rotation(t_data *data)
+/*void	ft_render_scene(t_data *data)
 {
-	double	old_dir_x;
-	double	old_plane_x;
-	double	speed;
-
-	if (data->player->rotate == 1)
-		speed = -ROTATIONSPEED;
-	else
-		speed = ROTATIONSPEED;
-
-	if (data->player->rotate == 1)
+	int	y;
+	int	x;
+	int	pix;
+	int	texture_pix;
+	
+	y = -1;
+	while (++y < HEIGHT)
 	{
-		old_dir_x = data->player->dir_x;
-		data->player->dir_x = data->player->dir_x * cos(speed) - \
-			data->player->dir_y * sin(speed);
-		data->player->dir_y = old_dir_x * sin(speed) + data->player->dir_y \
-			* cos(speed);
-		old_plane_x = data->player->plane_x;
-		data->player->plane_x = data->player->plane_x * cos(speed) - \
-			data->player->plane_y * sin(speed);
-		data->player->plane_y = old_plane_x * sin(speed) + \
-			data->player->plane_y * cos(speed);
+		x = -1;
+		{
+			while (++x < WIDTH)
+			{
+				if (y < HEIGHT/2)
+					pix = data->textinfo->hex_ceiling;
+				else if (y >= HEIGHT / 2 && y < HEIGHT)
+					pix = data->textinfo->hex_floor;
+				else
+				{
+					ft_calculate_texture_coords(data, data->ray);  // Calculate texture coords
+					ft_render_texture(data, (int *)data->imginfo[data->textinfo->idx]->img_addr, data->ray, x);
+				}
+				if (pix > 0)
+					ft_put_pixel_to_img(data->img_FC, x, y, pix);
+				else if (texture_pix > 0)
+					ft_put_pixel_to_img(data->imginfo[data->ray->side], x, y, texture_pix);
+			}
+		}
 	}
-	data->player->rotate = 0;
-}
+}*/
 
 //function splits the screen into two parts and 
 //extracts colours for floor and ceiling
@@ -84,6 +81,9 @@ void	ft_render_ceiling_and_floor(t_data *data)
 	int	y;
 
 	y = -1;
+	data->img_FC = (t_img *)ft_calloc(1, sizeof(t_img));
+	if (!data->img_FC)
+		error_exit("ERROR: calloc failed in floor/ceiling\n", data, NULL);
 	while (++y < HEIGHT)
 	{
 		x = -1;
@@ -91,10 +91,10 @@ void	ft_render_ceiling_and_floor(t_data *data)
 			while (++x < WIDTH)
 			{
 				if (y < HEIGHT/2)
-					ft_put_pixel_to_img(data->imginfo, x, y, \
+					ft_put_pixel_to_img(data->img_FC, x, y, \
 						data->textinfo->hex_ceiling);
 				else
-					ft_put_pixel_to_img(data->imginfo, x, y, \
+					ft_put_pixel_to_img(data->img_FC, x, y, \
 						data->textinfo->hex_floor);
 			}
 		}

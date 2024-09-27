@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/26 07:02:24 by kbolon           ###   ########.fr        #
+#    Updated: 2024/09/27 14:12:44 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ MLX_PATH = minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include#-fsanitize=address
 
 #colours
 

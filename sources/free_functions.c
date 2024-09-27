@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/26 13:15:40 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/27 14:00:04 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,37 +30,16 @@ void	free_memory(char **arr)
 //it destroy the image, window and display before freeing memory
 void	ft_clean_exit(t_data *data)
 {
-/*	if (data->textures)
-	{
-		ft_destroy_texture(data, 4);
-		free(data->textures);
-		data->textures = NULL;
-	}*/
-	if (data->imginfo)
-	{
-		if (data->imginfo->img)
-		{
-			mlx_destroy_image(data->mlx_conn, data->imginfo->img);
-			data->imginfo->img = NULL;
-		}
-		free(data->imginfo);
-		data->imginfo = NULL;
-	}
+	free_textures(data);
+	if (data->img_FC)
+		free_img_FC(data);
 	if (data->mlx_window)
 	{
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
 		data->mlx_window = NULL;
 	}
 	if (data->mapinfo)
-	{
-		if (data->mapinfo->grid)
-		{
-			free_memory(data->mapinfo->grid);
-			data->mapinfo->grid = NULL;
-		}
-		free(data->mapinfo);
-		data->mapinfo = NULL;
-	}
+		free_mapstruct(data);
 	if (data->player)
 		free(data->player);
 	if (data->ray)
@@ -74,7 +53,7 @@ void	ft_clean_exit(t_data *data)
 		data->mlx_conn = NULL;
 	}
 	free(data);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
 
 void	free_text(t_textinfo *text)
@@ -106,12 +85,46 @@ void	free_textures(t_data *data)
 	i = -1;
 	while (++i < 4)
 	{
-		if (data->texture.textures[i])
+		if (data->imginfo[i] && data->imginfo[i]->img)
 		{
-			mlx_destroy_image(data->mlx_conn, data->texture.textures[i]);
-			data->texture.textures[i] = NULL;
+			mlx_destroy_image(data->mlx_conn, data->imginfo[i]->img);
+			data->imginfo[i]->img = NULL;
+		}
+		if (data->imginfo[i])
+		{
+			free(data->imginfo[i]);
+			data->imginfo[i] = NULL;
 		}
 	}
 }
 
+void	free_img_FC(t_data *data)
+{
+	if (data->img_FC)
+	{
+		if (data->img_FC->img)
+		{
+			mlx_destroy_image(data->mlx_conn, data->img_FC->img);
+			data->img_FC->img = NULL;
+		}
+		if (data->img_FC)
+		{
+			free(data->img_FC);
+			data->img_FC = NULL;
+		}
+	}
+}
 
+void	free_mapstruct(t_data *data)
+{
+	if (data->mapinfo->grid)
+	{
+		free_memory(data->mapinfo->grid);
+		data->mapinfo->grid = NULL;
+	}
+	if (data->mapinfo)
+	{
+		free(data->mapinfo);
+		data->mapinfo = NULL;
+	}
+}

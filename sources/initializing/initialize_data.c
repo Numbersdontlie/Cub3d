@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/26 12:33:25 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/27 09:37:03 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void 	ft_initialize_map(t_data *data, t_textinfo *text)
 	if (!data)
 		return ;
 	i = 0;
-	data->mapinfo->line_count = row_count(text->grid);
-	count = data->mapinfo->line_count;
+	data->mapinfo->map_height = row_count(text->grid);
+	count = data->mapinfo->map_height;
 	data->mapinfo->grid = (char **)ft_calloc (count + 1, sizeof(char *));
 	if (!data->mapinfo->grid)
 		error_exit("ERROR: calloc fail in map_init", data, text);
@@ -61,39 +61,15 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 //Function to initialize the texture pixels for the renderization
 //it checks if the textures are already used and free if necessary
 //and then allocate memory for the textures pixels to be rendered
-/*void	ft_initialize_texture_pixels(t_data *data)
-{
-	int	i;
-
-	if (data->textures)
-		free(data->textures);
-	data->textures = ft_calloc(HEIGHT, sizeof(int *));
-	if (!data->textures)
-		error_exit("problems calloc texture_pixels\n", data, NULL);
-	i = 0;
-	while (i < HEIGHT)
-	{
-		data->textures[i] = ft_calloc(WIDTH, sizeof(int));
-		if (!data->textures[i])
-			error_exit("problems calloc texture_pixels\n", data, NULL);
-		i++;
-	}
-}*/
-
 void	ft_initialize_texture_pixels(t_data *data)
 {
 	int	i;
 
-	if (data->texture_pixels)
-		free(data->texture_pixels);
-	data->texture_pixels = ft_calloc(HEIGHT + 1, sizeof * data->texture_pixels);
-	if (!data->texture_pixels)
-		ft_clean_exit(data);
 	i = 0;
-	while (i < HEIGHT)
+	while (i < 4)
 	{
-		data->texture_pixels[i] = ft_calloc(WIDTH + 1, sizeof * data->texture_pixels);
-		if (!data->texture_pixels[i])
+		data->imginfo[i] = (t_img *)ft_calloc(1, sizeof(t_img));
+		if (!data->imginfo[i])
 			ft_clean_exit(data);
 		i++;
 	}

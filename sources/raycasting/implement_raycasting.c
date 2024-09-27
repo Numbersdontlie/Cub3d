@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_raycasting.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/26 23:19:20 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/27 13:33:03 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	ft_calculate_wall_height(t_ray *ray, t_player *player)
 	ray->wall_x -= floor(ray->wall_x);
 }
 
+
 //Function to make the raycasting.  It iterates through the width of 
 //screen and update the data to render the ray from the current position 
 //and point of view of the player
@@ -126,33 +127,92 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_implement_dda(data, data->ray);
 		ft_calculate_wall_height(data->ray, data->player);
 		ft_get_texture_idx(data, data->ray);
-		ft_update_texture(data, data->texture.textures[data->textinfo->idx], data->ray, x);
+		ft_calculate_texture_coordinates(data, data->ray);
+		ft_render_texture(data, (int *)data->imginfo[data->textinfo->idx], data->ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);
 }
+
+//this calculates the coordinate for the texture and adjusts for perspective
+//while loop is a vertical slice of the image
+/*void ft_render_texture(t_data *data, int *texture, t_ray *ray, int x)
+{
+	int y;
+	int texture_x;
+	int texture_y;
+	int colour;
+
+	texture_x = (int)(ray->wall_x * (double)data->imginfo[data->textinfo->idx]->texture_width);
+	if (ray->side == 0 && ray->dir_x > 0)
+		texture_x = data->imginfo[data->textinfo->idx]->texture_width - texture_x - 1;
+	y = ray->draw_start;
+	while (y < ray->draw_end)
+	{
+		texture_y = (((y * 2 - HEIGHT + ray->line_height) * data->imginfo[data->textinfo->idx]->texture_height) / ray->line_height) / 2;
+		colour = texture[texture_y * data->imginfo[data->textinfo->idx]->texture_width + texture_x];
+		ft_put_pixel_to_img(data->imginfo[data->textinfo->idx], x, y, colour);
+		y++;
+	}
+}
+
+//Function to update the texture pixels on the screen for render
+//it calculates which part of the texture to apply to the current vertical line
+//it flip the textures based on the direction the ray hits the wall
+//it applies a shadow by applying a bitwise operation to darken textures based
+//on the direction (north or east)
+void	ft_update_texture(t_data *data, int *texture, t_ray *ray, int x)
+{
+	int	y;
+	int	colour;
+
+	ft_get_texture_idx(data, ray);
+	data->textinfo->x = (int)(ray->wall_x * data->textinfo->size);
+	if ((ray->side == 0 && ray->dir_x < 0) || \
+		(ray->side == 1 && ray->dir_y > 0))
+		data->textinfo->x = data->textinfo->size - data->textinfo->x - 1;
+	data->textinfo->step = 1.0 * data->textinfo->size / ray->line_height;
+	data->textinfo->pos = (ray->draw_start - HEIGHT / 2 + \
+		ray->line_height / 2) * data->textinfo->step;
+	y = ray->draw_start;
+	while (y < ray->draw_end)
+	{
+		data->textinfo->y = (int)data->textinfo->pos & (data->textinfo->size - 1);
+		data->textinfo->pos += data->textinfo->step;
+		colour = texture[data->textinfo->size * data->textinfo->y + data->textinfo->x];
+		ft_put_pixel_to_img(data->imginfo[data->textinfo->idx], x, y, colour);
+		y++;
+	}
+}*/
+
+void	ft_calculate_texture_coordinates(t_data *data, t_ray *ray)
+{
+	data->textinfo->x = (int)(ray->wall_x *data->textinfo->size);
+	if ((ray->side == 0 && ray->dir_x < 0) || \
+		(ray->side == 1 && ray->dir_y > 0))
+	data->textinfo->step = 1.0 * data->textinfo->size / ray->line_height;
+	data->textinfo->pos = (ray->draw_start - HEIGHT / 2 + \
+		ray->line_height / 2) * data->textinfo->step;
+}
+
+//this function draws the texture on the screen making sure it stays within the
+//calculated coordinates of the texture
 void ft_render_texture(t_data *data, int *texture, t_ray *ray, int x)
 {
 	int y;
-	int tex_x;
-	int tex_y;
-	int color;
+	int texture_x;
+	int texture_y;
+	int colour;
 
-	// Calculate texture X coordinate
-	tex_x = (int)(ray->wall_x * (double)data->image_width);
-	if (ray->side == 0 && ray->dir_x > 0)  // Adjust for perspective if necessary
-		tex_x = data->image_width - tex_x - 1;
-
-	// Loop over the pixels in the vertical slice
-	for (y = ray->draw_start; y < ray->draw_end; y++)
+	texture_x = data->textinfo->x;
+		texture_x = data->imginfo[data->textinfo->idx]->texture_width - texture_x - 1;
+	y = ray->draw_start;
+	while (y < ray->draw_end)
 	{
-		// Calculate the corresponding Y coordinate in the texture
-		tex_y = (((y * 2 - HEIGHT + ray->line_height) * data->image_height) / ray->line_height) / 2;
-
-		// Get the pixel color from the texture
-		color = texture[tex_y * data->image_width + tex_x];
-
-		// Put the pixel to the image
-		ft_put_pixel_to_img(data->imginfo, x, y, color);
+		texture_y = (int)data->textinfo->pos % data->textinfo->size;
+		data->textinfo->pos += data->textinfo->step;
+		colour = texture[texture_y * data->textinfo->size + texture_x];
+		ft_put_pixel_to_img(data->imginfo[data->textinfo->idx], x, y, colour);
+		y++;
 	}
 }
