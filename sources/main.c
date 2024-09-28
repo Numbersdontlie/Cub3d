@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/27 13:39:27 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/28 10:08:02 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ int	main(int ac, char **av)
 	check_args(text);
 	if (ft_initialize_data(&data, text) == EXIT_FAILURE)
 		error_exit("ERROR: problem loading text", data, NULL);
-	if (ft_initialize_connection(data) == EXIT_FAILURE)
-		error_exit("ERROR: problem initiating connection\n", data, NULL);
-	if (ft_initialize_imginfo(data) == EXIT_FAILURE)
+//	if (ft_initialize_connection(data) == EXIT_FAILURE)
+//		error_exit("ERROR: problem initiating connection\n", data, NULL);
+	if (ft_initialize(data) == EXIT_FAILURE)
 		error_exit("ERROR: problem initiating imginfo\n", data, NULL);
-	if (ft_initialize_textures(data) == EXIT_FAILURE)
-		error_exit("ERROR: problem initiating textures\n", data, NULL);
-	mlx_loop_hook(data->mlx_conn, ft_game, data);
+//	if (ft_initialize_textures(data) == EXIT_FAILURE)
+//		error_exit("ERROR: problem initiating textures\n", data, NULL);
+	mlx_loop_hook(data->mlx_conn, ft_launch_game, NULL);
 //	render_map(data); mini map
-	ft_initialize_events(data);
-	mlx_loop(data->mlx_conn);
+	ft_loop_events(data);
+//	mlx_loop(data->mlx_conn);
 	ft_clean_exit(data);
 	free_text(text);
 	free(data);

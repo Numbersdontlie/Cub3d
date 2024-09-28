@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/27 13:32:43 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/28 11:07:46 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef enum	e_direction
 typedef struct s_img
 {
 	void	*img; 
-	char	*img_addr;//int??
+	int		*img_addr;
 	int		texture_width;//width of the texture
 	int		texture_height;//height of the texture
 	int		bpp;
@@ -184,14 +184,17 @@ typedef struct s_data
 {
 	void			*mlx_conn;
 	void			*mlx_window;
+	char			**map;//will charge the map in an array to access from function to check movement
+	char			**path;
 	t_mapinfo		*mapinfo;
 	t_player		*player;
-	char			**map;//will charge the map in an array to access from function to check movement
 	t_ray			*ray;
 	t_textinfo		*textinfo;
-	t_img			*imginfo[4];
-	t_img			*img_FC;
+	t_img			*textureimginfo[4];//textures
+	t_img			*img;
 	t_mini			minimap;
+	unsigned long	floor;
+	unsigned long	ceiling;
 	unsigned int	colour;
 }	t_data;
 
@@ -201,21 +204,21 @@ void		error_exit(char *str, t_data *data, t_textinfo *text);
 //int			ft_wrapper_exit(t_data *data);
 
 //initialize_data.c
-int			ft_initialize_imginfo(t_data *data);
+int			ft_initialize(t_data *data);
 void 		ft_initialize_map(t_data *data, t_textinfo *text);
 int			ft_initialize_data(t_data **data, t_textinfo *text);
 void		ft_initialize_texture_pixels(t_data *data);
 
 
 //initialize_window.c
-int			ft_initialize_image(t_data *data, t_img **image, int width, int height);
 int			ft_initialize_connection(t_data *data);
 int			ft_initialize_texture_image(t_data *data, t_img *image, char *path);
 int			*ft_put_img_into_buffer(t_data *data, char *path);
 int			ft_initialize_textures(t_data *data);
-int			filter_grid_lines(char *grid);
+//int			filter_grid_lines(char *grid);
 //void		check_path(char *path);
-void			ft_destroy_texture(t_data *data, int wall);
+void		ft_destroy_texture(t_data *data, int wall);
+void		ft_fill_textures(t_data *data, int i);
 
 
 //free_functions.c
@@ -259,7 +262,7 @@ char		**graphic_gnl(int size, int fd, char **arr, int i);
 //sources/moving/input_handler.c
 int			ft_handle_key(int keysym, t_data *data);
 int			ft_release_key(int keysym, t_data *data);
-void		ft_initialize_events(t_data *data);
+void		ft_loop_events(t_data *data);
 int			on_destroy(t_data *data);
 
 //sources/initializing/initialize_text.c
@@ -270,9 +273,9 @@ int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_va
 void		ft_init_textinfo(t_textinfo *textures);
 
 //sources/raycasting/rendering.c
-int			ft_game(t_data *data);
-void		ft_render_ceiling_and_floor(t_data *data);
-void		ft_render_scene(t_data *data);
+int			ft_launch_game(t_data *data);
+int			ft_render_ceiling_and_floor(t_data *data);
+//void		ft_render_scene(t_data *data);
 void		ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour);
 
 //sources/moving/initial_position.c
@@ -305,7 +308,7 @@ void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
 void		ft_calculate_wall_height(t_ray *ray, t_player *player);
 int			ft_make_raycasting(t_player *player, t_data *data);
-void	ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
+void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
 
 //sources/helper_functions.c
 void		print_map(char **arr);
@@ -321,5 +324,6 @@ void		ft_get_texture_idx(t_data *data, t_ray *ray);
 //sources/render/mini_map.c
 void	make_tiles(t_data *data, int x, int y, int colour);
 void	render_map(t_data *data);
-void ft_render_texture(t_data *data, int *texture, t_ray *ray, int x);
+//void 	ft_render_texture(t_data *data, int *texture, t_ray *ray, int x);
+void 	ft_render_texture(t_data *data, t_ray *ray, int x);
 #endif
