@@ -1,11 +1,11 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-NO walls/temple.xpm
-SO walls/EA.xpm
-WE walls/selva64.xpm
-EA walls/pixgreen.xpm
+
+NO walls/NO.xpm
+SO walls/SO.xpm
+WE walls/WE.xpm
+EA walls/EA.xpm
 
 F 34,139,34
+
 C 135,206,235
 
 1111

@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/27 14:12:44 by kbolon           ###   ########.fr        #
+#    Updated: 2024/09/28 11:20:26 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ MLX_PATH = minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include#-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
 
 #colours
 
@@ -56,7 +56,6 @@ all: $(NAME)
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
 #	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-	@$(MAKE) clean
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
 
@@ -78,7 +77,7 @@ clean:
 
 clear-screen:
 	clear
-	@echo "$(YELLOW)Terminal cleared after build process$(RESET)"
+	@echo "$(YELLOW)Terminal cleared after process$(RESET)"
 
 fclean: clean
 		rm -rf $(NAME) $(MLX) $(LIBFT)

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/27 09:37:03 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/28 11:18:33 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 	if (!*data)
 		error_exit("ERROR: problems copying grid in init\n", NULL, text);
 	(*data)->textinfo = text;
+	(*data)->path = (char **)ft_calloc(4, sizeof(char *));
+	if (!(*data)->path)
+		error_exit("ERROR: problems allocating memory for paths", *data, text);
+	(*data)->path[0] = text->north;
+	(*data)->path[1] = text->east;
+	(*data)->path[2] = text->south;
+	(*data)->path[3] = text->west;
 	(*data)->player = (t_player *)ft_calloc(1, sizeof(t_player));
 	if (!(*data)->player)
 		error_exit("ERROR: problems init player", *data, text);
@@ -58,19 +65,11 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 	return (EXIT_SUCCESS);
 }
 
-//Function to initialize the texture pixels for the renderization
-//it checks if the textures are already used and free if necessary
-//and then allocate memory for the textures pixels to be rendered
-void	ft_initialize_texture_pixels(t_data *data)
+int	ft_initialize(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		data->imginfo[i] = (t_img *)ft_calloc(1, sizeof(t_img));
-		if (!data->imginfo[i])
-			ft_clean_exit(data);
-		i++;
-	}
+	if (ft_initialize_connection(data) == EXIT_FAILURE)
+		error_exit("ERROR: problem initiating connection\n", data, NULL);
+	if (ft_initialize_textures(data) == EXIT_FAILURE)
+		error_exit("ERROR: problem initiating textures\n", data, NULL);
+	return (EXIT_SUCCESS);
 }
