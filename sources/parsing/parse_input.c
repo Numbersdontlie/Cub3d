@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/26 12:38:50 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/29 08:49:49 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ char	*find_cardinal_paths(char **arr, char *s)
 		{
 			path_found = ft_strdup(arr[i] + 2);
 			if (!path_found)
-				error_message("ERROR: Memory Alloc failed\n", arr);
+			{
+				error_no_exit("ERROR: Memory Alloc failed\n", arr);
+				return (NULL);
+			}
 			path_extension = path_extractor(arr, path_found);
 			return (path_extension);
 		}

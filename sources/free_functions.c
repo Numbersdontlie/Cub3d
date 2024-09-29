@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/28 10:56:14 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/29 09:04:04 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,8 @@ void	free_text(t_textinfo *text)
 {
 	if (text)
 	{
-		if (text->north)
-			free(text->north);
-		if (text->south)
-			free(text->south);
-		if (text->east)
-			free(text->east);
-		if (text->west)
-			free(text->west);
+		if (text->paths)
+			free_memory(text->paths);
 		if (text->ceiling_rgb)
 			free(text->ceiling_rgb);
 		if (text->floor_rgb)
@@ -85,15 +79,15 @@ void	free_textures(t_data *data)
 	i = -1;
 	while (++i < 4)
 	{
-		if (data->textureimginfo[i] && data->textureimginfo[i]->img)
+		if (data->textureinfo[i] && data->textureinfo[i]->img)
 		{
-			mlx_destroy_image(data->mlx_conn, data->textureimginfo[i]->img);
-			data->textureimginfo[i]->img = NULL;
+			mlx_destroy_image(data->mlx_conn, data->textureinfo[i]->img);
+			data->textureinfo[i]->img = NULL;
 		}
-		if (data->textureimginfo[i])
+		if (data->textureinfo[i])
 		{
-			free(data->textureimginfo[i]);
-			data->textureimginfo[i] = NULL;
+			free(data->textureinfo[i]);
+			data->textureinfo[i] = NULL;
 		}
 	}
 }
