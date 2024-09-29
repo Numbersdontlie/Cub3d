@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/26 12:40:20 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/29 10:27:54 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 	text = (t_textinfo *) ft_calloc (1, sizeof(t_textinfo));
 	if (!text)
 		error_message("ERROR: calloc fail in text_init", grid);
-	text->north = find_cardinal_paths(grid, "NO");
-	text->south = find_cardinal_paths(grid, "SO");
-	text->west = find_cardinal_paths(grid, "WE");
-	text->east = find_cardinal_paths(grid, "EA");
+	if (fill_paths(text, grid) == EXIT_FAILURE)
+	{
+		free_memory(grid);
+		error_exit("ERROR: calloc fail in text_init", NULL, text);
+	}
 	text->ceiling_rgb = populate_rgb_values(text, grid, 'C', \
 		&text->hex_ceiling);
 	text->floor_rgb = populate_rgb_values(text, grid, 'F', &text->hex_floor);
@@ -39,6 +40,30 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 		error_exit("ERROR: problems copying grid in init\n", NULL, text);
 	free_memory(grid);
 	return (text);
+}
+
+int	fill_paths(t_textinfo *text, char **grid)
+{
+	text->paths = (char **) ft_calloc(5, sizeof(char *));
+	if (!text->paths)
+	{
+		free_memory(grid);
+		error_exit("ERROR: problems callocing paths in init\n", NULL, text);
+	}
+	text->paths[0] = find_cardinal_paths(grid, "NO");
+	if (!text->paths[0])
+		text_exit(text, grid);
+	text->paths[1] = find_cardinal_paths(grid, "SO");
+	if (!text->paths[0])
+		text_exit(text, grid);
+	text->paths[2] = find_cardinal_paths(grid, "WE");
+	if (!text->paths[0])
+		text_exit(text, grid);
+	text->paths[3] = find_cardinal_paths(grid, "EA");
+	if (!text->paths[0])
+		text_exit(text, grid);
+	text->paths[4] = NULL;
+	return (EXIT_SUCCESS);
 }
 
 /*this function splits the rgb values for the floor and ceiling*/

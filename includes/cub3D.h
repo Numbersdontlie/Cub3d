@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/28 11:07:46 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/29 10:43:20 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,13 @@ typedef struct s_img
 //
 typedef struct s_textinfo
 {
-	char			*north;
-	char			*south;
-	char			*west;
-	char			*east;
+	char			**paths;
 	int				*floor_rgb;
 	int				*ceiling_rgb;
 	char			**grid;
 	unsigned long	hex_floor;
 	unsigned long	hex_ceiling;
-	int				size;
+	int				size;//what is this for?
 	int				idx;
 	double			step;
 	double			pos;
@@ -185,48 +182,44 @@ typedef struct s_data
 	void			*mlx_conn;
 	void			*mlx_window;
 	char			**map;//will charge the map in an array to access from function to check movement
-	char			**path;
+	char			**path;//will remove after load_image
 	t_mapinfo		*mapinfo;
 	t_player		*player;
 	t_ray			*ray;
 	t_textinfo		*textinfo;
-	t_img			*textureimginfo[4];//textures
-	t_img			*img;
+	t_img			*textureinfo[4];//textures
+	t_img			background;
 	t_mini			minimap;
-	unsigned long	floor;
-	unsigned long	ceiling;
-	unsigned int	colour;
+//	unsigned long	floor;//in textinfo
+//	unsigned long	ceiling; in textinfo
+//	unsigned long	colour;
 }	t_data;
 
 //errors.c
+void		error_no_exit(char *str, char **arr);
 void		error_message(char *str, char **arr);
 void		error_exit(char *str, t_data *data, t_textinfo *text);
-//int			ft_wrapper_exit(t_data *data);
+void		text_exit(t_textinfo *text, char **grid);
 
 //initialize_data.c
-int			ft_initialize(t_data *data);
 void 		ft_initialize_map(t_data *data, t_textinfo *text);
 int			ft_initialize_data(t_data **data, t_textinfo *text);
-void		ft_initialize_texture_pixels(t_data *data);
-
+int			ft_initialize(t_data *data, t_textinfo *text);
 
 //initialize_window.c
-int			ft_initialize_connection(t_data *data);
-int			ft_initialize_texture_image(t_data *data, t_img *image, char *path);
-int			*ft_put_img_into_buffer(t_data *data, char *path);
-int			ft_initialize_textures(t_data *data);
-//int			filter_grid_lines(char *grid);
-//void		check_path(char *path);
-void		ft_destroy_texture(t_data *data, int wall);
-void		ft_fill_textures(t_data *data, int i);
-
+int			ft_initialize_connection(t_data *data, t_textinfo *text);
+int			ft_initialize_textures(t_data *data, t_textinfo *text);
+int			ft_clear_textures(t_data *data, int i, t_textinfo *text);
+//int		ft_initialize_texture_image(t_data *data, t_img *image, char *path);
+//int		*ft_put_img_into_buffer(t_data *data, char *path);
+//void		ft_destroy_texture(t_data *data, int wall);
+//void		ft_fill_textures(t_data *data, int i);
 
 //free_functions.c
 void		free_memory(char **arr);
 void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
 void		free_textures(t_data *data);
-void		free_img_FC(t_data *data);
 void		free_mapstruct(t_data *data);
 
 //parsing/check_map.c
@@ -271,10 +264,11 @@ int			check_rgb_for_illegal_chars(char **arr);
 int			*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value);
 int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_value);
 void		ft_init_textinfo(t_textinfo *textures);
+int			fill_paths(t_textinfo *text, char **grid);
 
 //sources/raycasting/rendering.c
 int			ft_launch_game(t_data *data);
-int			ft_render_ceiling_and_floor(t_data *data);
+void		ft_render_background(t_data *data);
 //void		ft_render_scene(t_data *data);
 void		ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour);
 

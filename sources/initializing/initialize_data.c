@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/28 11:18:33 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/29 10:58:48 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,6 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 	if (!*data)
 		error_exit("ERROR: problems copying grid in init\n", NULL, text);
 	(*data)->textinfo = text;
-	(*data)->path = (char **)ft_calloc(4, sizeof(char *));
-	if (!(*data)->path)
-		error_exit("ERROR: problems allocating memory for paths", *data, text);
-	(*data)->path[0] = text->north;
-	(*data)->path[1] = text->east;
-	(*data)->path[2] = text->south;
-	(*data)->path[3] = text->west;
 	(*data)->player = (t_player *)ft_calloc(1, sizeof(t_player));
 	if (!(*data)->player)
 		error_exit("ERROR: problems init player", *data, text);
@@ -65,11 +58,37 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_initialize(t_data *data)
+int	ft_initialize(t_data *data, t_textinfo *text)
 {
-	if (ft_initialize_connection(data) == EXIT_FAILURE)
-		error_exit("ERROR: problem initiating connection\n", data, NULL);
-	if (ft_initialize_textures(data) == EXIT_FAILURE)
-		error_exit("ERROR: problem initiating textures\n", data, NULL);
+	if (ft_initialize_connection(data, text) == EXIT_FAILURE)
+	{
+		error_exit("ERROR: problem initiating connection\n", data, text);
+		return (EXIT_FAILURE);
+	}
+	if (ft_initialize_textures(data, text) == EXIT_FAILURE)
+	{
+		error_exit("ERROR: problem initiating textures\n", data, text);
+		return (EXIT_FAILURE);
+	}
+
+	return (EXIT_SUCCESS);
+}
+int	ft_init_background(t_data *data, t_textinfo *text)
+{
+	data->background.img = mlx_new_image(data->mlx_conn, WIDTH, HEIGHT);
+	if (!data->background.img)
+	{
+		error_exit("ERROR: problem initiating background\n", data, text);
+		return (EXIT_FAILURE);
+	}
+	data->background.img_addr = (int *)mlx_get_data_addr(data->background.img, \
+			&data->background.bpp, &data->background.line_len, \
+			&data->background.endian);
+	if (!data->background.img_addr)
+	{
+		error_exit("ERROR: problem getting background address\n", data, text);
+		return (EXIT_FAILURE);
+	}
+	ft_render_background(data);
 	return (EXIT_SUCCESS);
 }

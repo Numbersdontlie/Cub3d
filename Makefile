@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/28 11:20:26 by kbolon           ###   ########.fr        #
+#    Updated: 2024/09/29 10:22:40 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,24 +22,24 @@ SRCS = 	sources/main.c \
 		sources/parsing/read_input.c \
 		sources/initializing/initialize_data.c \
 		sources/initializing/initialize_text.c \
+		sources/initializing/render_image.c \
+		sources/initializing/mini_map.c \
 		sources/moving/input_handler.c \
 		sources/initializing/initialize_window.c \
 		sources/moving/initial_position.c \
 		sources/moving/check_position.c \
 		sources/moving/rotate.c \
 		sources/moving/move_player.c \
-		sources/render/rendering.c \
 		sources/raycasting/implement_raycasting.c \
 		sources/raycasting/handle_textures.c \
-		sources/render/renderV2.c \
-		sources/render/mini_map.c
+#		sources/load_image.c
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include -fsanitize=address
 
 #colours
 
@@ -54,8 +54,8 @@ RESET=\033[0m
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
 

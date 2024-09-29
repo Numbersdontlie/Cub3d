@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/28 11:16:08 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/29 09:04:37 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,10 +157,10 @@ void ft_render_texture(t_data *data, t_ray *ray, int x)
 	{
 		data->textinfo->y = (int)data->textinfo->pos % data->textinfo->size;
 		data->textinfo->pos += data->textinfo->step;
-		colour = *(int *)data->textureimginfo[data->textinfo->idx]->img_addr + \
-			(data->textinfo->y * data->textureimginfo[data->textinfo->idx]->line_len + \
-			data->textinfo->x * (data->textureimginfo[data->textinfo->idx]->bpp / 8));
-		ft_put_pixel_to_img(data->textureimginfo[data->textinfo->idx], x, y, colour);
+		colour = *(int *)data->textureinfo[data->textinfo->idx]->img_addr + \
+			(data->textinfo->y * data->textureinfo[data->textinfo->idx]->line_len + \
+			data->textinfo->x * (data->textureinfo[data->textinfo->idx]->bpp / 8));
+		ft_put_pixel_to_img(data->textureinfo[data->textinfo->idx], x, y, colour);
 		y++;
 	}
 }

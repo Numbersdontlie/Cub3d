@@ -6,11 +6,24 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:47:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/26 12:39:35 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/29 08:55:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+void	error_no_exit(char *str, char **arr)
+{
+	if (arr)
+		free_memory(arr);
+	ft_putstr_fd(str, 2);
+}
+
+void	text_exit(t_textinfo *text, char **grid)
+{	
+	free_memory(grid);
+	error_exit("ERROR: problems copying paths in fill paths\n", NULL, text);
+}
 
 void	error_message(char *str, char **arr)
 {
