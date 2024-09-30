@@ -6,15 +6,17 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/09/29 10:22:40 by kbolon           ###   ########.fr        #
+#    Updated: 2024/09/30 16:03:17 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
-SRCS = 	sources/main.c \
+#SRCS =	sources/load_image.c
+SRCS =	sources/main.c \
 		sources/errors.c \
 		sources/free_functions.c \
+		sources/free_functions2.c \
 		sources/parsing/check_map.c \
 		sources/parsing/flood_fill_check.c \
 		sources/parsing/helper_functions.c \
@@ -32,14 +34,14 @@ SRCS = 	sources/main.c \
 		sources/moving/move_player.c \
 		sources/raycasting/implement_raycasting.c \
 		sources/raycasting/handle_textures.c \
-#		sources/load_image.c
+
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
 
 #colours
 
@@ -54,8 +56,8 @@ RESET=\033[0m
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
-#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
 

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   check_position.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:56:54 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/25 13:58:57 by luifer           ###   ########.fr       */
+/*   Updated: 2024/09/30 16:00:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/cub3D.h"
 
 //Function to check if the new position to move the player in the map
-//is a valid one (it's an empty tile 0 or a door 4) in which case the movement
+//is a valid one (it's a floor tile 0 or a door 4) in which case the movement
 //will be marked as possible. The door is a bonus feature.
 int	ft_check_if_empty(t_data *data, double x, double y)
 {

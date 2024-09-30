@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/29 10:43:20 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/30 15:55:20 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,100 +182,56 @@ typedef struct s_data
 	void			*mlx_conn;
 	void			*mlx_window;
 	char			**map;//will charge the map in an array to access from function to check movement
-	char			**path;//will remove after load_image
+	char			**path;//for testing
 	t_mapinfo		*mapinfo;
 	t_player		*player;
 	t_ray			*ray;
 	t_textinfo		*textinfo;
-	t_img			*textureinfo[4];//textures
+	t_img			*textureinfo[4];
 	t_img			background;
 	t_mini			minimap;
-//	unsigned long	floor;//in textinfo
-//	unsigned long	ceiling; in textinfo
-//	unsigned long	colour;
 }	t_data;
 
-//errors.c
-void		error_no_exit(char *str, char **arr);
-void		error_message(char *str, char **arr);
-void		error_exit(char *str, t_data *data, t_textinfo *text);
-void		text_exit(t_textinfo *text, char **grid);
-
-//initialize_data.c
-void 		ft_initialize_map(t_data *data, t_textinfo *text);
+//sources/initialize/initialize_data.c
+int 		ft_initialize_map(t_data *data, t_textinfo *text);
 int			ft_initialize_data(t_data **data, t_textinfo *text);
-int			ft_initialize(t_data *data, t_textinfo *text);
+int			ft_init_background(t_data *data);
 
-//initialize_window.c
-int			ft_initialize_connection(t_data *data, t_textinfo *text);
-int			ft_initialize_textures(t_data *data, t_textinfo *text);
-int			ft_clear_textures(t_data *data, int i, t_textinfo *text);
-//int		ft_initialize_texture_image(t_data *data, t_img *image, char *path);
-//int		*ft_put_img_into_buffer(t_data *data, char *path);
-//void		ft_destroy_texture(t_data *data, int wall);
-//void		ft_fill_textures(t_data *data, int i);
+//sources/initializing/initialize_text.c
+t_textinfo	*ft_initialize_textinfo(char **arr);
+int			fill_paths(t_textinfo *text, char **grid);
+int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_value);
+int			*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value);
+int			check_rgb_for_illegal_chars(char **arr);
 
-//free_functions.c
-void		free_memory(char **arr);
-void		ft_clean_exit(t_data *data);
-void		free_text(t_textinfo *text);
-void		free_textures(t_data *data);
-void		free_mapstruct(t_data *data);
+//sources/initialize/initialize_window.c
+int			ft_initialize_connection(t_data *data);
+int			ft_initialize_textures(t_data *data);
+int			ft_clear_textures(t_data *data, int i);
 
-//parsing/check_map.c
-void		valid_chars(t_textinfo *text);
-void		count_chars(char **arr, size_t *player);
-void		check_map_items(t_textinfo *text);
+//sources/initialize/render_image.c
+int			ft_launch_game(t_data *data);
+int			ft_render(t_data *data);
+void		ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour);
+void 		render_scaled_texture_on_base(t_data *data, int texture_idx, void *sky_floor_img);
+void		render_sky_floor_base(unsigned int sky, unsigned int floor, t_data *data);
 
-char		*ft_trim_line(char *str);
+//sources/moving/check_position.c
+int			ft_check_if_empty(t_data *data, double x, double y);
+int			ft_check_if_inside_map(double x, double y);
+int			ft_allow_movement(t_data *data, double x, double y);
+int			ft_validate_movement(t_data * data, double x_after, double y_after);
 
-//parsing/flood_fill_check.c
-int			find_item(char **grid, char axis);
-int			path_checker(char **game, size_t y, size_t x);
-void		flood_fill(char **game);
-
-//parsing/helper_functions.c
-void		copy_valid_lines(char *grid, char *trimmed, char **arr);
-void		check_empty_lines(char **grid, int i);
-
-//parsing/parse_input.c
-char		*find_cardinal_paths(char **arr, char *s);
-char		*find_floor_ceiling(t_textinfo *text, char **arr, int c);
-char		**remove_empty_lines(char **arr);
-t_textinfo	*find_grid(t_textinfo *text, char **grid);
-int			filter_grid_lines(char *grid);
-
-//parsing/read_input.c
-void		check_extension(char *s);
-size_t		row_count(char **grid);
-char		**read_map(char *s);
-char		*ft_replace(char *s);
-char		**graphic_gnl(int size, int fd, char **arr, int i);
+//sources/moving/initial_position.c
+void		ft_initialize_north_south(t_player *player);
+void		ft_initialize_west_east(t_player *player);
+void		ft_init_player_dir(t_data *data);
 
 //sources/moving/input_handler.c
 int			ft_handle_key(int keysym, t_data *data);
 int			ft_release_key(int keysym, t_data *data);
 void		ft_loop_events(t_data *data);
 int			on_destroy(t_data *data);
-
-//sources/initializing/initialize_text.c
-t_textinfo	*ft_initialize_textinfo(char **arr);
-int			check_rgb_for_illegal_chars(char **arr);
-int			*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value);
-int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_value);
-void		ft_init_textinfo(t_textinfo *textures);
-int			fill_paths(t_textinfo *text, char **grid);
-
-//sources/raycasting/rendering.c
-int			ft_launch_game(t_data *data);
-void		ft_render_background(t_data *data);
-//void		ft_render_scene(t_data *data);
-void		ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour);
-
-//sources/moving/initial_position.c
-void		ft_initialize_north_south(t_player *player);
-void		ft_initialize_west_east(t_player *player);
-void		ft_init_player_dir(t_data *data);
 
 //sources/moving/move_player.c
 void		ft_player_movement_forward_backword(t_data *data);
@@ -286,15 +242,47 @@ int			ft_move_player_left(t_data *data);
 int			ft_move_player_right(t_data *data);
 int			ft_move_player(t_data *data);
 
-//sources/moving/check_position.c
-int			ft_check_if_empty(t_data *data, double x, double y);
-int			ft_check_if_inside_map(double x, double y);
-int			ft_allow_movement(t_data *data, double x, double y);
-int			ft_validate_movement(t_data * data, double x_after, double y_after);
-
 //sources/moving/rotate.c
 int			ft_rotate_player_dir_vector(t_data *data, double speedrot);
 int			ft_execute_rotation(t_data *data, double dirrot);
+
+//parsing/check_map.c
+void		valid_chars(t_textinfo *text);
+void		count_chars(char **arr, size_t *player);
+void		check_map_items(t_textinfo *text);
+char		*ft_trim_line(char *str);
+int			filter_grid_lines(char *grid);
+
+//parsing/flood_fill_check.c
+int			find_item(char **grid, char axis);
+int			path_checker(char **game, size_t y, size_t x);
+void		flood_fill(char **game);
+
+//sources/helper_functions.c
+void		copy_valid_lines(char *grid, char *trimmed, char **arr);
+void		check_empty_lines(char **grid, int i);
+char		*ft_strndup(const char *s, size_t n);
+void		print_map(char **arr);
+int			ft_strstr(char *str, char *to_find);
+
+//parsing/parse_input.c
+char		*find_cardinal_paths(char **arr, char *s);
+char 		*path_extractor(char **arr, char *str);
+char		*find_floor_ceiling(t_textinfo *text, char **arr, int c);
+char		**remove_empty_lines(char **arr);
+t_textinfo	*find_grid(t_textinfo *text, char **grid);
+
+//parsing/read_input.c
+void		check_extension(char *s);
+size_t		row_count(char **grid);
+char		**read_map(char *s);
+char		*ft_replace(char *s);
+char		**graphic_gnl(int size, int fd, char **arr, int i);
+
+//sources/raycasting/handle_textures.c
+void		ft_update_texture(t_data *data, int *text, t_ray *ray, int x);
+void		ft_render_wall_texture(t_data *data, t_ray *ray, int x);
+void		ft_get_texture_idx(t_data *data, t_ray *ray);
 
 //sources/raycasting/implement_raycasting.c
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
@@ -304,20 +292,26 @@ void		ft_calculate_wall_height(t_ray *ray, t_player *player);
 int			ft_make_raycasting(t_player *player, t_data *data);
 void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
 
-//sources/helper_functions.c
-void		print_map(char **arr);
-char 		*path_extractor(char **arr, char *str);
-char		*ft_strndup(const char *s, size_t n);
-int			ft_strstr(char *str, char *to_find);
+//sources/errors.c
+int			error_message(char *str, char **arr);
+void		error_exit(char *str, t_data *data, t_textinfo *text);
 
-//sources/raycasting/handle_textures.c
-void		ft_update_texture(t_data *data, int *text, t_ray *ray, int x);
-void		ft_render_wall_texture(t_data *data, t_ray *ray, int x);
-void		ft_get_texture_idx(t_data *data, t_ray *ray);
+//sources/free_functions.c
+void		free_memory(char **arr);
+void		ft_exit_game(t_data *data);
+void		ft_clean_exit(t_data *data);
+void		free_text(t_textinfo *text);
+void		free_textures(t_data *data);
+
+//sources/free_functions2.c
+void		free_mapstruct(t_data *data);
 
 //sources/render/mini_map.c
-void	make_tiles(t_data *data, int x, int y, int colour);
-void	render_map(t_data *data);
+//void	make_tiles(t_data *data, int x, int y, int colour);
+//void	render_map(t_data *data);
 //void 	ft_render_texture(t_data *data, int *texture, t_ray *ray, int x);
-void 	ft_render_texture(t_data *data, t_ray *ray, int x);
+//void 	ft_render_texture(t_data *data, t_ray *ray, int x);
+//oid render_sky_floor_base(unsigned int sky, unsigned int floor, void *sky_floor_img);
+//void render_scaled_texture_on_base(t_data *data, int texture_idx, void *sky_floor_img);
+
 #endif

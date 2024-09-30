@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:27:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/26 12:38:09 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/30 14:54:25 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,26 @@ void	print_map(char **arr)
 		printf("%s\n", arr[i]);
 		i++;
 	}
+}
+
+//this function has been tailored for cub3d
+int	ft_strstr(char *str, char *to_find)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (to_find[j] == '\0')
+		return (0);
+	while ((str[i] != '\0') && (to_find[j] != '\0'))
+	{
+		while (str[i + j] == to_find[j] && str[i + j] != '\0')
+			j++;
+		if (to_find[j] == '\0')
+			return (1);
+		i++;
+		j = 0;
+	}
+	return (0);
 }

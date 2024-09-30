@@ -6,12 +6,15 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:44:09 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/26 12:42:17 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/30 15:05:30 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
+/*function will return x and y value depending on input for values
+given.  For instance, it will find which x and y value the player is 
+initially located on grid so we can fill our player struct with*/
 int	find_item(char **grid, char axis)
 {
 	int	x;
@@ -41,6 +44,8 @@ int	find_item(char **grid, char axis)
 	return (0);
 }
 
+/*checks the path of the player using flood fill to see if the room is
+enclosed and that they are not "stuck"*/
 int	path_checker(char **game, size_t y, size_t x)
 {
 	size_t	line_count;
@@ -66,6 +71,7 @@ int	path_checker(char **game, size_t y, size_t x)
 	return (0);
 }
 
+/*uses flood fill to see if the room is enclosed*/
 void	flood_fill(char **game)
 {
 	size_t	player_x;
@@ -92,4 +98,3 @@ void	flood_fill(char **game)
 	}
 	free_memory(arr);
 }
-

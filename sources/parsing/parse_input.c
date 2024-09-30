@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/29 08:49:49 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/30 15:05:52 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,21 @@ char	*find_cardinal_paths(char **arr, char *s)
 			path_found = ft_strdup(arr[i] + 2);
 			if (!path_found)
 			{
-				error_no_exit("ERROR: Memory Alloc failed\n", arr);
+				free_memory(arr);
+				ft_putstr_fd("ERROR: Memory Alloc failed\n", 2);
 				return (NULL);
 			}
 			path_extension = path_extractor(arr, path_found);
 			return (path_extension);
 		}
 	}
-	error_message("ERROR: path not found\n", arr);
+	free_memory(arr);
+	ft_putstr_fd("ERROR: path not found\n", 2);
 	return (NULL);
 }
 
+/*this fcn looks moves past empty space and copies the line using
+ft_strdup and returns the line*/
 char 	*path_extractor(char **arr, char *str)
 {
 	char	*path;
@@ -60,6 +64,7 @@ char 	*path_extractor(char **arr, char *str)
 	return (path);
 }
 
+/*funciton looks for floor and ceiling values provided in .cub file*/
 char	*find_floor_ceiling(t_textinfo *text, char **arr, int c)
 {
 	int		i;
@@ -83,7 +88,7 @@ char	*find_floor_ceiling(t_textinfo *text, char **arr, int c)
 	}
 	return(error_message("ERROR: RGB path not found\n", arr), NULL);
 }
-
+/*funciton removes lines above and lines below the grid*/
 char	**remove_empty_lines(char **arr)
 {
 	int		i;
@@ -112,6 +117,9 @@ char	**remove_empty_lines(char **arr)
 	return (updated_grid);
 }
 
+
+/*function checks that the texture paths have been removed and should
+only have grid left. It copies the grid into the textinfo struct */
 t_textinfo	*find_grid(t_textinfo *text, char **grid)
 {
 	char	**temp;
@@ -138,13 +146,4 @@ t_textinfo	*find_grid(t_textinfo *text, char **grid)
 	temp[j] = NULL;
 	text->grid = temp;
 	return (text);
-}
-
-int	filter_grid_lines(char *grid)
-{
-	if (ft_strstr(grid, "NO") || ft_strstr(grid, "SO") || ft_strstr(grid, "WE") \
-	|| ft_strstr(grid, "EA") || ft_strstr(grid, "F") || ft_strstr(grid, "C") || \
-	ft_strlen(grid) == 0)
-		return (1);
-	return (0);
 }

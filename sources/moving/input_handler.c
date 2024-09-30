@@ -70,9 +70,8 @@ int	ft_release_key(int keysym, t_data *data)
 
 int on_destroy(t_data *data)
 {
-	mlx_destroy_window(data->mlx_conn, data->mlx_window);
-	mlx_loop_end(data->mlx_conn);
-	ft_clean_exit(data);
+	ft_exit_game(data);
+	free(data);
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
