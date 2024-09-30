@@ -6,15 +6,13 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/29 10:27:54 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/30 14:41:58 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-//Function to initialize the textures information
-//structure, it initialize all to NULL and 0
-//except for the size, which is initialized to PIXELS (64)
+//function initializes the text struct and saves it in our data struct
 t_textinfo	*ft_initialize_textinfo(char **arr)
 {
 	char		**grid;
@@ -27,10 +25,7 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 	if (!text)
 		error_message("ERROR: calloc fail in text_init", grid);
 	if (fill_paths(text, grid) == EXIT_FAILURE)
-	{
-		free_memory(grid);
 		error_exit("ERROR: calloc fail in text_init", NULL, text);
-	}
 	text->ceiling_rgb = populate_rgb_values(text, grid, 'C', \
 		&text->hex_ceiling);
 	text->floor_rgb = populate_rgb_values(text, grid, 'F', &text->hex_floor);
@@ -42,31 +37,32 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 	return (text);
 }
 
+//function creates the path array needed to store our wall paths.  We need it
+//in an char array to help load the textures in a while loop later
 int	fill_paths(t_textinfo *text, char **grid)
 {
 	text->paths = (char **) ft_calloc(5, sizeof(char *));
 	if (!text->paths)
-	{
-		free_memory(grid);
-		error_exit("ERROR: problems callocing paths in init\n", NULL, text);
-	}
+		return (error_message("ERROR: problems callocing paths in init\n", grid));
 	text->paths[0] = find_cardinal_paths(grid, "NO");
 	if (!text->paths[0])
-		text_exit(text, grid);
+		return (error_message("ERROR: north path not found\n", grid));
 	text->paths[1] = find_cardinal_paths(grid, "SO");
-	if (!text->paths[0])
-		text_exit(text, grid);
+	if (!text->paths[1])
+		return (error_message("ERROR: east path not found\n", grid));
 	text->paths[2] = find_cardinal_paths(grid, "WE");
-	if (!text->paths[0])
-		text_exit(text, grid);
+	if (!text->paths[2])
+		return (error_message("ERROR: south path not found\n", grid));
 	text->paths[3] = find_cardinal_paths(grid, "EA");
-	if (!text->paths[0])
-		text_exit(text, grid);
+	if (!text->paths[3])
+		return (error_message("ERROR: west path not found\n", grid));
 	text->paths[4] = NULL;
 	return (EXIT_SUCCESS);
 }
 
-/*this function splits the rgb values for the floor and ceiling*/
+/*this function splits the rgb values for the floor and ceiling
+checks the rgb value is within expectations, converts it to an int and
+saves as an int array and converts it to a hex value*/
 int	*validate_and_convert(t_textinfo *text, char **arr, \
 	unsigned long *hex_value)
 {
@@ -95,6 +91,8 @@ int	*validate_and_convert(t_textinfo *text, char **arr, \
 	return (rgb);
 }
 
+/*funcion finds the rgb values in the .cub file, makes a char array and check for
+illegal characters too (empty or letters etc) and converts rgb values to hex.*/
 int	*populate_rgb_values(t_textinfo *text, char **grid, int c, 
 	unsigned long *hex_value)
 {
@@ -125,7 +123,8 @@ int	*populate_rgb_values(t_textinfo *text, char **grid, int c,
 	return (rgb);
 }
 
-
+/*function checks if less than 3 values are provided, if
+a character is not a digit etc*/
 int	check_rgb_for_illegal_chars(char **arr)
 {
 	int		i;

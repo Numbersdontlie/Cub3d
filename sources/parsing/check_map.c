@@ -6,12 +6,13 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/26 12:34:56 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/09/30 15:02:48 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
+/*function checks that there are only NSEW10 in the grid*/
 void	valid_chars(t_textinfo *text)
 {
 	size_t	i;
@@ -52,6 +53,7 @@ void	count_chars(char **arr, size_t *player)
 	}
 }
 
+/*function checks if only 1 player*/
 void	check_map_items(t_textinfo *text)
 {
 	size_t		player;
@@ -62,31 +64,22 @@ void	check_map_items(t_textinfo *text)
 		error_exit("ERROR: Too many players, check content\n", NULL, text);
 }
 
-//this function has been tailored for cub3d
-int	ft_strstr(char *str, char *to_find)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	if (to_find[j] == '\0')
-		return (0);
-	while ((str[i] != '\0') && (to_find[j] != '\0'))
-	{
-		while (str[i + j] == to_find[j] && str[i + j] != '\0')
-			j++;
-		if (to_find[j] == '\0')
-			return (1);
-		i++;
-		j = 0;
-	}
-	return (0);
-}
-
+/*trims the line found in the .cub file.  Ensures there are no leading or
+trailing spaces*/
 char	*ft_trim_line(char *str)
 {
 	while (*str== ' ' || *str == '\t')
 		str++;
 	return (str);
 }
+
+/*function looks for paths to textures or if the grid is empty*/
+int	filter_grid_lines(char *grid)
+{
+	if (ft_strstr(grid, "NO") || ft_strstr(grid, "SO") || ft_strstr(grid, "WE") \
+	|| ft_strstr(grid, "EA") || ft_strstr(grid, "F") || ft_strstr(grid, "C") || \
+	ft_strlen(grid) == 0)
+		return (1);
+	return (0);
+}
+
