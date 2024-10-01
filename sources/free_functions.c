@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/30 14:43:53 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:20:34 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_exit_game(t_data *data)
 	free_textures(data);
 	if (data->mlx_window)
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
+	if (data->background.img)
+		mlx_destroy_image(data->mlx_conn, data->background.img);
 	if (data->mlx_conn)
 	{
 		mlx_loop_end(data->mlx_conn);

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/30 16:02:08 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:01:08 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	ft_launch_game(t_data *data)
 
 	//this function was only made to see if I could layer the images
 	//FOR TESTING ONLY, change middle variable 0-3 to test the different tiles
-	render_scaled_texture_on_base(data, 0, data->background.img);//TEST ONLY
-//	ft_make_raycasting(data->player, data);	
+	render_scaled_texture_on_base(data, 3, data->background.img);//TEST ONLY
+//	ft_render(data);
 	
 //	ft_move_player(data);
 	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, data->background.img, 0, 0);
