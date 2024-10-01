@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/30 14:45:36 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/01 16:55:00 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,9 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_get_ray_step_and_distance(data->ray, player);
 		ft_implement_dda(data, data->ray);
 		ft_calculate_wall_height(data->ray, data->player);
-//		ft_get_texture_idx(data, data->ray);
-//		ft_calculate_texture_coordinates(data, data->ray);
-//		ft_render_texture(data, data->ray, x);
+		ft_get_texture_idx(data, data->ray);
+		ft_calculate_texture_coordinates(data, data->ray);
+		ft_render_texture(data, data->ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);
@@ -157,10 +157,13 @@ void ft_render_texture(t_data *data, t_ray *ray, int x)
 	{
 		data->textinfo->y = (int)data->textinfo->pos % data->textinfo->size;
 		data->textinfo->pos += data->textinfo->step;
-		colour = *(int *)data->textureinfo[data->textinfo->idx]->img_addr + \
-			(data->textinfo->y * data->textureinfo[data->textinfo->idx]->line_len + \
-			data->textinfo->x * (data->textureinfo[data->textinfo->idx]->bpp / 8));
-		ft_put_pixel_to_img(data->textureinfo[data->textinfo->idx], x, y, colour);
+		colour = *(int *)data->textureinfo[data->textinfo->idx]->img_addr \
+			+ (data->textinfo->y * \
+			data->textureinfo[data->textinfo->idx]->line_len + \
+			data->textinfo->x * \
+			(data->textureinfo[data->textinfo->idx]->bpp / 8));
+		ft_put_pixel_to_img(data->textureinfo[data->textinfo->idx], \
+			x, y, colour);
 		y++;
 	}
 }

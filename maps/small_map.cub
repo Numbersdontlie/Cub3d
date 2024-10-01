@@ -1,8 +1,8 @@
 
 NO walls/temple.xpm
-SO walls/SO.xpm
-WE walls/WE.xpm
-EA walls/EA.xpm
+EA walls/carving.xpm
+SO walls/grey_bricks.xpm
+WE walls/handpaintedwall.xpm
 
 F 34,139,34
 C 135,206,235

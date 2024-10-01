@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/30 15:55:20 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/01 16:57:22 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,7 @@ void		ft_implement_dda(t_data *data, t_ray *ray);
 void		ft_calculate_wall_height(t_ray *ray, t_player *player);
 int			ft_make_raycasting(t_player *player, t_data *data);
 void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
+void	 	ft_render_texture(t_data *data, t_ray *ray, int x);
 
 //sources/errors.c
 int			error_message(char *str, char **arr);

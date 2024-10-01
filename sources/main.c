@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/30 15:54:27 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:04:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int ac, char **av)
 //	render_map(data); mini map
 	if (ft_launch_game(data) == EXIT_FAILURE)
 		error_exit("ERROR: problem loading text", data, text);
+	ft_make_raycasting(data->player, data);	
 	mlx_hook(data->mlx_window, KeyPress, KeyPressMask, ft_handle_key, data);
 	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);
 	mlx_loop_hook(data->mlx_conn, ft_render, data);
