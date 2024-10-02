@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/01 16:57:22 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/02 16:53:56 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 # define PIXELS 64
 # define MINI 16
-# define WIDTH 640 
+# define WIDTH 640
 # define HEIGHT 480
 # define MOVEMENTSPEED 0.0125
 # define ROTATIONSPEED 0.015
@@ -182,7 +182,7 @@ typedef struct s_data
 	void			*mlx_conn;
 	void			*mlx_window;
 	char			**map;//will charge the map in an array to access from function to check movement
-	char			**path;//for testing
+	char			**path;
 	t_mapinfo		*mapinfo;
 	t_player		*player;
 	t_ray			*ray;
@@ -307,12 +307,12 @@ void		free_textures(t_data *data);
 //sources/free_functions2.c
 void		free_mapstruct(t_data *data);
 
-//sources/render/mini_map.c
-//void	make_tiles(t_data *data, int x, int y, int colour);
-//void	render_map(t_data *data);
-//void 	ft_render_texture(t_data *data, int *texture, t_ray *ray, int x);
-//void 	ft_render_texture(t_data *data, t_ray *ray, int x);
-//oid render_sky_floor_base(unsigned int sky, unsigned int floor, void *sky_floor_img);
-//void render_scaled_texture_on_base(t_data *data, int texture_idx, void *sky_floor_img);
+//sources/bonus/mini_map.c
+int	ft_launch_game_bonus(t_data *data);
+void	make_tiles(t_data *data, int x, int y, int colour);
+void	render_map_bonus(t_data *data);
+void render_sky_floor_base_bonus(unsigned int sky, unsigned int floor, void *sky_floor_img);
+void render_scaled_texture_on_base_bonus(t_data *data, int texture_idx, void *sky_floor_img);
+void draw_line(t_data *data, int x0, int y0, int x1, int y1);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/10/01 15:29:47 by kbolon           ###   ########.fr        #
+#    Updated: 2024/10/02 15:11:29 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ SRCS =	sources/main.c \
 		sources/initializing/initialize_data.c \
 		sources/initializing/initialize_text.c \
 		sources/initializing/render_image.c \
-		sources/initializing/mini_map.c \
 		sources/moving/input_handler.c \
 		sources/initializing/initialize_window.c \
 		sources/moving/initial_position.c \
@@ -34,7 +33,7 @@ SRCS =	sources/main.c \
 		sources/moving/move_player.c \
 		sources/raycasting/implement_raycasting.c \
 		sources/raycasting/handle_textures.c \
-
+		sources/bonus/minimap.c 
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
