@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/02 16:53:56 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/04 16:54:20 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,11 +308,11 @@ void		free_textures(t_data *data);
 void		free_mapstruct(t_data *data);
 
 //sources/bonus/mini_map.c
-int	ft_launch_game_bonus(t_data *data);
+int		ft_launch_game_bonus(t_data *data);
 void	make_tiles(t_data *data, int x, int y, int colour);
 void	render_map_bonus(t_data *data);
-void render_sky_floor_base_bonus(unsigned int sky, unsigned int floor, void *sky_floor_img);
-void render_scaled_texture_on_base_bonus(t_data *data, int texture_idx, void *sky_floor_img);
-void draw_line(t_data *data, int x0, int y0, int x1, int y1);
+void 	render_sky_floor_base_bonus(unsigned int sky, unsigned int floor, t_data *data);
+void 	render_scaled_texture_on_base_bonus(t_data *data, int texture_idx, void *sky_floor_img);
+void	render_player_bonus(t_data *data);
 
 #endif
