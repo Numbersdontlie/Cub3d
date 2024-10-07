@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:27:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/30 14:54:25 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 18:03:25 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	copy_valid_lines(char *grid, char *trimmed, char **arr)
 {
 	grid = ft_strdup(trimmed);
 	if (!grid)
-		error_message("ERROR: mem alloc failed\n", arr);
+		error_message_simple("ERROR: mem alloc failed\n", arr);
 }
 
 void	check_empty_lines(char **grid, int i)
 {
 	if (i == 0)
-		error_message("ERROR: Grid is empty after removing empty lines\n", grid);
+		error_message_simple("ERROR: Grid is empty after removing empty lines\n", grid);
 }
 
 char	*ft_strndup(const char *s, size_t n)
@@ -43,7 +43,7 @@ char	*ft_strndup(const char *s, size_t n)
 	return (p);
 }
 
-void	print_map(char **arr)
+/*void	print_map(char **arr)
 {
 	size_t	count;
 	size_t	i;
@@ -55,7 +55,7 @@ void	print_map(char **arr)
 		printf("%s\n", arr[i]);
 		i++;
 	}
-}
+}*/
 
 //this function has been tailored for cub3d
 int	ft_strstr(char *str, char *to_find)

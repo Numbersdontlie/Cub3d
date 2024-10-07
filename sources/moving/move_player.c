@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:59:22 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/27 11:19:05 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 17:55:09 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 //function moves player forward and backword
-void	ft_player_movement_forward_backword(t_data *data)
+/*void	ft_player_movement_forward_backword(t_data *data)
 {
 	if (data->player->move_y == 1)
 	{
@@ -35,7 +35,7 @@ void	ft_player_movement_forward_backword(t_data *data)
 			data->player->pos_x -= data->player->dir_x * MOVEMENTSPEED;
 	}
 	data->player->move_y = 0;
-}
+}*/
 
 //function moves player rotate left and right
 void	ft_rotation(t_data *data)

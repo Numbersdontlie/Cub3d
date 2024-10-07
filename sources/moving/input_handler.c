@@ -77,7 +77,7 @@ int on_destroy(t_data *data)
 }
 
 
-void	ft_loop_events(t_data *data)
+/*void	ft_loop_events(t_data *data)
 {
 	mlx_hook(data->mlx_window, KeyPress, KeyPressMask, ft_handle_key, data);
 	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);
@@ -85,4 +85,4 @@ void	ft_loop_events(t_data *data)
 	mlx_loop(data->mlx_conn);
 
 	//We're missing the hook to handle the input from mouse if we make the bonus
-}
+}*/
