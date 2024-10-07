@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:44:09 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/30 15:05:30 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 13:52:00 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	path_checker(char **game, size_t y, size_t x)
 	return (0);
 }
 
+
 /*uses flood fill to see if the room is enclosed*/
 void	flood_fill(char **game)
 {
@@ -84,7 +85,7 @@ void	flood_fill(char **game)
 	player_y = find_item(game, 'y');
 	arr = (char **) malloc (sizeof(char *) * (row_count(game) + 1));
 	if (!arr)
-		error_message("Error\nmemory allocation fail in tmp.grid", NULL);
+		error_message("Error\nmemory allocation fail in tmp.grid");
 	while (i < row_count(game))
 	{
 		arr[i] = ft_strdup(game[i]);
@@ -92,9 +93,7 @@ void	flood_fill(char **game)
 	}
 	arr[i] = NULL;
 	if (path_checker(arr, player_y, player_x)) 
-	{
-		free_memory(game);
-		error_message("ERROR: Map is not enclosed\n", arr);
-	}
-	free_memory(arr);
+		error_message_simple("ERROR: Map is not enclosed\n", arr);
+	else
+		free_memory(arr);
 }
