@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/10/07 11:35:07 by kbolon           ###   ########.fr        #
+#    Updated: 2024/10/07 21:46:40 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ COMMON_SRCS =	sources/errors.c \
 SRCS = sources/main.c \
 		$(COMMON_SRCS)
 
-BONUS_SRCS =	sources/bonus/bonus_main.c \
+#BONUS_SRCS =	sources/bonus/bonus_main.c \
 		sources/initializing/initialize_bonus_data.c \
 		sources/bonus/minimap.c \
 		$(COMMON_SRCS)
@@ -46,8 +46,8 @@ MLX_PATH = minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include#-fsanitize=address
+#BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
 
 #colours
 
@@ -61,7 +61,7 @@ RESET=\033[0m
 
 all: $(NAME)
 
-bonus: $(BONUS_NAME)
+#bonus: $(BONUS_NAME)
 
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
@@ -69,11 +69,11 @@ $(NAME): $(OBJS) $(MLX) $(LIBFT)
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
 
-$(BONUS_NAME): $(BONUS_OBJS) $(MLX) $(LIBFT)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
+#$(BONUS_NAME): $(BONUS_OBJS) $(MLX) $(LIBFT)
+#	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
 #	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-	@$(MAKE) clear-screen
-	@echo "$(BLUE)cub3D compiled$(RESET)"
+#	@$(MAKE) clear-screen
+#	@echo "$(BLUE)cub3D compiled$(RESET)"
 
 $(MLX):
 	@make -C $(MLX_PATH)
