@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/04 16:54:20 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 13:26:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,8 +294,10 @@ void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
 void	 	ft_render_texture(t_data *data, t_ray *ray, int x);
 
 //sources/errors.c
-int			error_message(char *str, char **arr);
+void		error_message(char *str);
+int			error_message_simple(char *str, char **arr);
 void		error_exit(char *str, t_data *data, t_textinfo *text);
+void		error_message_text(char *str, t_textinfo *text);
 
 //sources/free_functions.c
 void		free_memory(char **arr);

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/09/30 14:41:58 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 13:28:45 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 
 	grid = read_map(*arr);
 	if (!grid)
-		error_message("ERROR: problem reading map", NULL);
+		error_message("ERROR: problem reading map");
 	text = (t_textinfo *) ft_calloc (1, sizeof(t_textinfo));
 	if (!text)
-		error_message("ERROR: calloc fail in text_init", grid);
+		error_message_simple("ERROR: calloc fail in text_init", grid);
 	if (fill_paths(text, grid) == EXIT_FAILURE)
 		error_exit("ERROR: calloc fail in text_init", NULL, text);
 	text->ceiling_rgb = populate_rgb_values(text, grid, 'C', \
@@ -32,7 +32,7 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 	text->size = PIXELS;
 	text = find_grid(text, grid);
 	if (!text->grid)
-		error_exit("ERROR: problems copying grid in init\n", NULL, text);
+		error_message_text("ERROR: problems copying grid in init\n", text);
 	free_memory(grid);
 	return (text);
 }
@@ -43,19 +43,19 @@ int	fill_paths(t_textinfo *text, char **grid)
 {
 	text->paths = (char **) ft_calloc(5, sizeof(char *));
 	if (!text->paths)
-		return (error_message("ERROR: problems callocing paths in init\n", grid));
+		return (error_message_simple("ERROR: problems callocing paths\n", NULL));
 	text->paths[0] = find_cardinal_paths(grid, "NO");
 	if (!text->paths[0])
-		return (error_message("ERROR: north path not found\n", grid));
-	text->paths[1] = find_cardinal_paths(grid, "SO");
+		return (error_message_simple("ERROR: north path not found\n", NULL));
+	text->paths[1] = find_cardinal_paths(grid, "EA");
 	if (!text->paths[1])
-		return (error_message("ERROR: east path not found\n", grid));
-	text->paths[2] = find_cardinal_paths(grid, "WE");
+		return (error_message_simple("ERROR: east path not found\n", NULL));
+	text->paths[2] = find_cardinal_paths(grid, "SO");
 	if (!text->paths[2])
-		return (error_message("ERROR: south path not found\n", grid));
-	text->paths[3] = find_cardinal_paths(grid, "EA");
+		return (error_message_simple("ERROR: south path not found\n", NULL));
+	text->paths[3] = find_cardinal_paths(grid, "WE");
 	if (!text->paths[3])
-		return (error_message("ERROR: west path not found\n", grid));
+		return (error_message_simple("ERROR: west path not found\n", NULL));
 	text->paths[4] = NULL;
 	return (EXIT_SUCCESS);
 }

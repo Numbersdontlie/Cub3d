@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:08:50 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/04 16:58:16 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 10:59:33 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,18 @@ int	ft_launch_game_bonus(t_data *data)
 
 void	ft_init_bonus(t_data *data)
 {
-	(*data)->mini = (t_mini) * ft_calloc (1, sizeof(t_mini));
-	if (!(*data)->mini)
-		return (EXIT_FAILURE);
-	(*data)->mini->img = (t_img) * ft_calloc (1, sizeof(t_img));
-	if (!(*data)->mini->img)
-		return (EXIT_FAILURE);
-	
+	(*data)->bonus = 1;
 }
 
+void ft_init_minimap(t_data *data)
+{
+	(*data)->minimap = (t_mini *)ft_calloc (1, sizeof(t_mini));
+	if (!(*data)->minimap)
+		return (EXIT_FAILURE);
+	(*data)->minimap->img = (t_img) * ft_calloc (1, sizeof(t_img));
+	if (!(*data)->minimap->img)
+		return (EXIT_FAILURE);
+}
 void	make_tiles(t_data *data, int x, int y, int colour)
 {
 	int	i;
