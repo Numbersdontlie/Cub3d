@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/07 13:41:48 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 16:03:27 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	ft_exit_game(t_data *data)
 
 //Function to exit the program in a clean way
 //it destroy the image, window and display before freeing memory
+
+//add new free for new image
 void	ft_clean_exit(t_data *data)
 {
 	if (data->path)
