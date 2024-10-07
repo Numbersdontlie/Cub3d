@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/07 13:26:31 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 16:20:06 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,8 +188,9 @@ typedef struct s_data
 	t_ray			*ray;
 	t_textinfo		*textinfo;
 	t_img			*textureinfo[4];
-	t_img			background;
-	t_mini			minimap;
+	t_img			*imginfo;//do we need?
+	t_img			background;//do we need?
+	t_mini			minimap;//only for bonus if we do it
 }	t_data;
 
 //sources/initialize/initialize_data.c

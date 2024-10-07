@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/07 11:24:59 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 16:02:44 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 //			mlx_destroy_window((*data)->mlx_conn, (*data)->background.img);
 		return (EXIT_FAILURE);
 //	}
+	ft_initialize_imginfo(data);
 	return (EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/02 14:29:30 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 16:18:27 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	ft_launch_game(t_data *data)
 
 	//this function was only made to see if I could layer the images
 	//FOR TESTING ONLY, change middle variable 0-3 to test the different tiles
-	render_scaled_texture_on_base(data, 3, data->background.img);//TEST ONLY
-//	ft_render(data);
-	
-//	ft_move_player(data);
+//	render_scaled_texture_on_base(data, 3, data->background.img);//TEST ONLY
+	ft_render(data);
+
+	ft_move_player(data);
 	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, data->background.img, 0, 0);
 
 	return (EXIT_SUCCESS);
@@ -82,7 +82,7 @@ void render_sky_floor_base(unsigned int sky, unsigned int floor, t_data *data)
 
 /*function should be removed, it was for testing only to see if I could render
 a tile over the sky/floor background image*/
-void render_scaled_texture_on_base(t_data *data, int texture_idx, void *sky_floor_img)
+/*void render_scaled_texture_on_base(t_data *data, int texture_idx, void *sky_floor_img)
 {
 	int x, y;
 	int *img_addr, *tex_addr;
@@ -123,4 +123,80 @@ void render_scaled_texture_on_base(t_data *data, int texture_idx, void *sky_floo
 			}
 		}
 	}
+}*/
+
+//Function to update individual pixels in an image based on conditions
+//it checks if texture pixels exits and set that pixel in the image to the 
+//corresponding texture color in x and y. It also check if pixel is in ceiling or floor
+//region and draw the ceiling or floor color if no texture is present
+void	ft_update_pixels_img(t_data *data, t_img *img, int x, int y)
+{
+	int	pix;
+
+	pix = data->textureinfo[i][y][x];
+	if (pix > 0)
+		ft_put_pixel_to_img(img, x, y, pix);
+	else if (y < HEIGHT / 2)
+		ft_put_pixel_to_img(img, x, y, data->textinfo->hex_ceiling);
+	else if (y < HEIGHT - 1)
+		ft_put_pixel_to_img(img, x, y, data->textinfo->hex_floor);
+}
+
+//Function to initialize the image, it will initialize an empty image structure
+//create the new image using the mlx library and check that was correctly created
+//assign the image address
+int	ft_initialize_imginfo(t_data *data)
+{
+	if (data->imginfo && data->imginfo->img)
+		mlx_destroy_image(data->mlx_conn, data->imginfo);
+	data->imginfo = (t_img *)ft_calloc(1, sizeof(t_img));
+	if (!data->imginfo)
+		error_message("ERROR: failed to initiate img\n");
+	data->imginfo->img = mlx_new_image(data->mlx_conn, WIDTH, HEIGHT);
+	if (!data->imginfo->img)
+		error_message("ERROR: failed to create image\n");
+	data->imginfo->img_addr = (int *)mlx_get_data_addr(data->imginfo->img, \
+		&data->imginfo->bpp, &data->imginfo->line_len, &data->imginfo->endian);
+	if (!data->imginfo->img_addr)
+		error_message("ERROR: failed to get img address\n");
+	return (EXIT_SUCCESS);
+}
+
+
+//Function to render an image into a window
+//it will initialize an image buffer and fill it pixel by pixel
+//setting the appropiate color for each point (x, y). After the buffer is full
+//it display the whole buffer in the window and destroy the buffer and free memory
+void	ft_draw_image_in_window(t_data *data)
+{
+	t_img	*img;
+	int		x;
+	int		y;
+
+	img = ft_calloc(1, sizeof(t_img));
+	ft_initialize_imginfo(data);
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			ft_update_pixels_img(data, img, x, y);
+			x++;updated_texture
+		}
+		y++;
+	}
+	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, img->img, 0, 0);
+	mlx_destroy_image(data->mlx_conn, img->img);
+	free(img);
+}
+
+//Function to render the ray structure of the game
+//it will initialize the texture pixels, implement the raycasting
+//algorithm and draw the resulting image in the window
+void	ft_render_ray(t_data *data)
+{
+	ft_initialize_texture_pixels(data);
+	ft_make_raycasting(data->player, data);
+	ft_draw_image_in_window(data);
 }
