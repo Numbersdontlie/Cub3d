@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/08 12:11:09 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:21:05 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,69 +74,6 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 	return (EXIT_SUCCESS);
 }
 
-//Function to try to initialize the mapinfo in a different way
-//just for testing(all to zero)
-void	ft_mapinfo_init(t_mapinfo *map)
-{
-	map->fd = 0;
-	map->grid = NULL;
-	map->map_height = 0;
-	map->map_width = 0;
-	map->idx_map_end = 0;
-	
-}
-
-//Function to try to initialize the player in a different way
-//just for testing (all to zero)
-void	ft_player_init(t_player *player)
-{
-	player->direction = NULL;
-	player->pos_x = 0.0;
-	player->pos_y = 0.0;
-	player->dir_x = 0.0;
-	player->dir_y = 0.0;
-	player->plane_x = 0.0;
-	player->plane_y = 0.0;
-	player->has_moved = 0;
-	player->move_x = 0;
-	player->move_y = 0;
-	player->rotate = 0;
-}
-
-//Function to try to initialize the player in a different way
-//just for testing (all to zero)
-void	ft_textinfo_init(t_textinfo *texture)
-{
-	texture->paths = NULL;
-	texture->floor_rgb = 0;
-	texture->ceiling_rgb = 0;
-	texture->grid = NULL;
-	texture->hex_floor = 0x0;
-	texture->hex_ceiling = 0x0;
-	texture->size = 0;
-	texture->idx = 0;
-	texture->step = 0.0;
-	texture->pos = 0.0;
-	texture->x = 0;
-	texture->y = 0;
-}
-
-//Function to try to initialize the data in a different way
-//just for testing
-void	ft_data_init(t_data *data)
-{
-	data->mlx_conn = NULL;
-	data->mlx_window = NULL;
-	data->map = NULL;
-	data->path = NULL;
-	ft_mapinfo_init(data->mapinfo);
-	ft_player_init(data->player);
-	ft_textinfo_init(data->textinfo);
-	data->text_pixels = NULL;
-	data->textures = NULL;
-}
-
-/*
 //function loads the sky and floor colours and creates a background image
 //of the two colours.  We split it 50/50 for now. Function also checks
 //the image was created and saves the address.
@@ -152,4 +89,3 @@ int	ft_init_background(t_data *data)
 		return (error_message_simple("ERROR: problem getting background address\n", NULL));
 	return (EXIT_SUCCESS);
 }
-*/

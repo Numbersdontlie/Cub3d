@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/08 12:14:02 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:35:33 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,4 +150,3 @@ t_textinfo	*find_grid(t_textinfo *text, char **grid)
 //	free(temp);
 	return (text);
 }
-

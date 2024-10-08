@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/08 16:07:52 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/01 16:55:00 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_implement_dda(t_data *data, t_ray *ray)
 //it calculates the wall distance based if the ray hit in a vertical 
 //or horizontal wall (defined by ray->side)
 //to the wall and them derive the draw start and end position.
-void	ft_calculate_wall_height(t_ray *ray)//, t_player *player)
+void	ft_calculate_wall_height(t_ray *ray, t_player *player)
 {
 	if (ray->side == 0)
 		ray->wall_distance = (ray->sidedistance_x - ray->deltadistance_x);
@@ -102,11 +102,11 @@ void	ft_calculate_wall_height(t_ray *ray)//, t_player *player)
 	ray->draw_end = (ray->line_height / 2) + (HEIGHT / 2);
 	if (ray->draw_end >= HEIGHT)
 		ray->draw_end = HEIGHT - 1;
-//	if (ray->side == 0)
-//		ray->wall_x = player->pos_y + ray->wall_distance * ray->dir_y;
-//	else
-//		ray->wall_x = player->pos_x + ray->wall_distance * ray->dir_x;
-//	ray->wall_x -= floor(ray->wall_x);
+	if (ray->side == 0)
+		ray->wall_x = player->pos_y + ray->wall_distance * ray->dir_y;
+	else
+		ray->wall_x = player->pos_x + ray->wall_distance * ray->dir_x;
+	ray->wall_x -= floor(ray->wall_x);
 }
 
 
@@ -125,7 +125,7 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_initialize_raycasting(x, data->ray, player);
 		ft_get_ray_step_and_distance(data->ray, player);
 		ft_implement_dda(data, data->ray);
-		ft_calculate_wall_height(data->ray);//, data->player);
+		ft_calculate_wall_height(data->ray, data->player);
 		ft_get_texture_idx(data, data->ray);
 		ft_calculate_texture_coordinates(data, data->ray);
 		ft_render_texture(data, data->ray, x);
