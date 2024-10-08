@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/07 18:27:09 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/08 21:52:47 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <X11/X.h>
 
 # define PIXELS 64
-# define MINI 16
 # define WIDTH 640
 # define HEIGHT 480
 # define MOVEMENTSPEED 0.0125
@@ -92,7 +91,7 @@ typedef struct s_textinfo
 	char			**grid;
 	unsigned long	hex_floor;
 	unsigned long	hex_ceiling;
-	int				size;//what is this for?
+//	int				size;//what is this for?
 	int				idx;
 	double			step;
 	double			pos;
@@ -109,7 +108,7 @@ typedef struct s_mapinfo
 	char	**grid;
 	size_t	player_x; //we can move these, I just put to easy testing bc I only init map
 	size_t	player_y; //we can move these, I just put to easy testing bc I only init map
-	size_t	map_height;//could this be line count??
+	size_t	map_height;//line count??
 	size_t	map_width;
 	int		idx_map_end;
 }	t_mapinfo;
@@ -188,8 +187,10 @@ typedef struct s_data
 	t_ray			*ray;
 	t_textinfo		*textinfo;
 	t_img			*textureinfo[4];
-	t_img			*imginfo;//do we need?
-	t_img			background;//do we need?
+//	t_img			*imginfo;//do we need?
+//	t_img			background;//do we need?
+	int				**texture_pixels;//other mcombo
+//	int				**textures;//other mcombo
 	t_mini			minimap;//only for bonus if we do it
 }	t_data;
 
@@ -208,7 +209,9 @@ int			check_rgb_for_illegal_chars(char **arr);
 //sources/initialize/initialize_window.c
 int			ft_initialize_connection(t_data *data);
 int			ft_initialize_textures(t_data *data);
-int			ft_clear_textures(t_data *data, int i);
+int			ft_clear_textures(t_data *data);
+int			ft_init_texture_img(t_data *data, t_img *image, char *path);
+int	ft_init_img(t_data *data, t_img *image);
 
 //sources/initialize/render_image.c
 int			ft_launch_game(t_data *data);
@@ -219,6 +222,7 @@ void		render_sky_floor_base(unsigned int sky, unsigned int floor, t_data *data);
 int			ft_initialize_imginfo(t_data *data);
 void		ft_init_game(t_data *data);
 void		ft_draw_image_in_window(t_data *data);
+void	ft_init_texture_pixels(t_data *data);
 
 //sources/moving/check_position.c
 int			ft_check_if_empty(t_data *data, double x, double y);
@@ -292,7 +296,7 @@ void		ft_get_texture_idx(t_data *data, t_ray *ray);
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
 void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
-void		ft_calculate_wall_height(t_ray *ray, t_player *player);
+void		ft_calculate_wall_height(t_ray *ray);//, t_player *player);
 int			ft_make_raycasting(t_player *player, t_data *data);
 void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
 void	 	ft_render_texture(t_data *data, t_ray *ray, int x);
@@ -312,6 +316,8 @@ void		free_textures(t_data *data);
 
 //sources/free_functions2.c
 void		free_mapstruct(t_data *data);
+void	free_tab(void **tab);
+void free_partial(int **array, int rows);
 
 //sources/bonus/mini_map.c
 int		ft_launch_game_bonus(t_data *data);

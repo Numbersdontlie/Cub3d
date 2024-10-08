@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/30 14:34:40 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/08 21:59:07 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,33 @@ int	ft_initialize_connection(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
+
+int		*xpm_buffer_image(t_data *data, char *path)
+{
+	t_img	temp;
+	int		*buff;
+	int		x;
+	int		y;
+
+	ft_init_texture_img(data, &temp, path);
+	buff = ft_calloc((temp.texture_width * temp.texture_height), sizeof(int));
+	if (!buff)
+		return (0);
+	y = 0;
+	while (y < PIXELS)
+	{
+		x = 0;
+		while (x < PIXELS)
+		{
+			buff[y * PIXELS + x] = temp.img_addr[y * PIXELS + x];
+			x++;
+		}
+		y++;
+	}
+	mlx_destroy_image(data->mlx_conn, temp.img);
+	return (buff);
+}
+
 //Function to initialize the image, it creates the new image using 
 //the mlx library and checks it was correctly created and saves the image address
 int	ft_initialize_textures(t_data *data)
@@ -45,25 +72,62 @@ int	ft_initialize_textures(t_data *data)
 	{
 		data->textureinfo[i] = (t_img *)ft_calloc(1, sizeof(t_img));
 		if (!data->textureinfo[i])
-			return (ft_clear_textures(data, i));
-		data->textureinfo[i]->img = mlx_xpm_file_to_image(data->mlx_conn, data->textinfo->paths[i], \
-			&data->textureinfo[i]->texture_width, &data->textureinfo[i]->texture_height);
-		if (!data->textureinfo[i]->img)
-			return (ft_clear_textures(data, i));
-		data->textureinfo[i]->img_addr = (int *)mlx_get_data_addr(data->textureinfo[i]->img, \
-			&data->textureinfo[i]->bpp, &data->textureinfo[i]->line_len, \
-			&data->textureinfo[i]->endian);
-		if (!data->textureinfo[i]->img_addr)
-			return (ft_clear_textures(data, i));
+			return (ft_clear_textures(data));
+		data->textureinfo[i]->img = xpm_buffer_image(data, data->textinfo->paths[i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);
 }
 
+//ft_memset clears the pointers in image to NULL/0 while maintaining
+//the allocated memory
+int	ft_init_texture_img(t_data *data, t_img *image, char *path)
+{
+	ft_memset(image, 0, sizeof(t_img));
+	image->img = mlx_xpm_file_to_image(data->mlx_conn, path, &image->texture_width, &image->texture_height);
+	if (!image->img )
+	{
+		error_message("ERROR: Unable to load texture image\n");
+		return (EXIT_FAILURE);
+	}
+	image->img_addr = (int *)mlx_get_data_addr(image->img, &image->bpp, &image->line_len, &image->endian);
+	if (!image->img_addr)
+	{
+		error_message("ERROR: Unable to load texture address\n");
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+//ft_memset clears the pointers in image to NULL/0 while maintaining
+//the allocated memory
+int	ft_init_img(t_data *data, t_img *image)
+{
+//	ft_memset(image, 0, sizeof(t_img));
+//	image->img = mlx_new_image(data->mlx_conn, image->texture_width, image->texture_height);
+	image->img = mlx_new_image(data->mlx_conn, WIDTH, HEIGHT);
+	if (!image->img )
+	{
+		error_message("ERROR: Unable to load image\n");
+		return (EXIT_FAILURE);
+	}
+	image->img_addr = (int *)mlx_get_data_addr(image->img, &image->bpp, &image->line_len, &image->endian);
+	if (!image->img_addr)
+	{
+		error_message("ERROR: Unable to load image address\n");
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+
 //function destroys the texture images if any problems were found
 //during the loading of each texture.
-int	ft_clear_textures(t_data *data, int i)
+int	ft_clear_textures(t_data *data)
 {
+	int	i;
+
+	i = 3;
 	while (--i >= 0)
 	{
 		if (data->textureinfo[i])
