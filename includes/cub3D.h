@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/08 16:12:03 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/07 18:27:09 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@ typedef struct s_mapinfo
 {
 	int		fd;
 	char	**grid;
-	char	*path;
-	int		num_of_lines;
-	size_t	map_height;//this is the number of rows inside the map
-	size_t	map_width;//this is the number of columns inside the map, we need to find the maximum column in the map
+	size_t	player_x; //we can move these, I just put to easy testing bc I only init map
+	size_t	player_y; //we can move these, I just put to easy testing bc I only init map
+	size_t	map_height;//could this be line count??
+	size_t	map_width;
 	int		idx_map_end;
 }	t_mapinfo;
 
@@ -187,8 +187,6 @@ typedef struct s_data
 	t_player		*player;
 	t_ray			*ray;
 	t_textinfo		*textinfo;
-	int				**text_pixels;
-	int				**textures;
 	t_img			*textureinfo[4];
 	t_img			*imginfo;//do we need?
 	t_img			background;//do we need?
@@ -279,7 +277,7 @@ char		**remove_empty_lines(char **arr);
 t_textinfo	*find_grid(t_textinfo *text, char **grid);
 
 //parsing/read_input.c
-int			check_extension(char *s);
+void		check_extension(char *s);
 size_t		row_count(char **grid);
 char		**read_map(char *s);
 char		*ft_replace(char *s);
@@ -294,7 +292,7 @@ void		ft_get_texture_idx(t_data *data, t_ray *ray);
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
 void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
-void		ft_calculate_wall_height(t_ray *ray);//, t_player *player);
+void		ft_calculate_wall_height(t_ray *ray, t_player *player);
 int			ft_make_raycasting(t_player *player, t_data *data);
 void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
 void	 	ft_render_texture(t_data *data, t_ray *ray, int x);
@@ -323,10 +321,4 @@ void 	render_sky_floor_base_bonus(unsigned int sky, unsigned int floor, t_data *
 void 	render_scaled_texture_on_base_bonus(t_data *data, int texture_idx, void *sky_floor_img);
 void	render_player_bonus(t_data *data);
 
-//Trying new thing
-void	ft_mapinfo_init(t_mapinfo *map);
-void	ft_player_init(t_player *player);
-void	ft_textinfo_init(t_textinfo *texture);
-void	ft_data_init(t_data *data);
-int		ft_get_lines(char *s);
 #endif
