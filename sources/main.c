@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/07 21:20:22 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/08 21:30:56 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	main(int ac, char **av)
 	if (ft_initialize_data(&data, text) == EXIT_FAILURE)
 		error_exit("ERROR: problem loading text", data, NULL);
 	ft_init_game(data);
-	mlx_loop_hook(data->mlx_conn, ft_render, data);
 	mlx_hook(data->mlx_window, KeyPress, KeyPressMask, ft_handle_key, data);
 	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);
+	mlx_loop_hook(data->mlx_conn, ft_render, data);
 	mlx_loop(data->mlx_conn);
 	ft_exit_game(data);
 //	free_text(text);

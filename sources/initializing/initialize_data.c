@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/07 18:21:05 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/08 18:49:24 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,32 +60,7 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 	if (ft_initialize_connection(*data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (ft_initialize_textures(*data) == EXIT_FAILURE)
-//	{
-//		mlx_destroy_display((*data)->mlx_conn);
-//		free((*data)->mlx_conn);
 		return (EXIT_FAILURE);
-//	}
-	if (ft_init_background(*data) == EXIT_FAILURE)
-//	{
-//		if ((*data)->background.img)
-//			mlx_destroy_window((*data)->mlx_conn, (*data)->background.img);
-		return (EXIT_FAILURE);
-//	}
 	return (EXIT_SUCCESS);
 }
 
-//function loads the sky and floor colours and creates a background image
-//of the two colours.  We split it 50/50 for now. Function also checks
-//the image was created and saves the address.
-int	ft_init_background(t_data *data)
-{
-	data->background.img = mlx_new_image(data->mlx_conn, WIDTH, HEIGHT);
-	if (!data->background.img)
-		return (error_message_simple("ERROR: problem initiating background\n", NULL));
-	data->background.img_addr = (int *)mlx_get_data_addr(data->background.img, \
-			&data->background.bpp, &data->background.line_len, \
-			&data->background.endian);
-	if (!data->background.img_addr)
-		return (error_message_simple("ERROR: problem getting background address\n", NULL));
-	return (EXIT_SUCCESS);
-}
