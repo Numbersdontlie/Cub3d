@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/08 21:29:59 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 12:55:33 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,8 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_get_ray_step_and_distance(data->ray, player);
 		ft_implement_dda(data, data->ray);
 		ft_calculate_wall_height(data->ray);//, data->player);
-		ft_get_texture_idx(data, data->ray);
 		ft_calculate_texture_coordinates(data, data->ray);
-		ft_render_texture(data, data->ray, x);
+		ft_update_texture_pixels(data, data->ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);
@@ -147,23 +146,31 @@ void	ft_calculate_texture_coordinates(t_data *data, t_ray *ray)
 //Function to update the texture pixels on the screen for render
 //it calculates which part of the texture to apply to the current vertical line
 //it flip the textures based on the direction the ray hits the wall
-void ft_render_texture(t_data *data, t_ray *ray, int x)
+void	ft_update_texture_pixels(t_data *data, t_ray *ray, int x)
 {
 	int		y;
 	int		colour;
 
+	ft_get_texture_idx(data, ray);
+	data->textinfo->x = (int)(ray->wall_x * PIXELS);
+	if ((ray->side == 0 && ray->dir_x < 0) || \
+		(ray->side == 1 && ray->dir_y > 0))
+		data->textinfo->x = PIXELS - data->textinfo->x - 1;
+	data->textinfo->step = 1.0 * PIXELS / ray->line_height;
+	data->textinfo->pos = (ray->draw_start - HEIGHT / 2 \
+		+ ray->line_height / 2) * data->textinfo->step;
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{
-		data->textinfo->y = (int)data->textinfo->pos % PIXELS;
+//		data->textinfo->y = (int)data->textinfo->pos % PIXELS;
+		data->textinfo->y = (int)data->textinfo->pos & (PIXELS - 1);
 		data->textinfo->pos += data->textinfo->step;
-		colour = *(int *)data->textureinfo[data->textinfo->idx]->img_addr \
-			+ (data->textinfo->y * \
-			data->textureinfo[data->textinfo->idx]->line_len + \
-			data->textinfo->x * \
-			(data->textureinfo[data->textinfo->idx]->bpp / 8));
-		ft_put_pixel_to_img(data->textureinfo[data->textinfo->idx], \
-			x, y, colour);
+		colour = data->textures[data->textinfo->idx][PIXELS * \
+			data->textinfo->y + data->textinfo->x];
+		if (data->textinfo->idx == N || data->textinfo->idx == E)
+			colour = (colour >> 1);// & 8355711;
+		if (colour > 0)
+			data->texture_pixels[y][x] = colour;
 		y++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 11:00:09 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 11:11:00 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	main(int ac, char **av)
 	if (ft_initialize_data(&data, text) == EXIT_FAILURE)
 		error_exit("ERROR: problem loading text", data, NULL);
 	if (ft_initialize_connection(data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		error_exit("ERROR: problem init connection", data, NULL);
 	if (ft_initialize_textures(data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		error_exit("ERROR: problem init textures", data, NULL);
 	ft_init_game(data);
 	mlx_hook(data->mlx_window, KeyPress, KeyPressMask, ft_handle_key, data);
 	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);

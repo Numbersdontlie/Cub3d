@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/08 22:08:32 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 12:27:55 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_init_game(t_data *data)
 {
 	ft_init_texture_pixels(data);
+	ft_memset(data->ray, 0, sizeof(t_ray));
 	ft_make_raycasting(data->player, data);
 	ft_draw_image_in_window(data);
 }
@@ -25,19 +26,16 @@ void	ft_init_texture_pixels(t_data *data)
 	int	i;
 
 	if (data->texture_pixels)
-		free_tab((void **)data->texture_pixels);
-	data->texture_pixels = ft_calloc(HEIGHT, sizeof(int *));
+		free_textures(data->texture_pixels);
+	data->texture_pixels = ft_calloc(HEIGHT + 1, sizeof(int *));
 	if (!data->texture_pixels)
 		error_exit("ERROR: calloc init texture pixels total\n", data, NULL);
 	i = 0;
 	while (i < HEIGHT)
 	{
-		data->texture_pixels[i] = ft_calloc(WIDTH, sizeof(int));
+		data->texture_pixels[i] = ft_calloc(WIDTH + 1, sizeof(int));
 		if (!data->texture_pixels[i])
-		{
-			free_partial(data->texture_pixels, i);
 			error_exit("ERROR: calloc init texture pixels\n", data, NULL);
-		}
 		i++;
 	}
 }

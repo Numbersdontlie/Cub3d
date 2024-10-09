@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 10:18:12 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 12:15:57 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	free_memory(char **arr)
 
 void	ft_exit_game(t_data *data)
 {
-	free_textures(data);
+	free_textures(data->textures);
+	free_textures(data->texture_pixels);
 	if (data->mlx_window)
 		mlx_destroy_window(data->mlx_conn, data->mlx_window);
 //	if (data->background.img)
@@ -61,6 +62,10 @@ void	ft_clean_exit(t_data *data)
 		free(data->ray);
 	if (data->textinfo)
 		free_text(data->textinfo);
+	if (data->textures)
+		free_textures(data->textures);
+	if (data->texture_pixels)
+		free_textures(data->texture_pixels);	
 	free(data);
 	exit(EXIT_SUCCESS);
 }
@@ -81,17 +86,16 @@ void	free_text(t_textinfo *text)
 	}
 }
 
-void	free_textures(t_data *data)
+void	free_textures(int **arr)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 4)
 	{
-		if (data->textureinfo[i]->img)
-			mlx_destroy_image(data->mlx_conn, data->textureinfo[i]->img);
-		if (data->textureinfo[i])
-			free(data->textureinfo[i]);
+		if (arr[i])
+			free(arr[i]);
+		i++;
 	}
+	free(arr);
 }
-
