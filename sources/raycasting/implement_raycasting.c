@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   implement_raycasting.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
 /*   Updated: 2024/10/09 12:55:33 by kbolon           ###   ########.fr       */
@@ -16,6 +16,10 @@
 //it will initialize the ray structure to zero and then assign
 //values to camera, ray direction, ray position in map, and 
 //distance to the nearest line in the x or y direction in grid (next neighbor)
+//camera_x refers where the camera is (-1 for left, 0 for center, 1 for right)
+//dir_x/y refers to the direction of the ray
+//map_x/y refers to the current coordinates(x,y) in which the ray is 
+//deltadist_x/y refers to the distance of the next x, y
 void	ft_initialize_raycasting(int x, t_ray *ray, t_player *player)
 {
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
@@ -37,22 +41,26 @@ void	ft_get_ray_step_and_distance(t_ray *ray, t_player *player)
 	if (ray->dir_x < 0)
 	{
 		ray->step_x = -1;
-		ray->sidedistance_x = (player->pos_x - ray->map_x) * ray->deltadistance_x;
+		ray->sidedistance_x = (player->pos_x - ray->map_x)
+			* ray->deltadistance_x;
 	}
 	else
 	{
 		ray->step_x = 1;
-		ray->sidedistance_x = (ray->map_x + 1.0 - player->pos_x) * ray->deltadistance_x;
+		ray->sidedistance_x = (ray->map_x + 1.0 - player->pos_x)
+			* ray->deltadistance_x;
 	}
 	if (ray->dir_y < 0)
 	{
 		ray->step_y = -1;
-		ray->sidedistance_y = (player->pos_y - ray->map_y) * ray->deltadistance_y;
+		ray->sidedistance_y = (player->pos_y - ray->map_y)
+			* ray->deltadistance_y;
 	}
 	else
 	{
 		ray->step_y = 1;
-		ray->sidedistance_y = (ray->map_y + 1.0 - player->pos_y) * ray->deltadistance_y;
+		ray->sidedistance_y = (ray->map_y + 1.0 - player->pos_y)
+			* ray->deltadistance_y;
 	}
 }
 
@@ -60,6 +68,10 @@ void	ft_get_ray_step_and_distance(t_ray *ray, t_player *player)
 //to the next grid line in the x or y direction. The player
 //will move through the grid and calculate the distance to the next
 //grid line in x and y (it also notes which side of the wall was hit x or y)
+//sidedist refers to dist from player position to next x or y side of grid
+//deltadis refers to how far ray moves in x or y direction when crossing a grid
+//map_x/y refers to current position (x,y) of ray in map
+//step_x/y refers to direction in which ray is moving (1 or -1)
 void	ft_implement_dda(t_data *data, t_ray *ray)
 {
 	while (1)
@@ -77,10 +89,10 @@ void	ft_implement_dda(t_data *data, t_ray *ray)
 			ray->side = 1;
 		}
 		if (ray->map_y < 0.25 || ray->map_x < 0.25 || \
-			ray->map_y > HEIGHT - 0.25 || \
-			ray->map_x > WIDTH - 1.25)
+			ray->map_y > data->mapinfo->map_height - 0.25 || \
+			ray->map_x > data->mapinfo->map_width - 1.25)
 			return ;
-		if (data->mapinfo->grid[ray->map_y][ray->map_x] > '0')
+		else if (data->mapinfo->grid[ray->map_y][ray->map_x] > '0')//maybe we check if it's also a player
 			return ;
 	}
 }
@@ -89,7 +101,7 @@ void	ft_implement_dda(t_data *data, t_ray *ray)
 //it calculates the wall distance based if the ray hit in a vertical 
 //or horizontal wall (defined by ray->side)
 //to the wall and them derive the draw start and end position.
-void	ft_calculate_wall_height(t_ray *ray)//, t_player *player)
+void	ft_calculate_wall_height(t_ray *ray, t_player *player)
 {
 	if (ray->side == 0)
 		ray->wall_distance = (ray->sidedistance_x - ray->deltadistance_x);
@@ -102,13 +114,12 @@ void	ft_calculate_wall_height(t_ray *ray)//, t_player *player)
 	ray->draw_end = (ray->line_height / 2) + (HEIGHT / 2);
 	if (ray->draw_end >= HEIGHT)
 		ray->draw_end = HEIGHT - 1;
-//	if (ray->side == 0)
-//		ray->wall_x = player->pos_y + ray->wall_distance * ray->dir_y;
-//	else
-//		ray->wall_x = player->pos_x + ray->wall_distance * ray->dir_x;
-//	ray->wall_x -= floor(ray->wall_x);
+	if (ray->side == 0)
+		ray->wall_x = player->pos_y + ray->wall_distance * ray->dir_y;
+	else
+		ray->wall_x = player->pos_x + ray->wall_distance * ray->dir_x;
+	ray->wall_x -= floor(ray->wall_x);
 }
-
 
 //Function to make the raycasting.  It iterates through the width of 
 //screen and update the data to render the ray from the current position 
@@ -125,7 +136,8 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_initialize_raycasting(x, data->ray, player);
 		ft_get_ray_step_and_distance(data->ray, player);
 		ft_implement_dda(data, data->ray);
-		ft_calculate_wall_height(data->ray);//, data->player);
+		ft_calculate_wall_height(data->ray, data->player);
+//		ft_get_texture_idx(data, data->ray);
 		ft_calculate_texture_coordinates(data, data->ray);
 		ft_update_texture_pixels(data, data->ray, x);
 		x++;
@@ -136,7 +148,8 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 void	ft_calculate_texture_coordinates(t_data *data, t_ray *ray)
 {
 	data->textinfo->x = (int)(ray->wall_x * PIXELS);
-	if ((ray->side == 0 && ray->dir_x < 0) || (ray->side == 1 && ray->dir_y > 0))
+	if ((ray->side == 0 && ray->dir_x < 0)
+		|| (ray->side == 1 && ray->dir_y > 0))
 		data->textinfo->x = PIXELS - data->textinfo->x - 1;
 	data->textinfo->step = 1.0 * PIXELS / ray->line_height;
 	data->textinfo->pos = (ray->draw_start - HEIGHT / 2 + \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:59:22 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/07 17:55:09 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 11:56:35 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 }*/
 
 //function moves player rotate left and right
+/*
 void	ft_rotation(t_data *data)
 {
 	double	old_dir_x;
@@ -63,7 +64,7 @@ void	ft_rotation(t_data *data)
 			data->player->plane_y * cos(speed);
 	}
 	data->player->rotate = 0;
-}
+}*/
 
 //Function to move the player forward, it will take 2 variables to update
 //player x and y position after movement. It will add the x_dir to pos_x 
@@ -103,7 +104,7 @@ int	ft_move_player_left(t_data *data)
 	double	y_after;
 
 	x_after = data->player->pos_x + data->player->dir_y * MOVEMENTSPEED;
-	y_after = data->player->pos_y - data->player->dir_y * MOVEMENTSPEED;
+	y_after = data->player->pos_y - data->player->dir_x * MOVEMENTSPEED;
 	return (ft_validate_movement(data, x_after, y_after));
 }
 
@@ -139,5 +140,7 @@ int	ft_move_player(t_data *data)
 		move += ft_move_player_left(data);
 	if (data->player->move_x == 1)
 		move += ft_move_player_right(data);
+	if (data->player->rotate != 0)
+		move += ft_execute_rotation(data, data->player->rotate);
 	return (move);
 }
