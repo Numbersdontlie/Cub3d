@@ -6,7 +6,7 @@
 /*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 12:45:11 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:50:45 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_textinfo
 	char			**grid;
 	unsigned long	hex_floor;
 	unsigned long	hex_ceiling;
-//	int				size;//what is this for?
+	int				size;//what is this for?
 	int				idx;
 	double			step;
 	double			pos;
@@ -186,9 +186,8 @@ typedef struct s_data
 	t_player		*player;
 	t_ray			*ray;
 	t_textinfo		*textinfo;
-	int				*textures;
+	int				**textures;
 	int				**texture_pixels;
-//	int				**textures;//other mcombo
 	t_mini			minimap;//only for bonus if we do it
 }	t_data;
 
@@ -298,6 +297,7 @@ void		ft_calculate_wall_height(t_ray *ray, t_player *player);
 int			ft_make_raycasting(t_player *player, t_data *data);
 void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
 void	 	ft_render_texture(t_data *data, t_ray *ray, int x);
+void	ft_update_texture_pixels(t_data *data, t_ray *ray, int x);
 
 //sources/errors.c
 void		error_message(char *str);
@@ -310,7 +310,7 @@ void		free_memory(char **arr);
 void		ft_exit_game(t_data *data);
 void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
-void		free_textures(t_data *data);
+void		free_textures(int **arr);
 
 //sources/free_functions2.c
 void		free_mapstruct(t_data *data);
