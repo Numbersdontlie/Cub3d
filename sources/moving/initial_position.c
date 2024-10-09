@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial_position.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:36:47 by lperez-h          #+#    #+#             */
-/*   Updated: 2024/09/25 12:04:49 by luifer           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:30:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void	ft_initialize_west_east(t_player *player)
 
 void	ft_init_player_dir(t_data *data)
 {
-	ft_initialize_north_south(data->player);
-	ft_initialize_west_east(data->player);
+	ft_initialize_north_south(&data->player);
+	ft_initialize_west_east(&data->player);
 }

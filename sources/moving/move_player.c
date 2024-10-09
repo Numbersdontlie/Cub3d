@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:59:22 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 11:56:35 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:32:30 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@
 //function moves player forward and backword
 /*void	ft_player_movement_forward_backword(t_data *data)
 {
-	if (data->player->move_y == 1)
+	if (data->player.move_y == 1)
 	{
-		if (data->mapinfo->grid[(int)(data->player->pos_y + data->player->dir_y \
-			* MOVEMENTSPEED)][(int)(data->player->pos_x)] == '0')
-			data->player->pos_y += data->player->dir_y * MOVEMENTSPEED;
-		if (data->mapinfo->grid[(int)(data->player->pos_y)][(int)(data->player->pos_x \
-			+ data->player->dir_x * MOVEMENTSPEED)] == '0')
-			data->player->pos_x += data->player->dir_x * MOVEMENTSPEED;
+		if (data->mapinfo->grid[(int)(data->player.pos_y + data->player.dir_y \
+			* MOVEMENTSPEED)][(int)(data->player.pos_x)] == '0')
+			data->player.pos_y += data->player.dir_y * MOVEMENTSPEED;
+		if (data->mapinfo->grid[(int)(data->player.pos_y)][(int)(data->player.pos_x \
+			+ data->player.dir_x * MOVEMENTSPEED)] == '0')
+			data->player.pos_x += data->player.dir_x * MOVEMENTSPEED;
 	}
-	if (data->player->move_y == -1)
+	if (data->player.move_y == -1)
 	{
-		if (data->mapinfo->grid[(int)(data->player->pos_y + data->player->dir_y \
-			* MOVEMENTSPEED)][(int)(data->player->pos_x)] == '0')
-			data->player->pos_y -= data->player->dir_y * MOVEMENTSPEED;
-		if (data->mapinfo->grid[(int)(data->player->pos_y)][(int)(data->player->pos_x \
-			+ data->player->dir_x * MOVEMENTSPEED)] == '0')
-			data->player->pos_x -= data->player->dir_x * MOVEMENTSPEED;
+		if (data->mapinfo->grid[(int)(data->player.pos_y + data->player.dir_y \
+			* MOVEMENTSPEED)][(int)(data->player.pos_x)] == '0')
+			data->player.pos_y -= data->player.dir_y * MOVEMENTSPEED;
+		if (data->mapinfo->grid[(int)(data->player.pos_y)][(int)(data->player.pos_x \
+			+ data->player.dir_x * MOVEMENTSPEED)] == '0')
+			data->player.pos_x -= data->player.dir_x * MOVEMENTSPEED;
 	}
-	data->player->move_y = 0;
+	data->player.move_y = 0;
 }*/
 
 //function moves player rotate left and right
@@ -45,25 +45,25 @@ void	ft_rotation(t_data *data)
 	double	old_plane_x;
 	double	speed;
 
-	if (data->player->rotate == 1)
+	if (data->player.rotate == 1)
 		speed = -ROTATIONSPEED;
 	else
 		speed = ROTATIONSPEED;
 
-	if (data->player->rotate == 1)
+	if (data->player.rotate == 1)
 	{
-		old_dir_x = data->player->dir_x;
-		data->player->dir_x = data->player->dir_x * cos(speed) - \
-			data->player->dir_y * sin(speed);
-		data->player->dir_y = old_dir_x * sin(speed) + data->player->dir_y \
+		old_dir_x = data->player.dir_x;
+		data->player.dir_x = data->player.dir_x * cos(speed) - \
+			data->player.dir_y * sin(speed);
+		data->player.dir_y = old_dir_x * sin(speed) + data->player.dir_y \
 			* cos(speed);
-		old_plane_x = data->player->plane_x;
-		data->player->plane_x = data->player->plane_x * cos(speed) - \
-			data->player->plane_y * sin(speed);
-		data->player->plane_y = old_plane_x * sin(speed) + \
-			data->player->plane_y * cos(speed);
+		old_plane_x = data->player.plane_x;
+		data->player.plane_x = data->player.plane_x * cos(speed) - \
+			data->player.plane_y * sin(speed);
+		data->player.plane_y = old_plane_x * sin(speed) + \
+			data->player.plane_y * cos(speed);
 	}
-	data->player->rotate = 0;
+	data->player.rotate = 0;
 }*/
 
 //Function to move the player forward, it will take 2 variables to update
@@ -75,8 +75,8 @@ int	ft_move_player_fw(t_data *data)
 	double	x_after;
 	double	y_after;
 
-	x_after = data->player->pos_x + data->player->dir_x * MOVEMENTSPEED;
-	y_after = data->player->pos_y + data->player->dir_y * MOVEMENTSPEED;
+	x_after = data->player.pos_x + data->player.dir_x * MOVEMENTSPEED;
+	y_after = data->player.pos_y + data->player.dir_y * MOVEMENTSPEED;
 	return (ft_validate_movement(data, x_after, y_after));
 }
 
@@ -89,8 +89,8 @@ int	ft_move_player_bw(t_data *data)
 	double	x_after;
 	double	y_after;
 
-	x_after = data->player->pos_x - data->player->dir_x * MOVEMENTSPEED;
-	y_after = data->player->pos_y - data->player->dir_y * MOVEMENTSPEED;
+	x_after = data->player.pos_x - data->player.dir_x * MOVEMENTSPEED;
+	y_after = data->player.pos_y - data->player.dir_y * MOVEMENTSPEED;
 	return (ft_validate_movement(data, x_after, y_after));
 }
 
@@ -103,8 +103,8 @@ int	ft_move_player_left(t_data *data)
 	double	x_after;
 	double	y_after;
 
-	x_after = data->player->pos_x + data->player->dir_y * MOVEMENTSPEED;
-	y_after = data->player->pos_y - data->player->dir_x * MOVEMENTSPEED;
+	x_after = data->player.pos_x + data->player.dir_y * MOVEMENTSPEED;
+	y_after = data->player.pos_y - data->player.dir_x * MOVEMENTSPEED;
 	return (ft_validate_movement(data, x_after, y_after));
 }
 
@@ -117,8 +117,8 @@ int	ft_move_player_right(t_data *data)
 	double	x_after;
 	double	y_after;
 
-	x_after = data->player->pos_x - data->player->dir_y * MOVEMENTSPEED;
-	y_after = data->player->pos_y + data->player->dir_x * MOVEMENTSPEED;
+	x_after = data->player.pos_x - data->player.dir_y * MOVEMENTSPEED;
+	y_after = data->player.pos_y + data->player.dir_x * MOVEMENTSPEED;
 	return (ft_validate_movement(data, x_after, y_after));
 }
 
@@ -132,15 +132,15 @@ int	ft_move_player(t_data *data)
 	int	move;
 
 	move = 0;
-	if (data->player->move_y == 1)
+	if (data->player.move_y == 1)
 		move += ft_move_player_fw(data);
-	if (data->player->move_y == -1)
+	if (data->player.move_y == -1)
 		move += ft_move_player_bw(data);
-	if (data->player->move_x == -1)
+	if (data->player.move_x == -1)
 		move += ft_move_player_left(data);
-	if (data->player->move_x == 1)
+	if (data->player.move_x == 1)
 		move += ft_move_player_right(data);
-	if (data->player->rotate != 0)
-		move += ft_execute_rotation(data, data->player->rotate);
+	if (data->player.rotate != 0)
+		move += ft_execute_rotation(data, data->player.rotate);
 	return (move);
 }

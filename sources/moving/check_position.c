@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_position.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:56:54 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 12:13:32 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:32:53 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_check_if_empty(t_data *data, double x, double y)
 {
 	int	tile;
 
-	if (!data || !data->map || !data->player)
+	if (!data || !data->map)
 		return (EXIT_FAILURE);
 	tile = data->map[(int)y][(int)x];
 	if (tile == '0' || tile == '4')
@@ -68,14 +68,14 @@ int	ft_validate_movement(t_data * data, double x_after, double y_after)
 	int	move;
 
 	move = EXIT_SUCCESS;
-	if (ft_allow_movement(data, x_after, data->player->pos_y) == 0)
+	if (ft_allow_movement(data, x_after, data->player.pos_y) == 0)
 	{
-		data->player->pos_x = x_after;
+		data->player.pos_x = x_after;
 		move = EXIT_FAILURE;
 	}
-	if (ft_allow_movement(data, data->player->pos_x, y_after) == 0)
+	if (ft_allow_movement(data, data->player.pos_x, y_after) == 0)
 	{
-		data->player->pos_y = y_after;
+		data->player.pos_y = y_after;
 		move = EXIT_FAILURE;
 	}
 	return (move);

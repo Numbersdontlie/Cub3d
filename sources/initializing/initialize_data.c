@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 12:22:24 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:43:40 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 	if (!*data)
 		return (error_message_simple("ERROR: problems copying grid in init\n", NULL));
 	(*data)->textinfo = text;
-	(*data)->player = (t_player *)ft_calloc(1, sizeof(t_player));
-	if (!(*data)->player)
-		return (error_message_simple("ERROR: problems init player\n", NULL));
+	ft_initialize_player(&(*data)->player);
 	(*data)->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
 	if (!(*data)->ray)
 		return (error_message_simple("ERROR: problems init ra\n", NULL));
@@ -60,3 +58,40 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 	ft_init_player_dir(*data);//initialize player data
 	return (EXIT_SUCCESS);
 }
+
+
+/*void	init_data(t_data *data)
+{
+	data->mlx = NULL;
+	data->win = NULL;
+	data->win_height = WIN_HEIGHT;
+	data->win_width = WIN_WIDTH;
+	init_player(&data->player);
+	init_texinfo(&data->texinfo);
+	data->map = NULL;
+//	init_mapinfo(&data->mapinfo);
+	data->mapinfo = (t_mapinfo *)ft_calloc(1, sizeof(t_mapinfo));
+	if (!data->mapinfo)
+		return (error_message_simple("ERROR: problems init map\n", NULL));
+	if (ft_initialize_map(data, text) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	data->texture_pixels = NULL;
+	data->textures = NULL;
+}*/
+
+//Function to initialize the player structure
+void	ft_initialize_player(t_player *player)
+{
+	player->direction = 0;
+	player->dir_x = 0.0;
+	player->dir_y = 0.0;
+	player->pos_x = 0.0;
+	player->pos_y = 0.0;
+	player->plane_x = 0.0;
+	player->plane_y = 0.0;
+	player->move_x = 0;
+	player->move_y = 0;
+	player->rotate = 0;
+	player->has_moved = 0;
+}
+

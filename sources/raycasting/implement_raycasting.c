@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_raycasting.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 12:55:33 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:48:30 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 //deltadist_x/y refers to the distance of the next x, y
 void	ft_initialize_raycasting(int x, t_ray *ray, t_player *player)
 {
+	memset(ray, 0, sizeof(t_ray));//ok tested with other code
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
 	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
 	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
@@ -136,8 +137,8 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 		ft_initialize_raycasting(x, data->ray, player);
 		ft_get_ray_step_and_distance(data->ray, player);
 		ft_implement_dda(data, data->ray);
-		ft_calculate_wall_height(data->ray, data->player);
-//		ft_get_texture_idx(data, data->ray);
+		ft_calculate_wall_height(data->ray, &data->player);
+		ft_get_texture_idx(data, data->ray);
 		ft_calculate_texture_coordinates(data, data->ray);
 		ft_update_texture_pixels(data, data->ray, x);
 		x++;

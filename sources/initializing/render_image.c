@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 12:27:55 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:47:37 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	ft_init_game(t_data *data)
 {
 	ft_init_texture_pixels(data);
-	ft_memset(data->ray, 0, sizeof(t_ray));
-	ft_make_raycasting(data->player, data);
+	ft_memset(data->ray, 0, sizeof(t_ray));//ok tested with other code
+	ft_make_raycasting(&data->player, data);
 	ft_draw_image_in_window(data);
 }
 
@@ -55,8 +55,8 @@ void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)
 //the raycast is render after this verification
 int	ft_render(t_data *data)
 {
-	data->player->has_moved += ft_move_player(data);
-	if (data->player->has_moved == 0)
+	data->player.has_moved += ft_move_player(data);
+	if (data->player.has_moved == 0)
 		return (EXIT_SUCCESS);
 	ft_init_game(data);
 	return (EXIT_SUCCESS);
@@ -109,6 +109,6 @@ void	ft_draw_image_in_window(t_data *data)
 void	ft_render_ray(t_data *data)
 {
 	ft_initialize_textures(data);
-	ft_make_raycasting(data->player, data);
+	ft_make_raycasting(&data->player, data);
 	ft_draw_image_in_window(data);
 }

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/07 13:35:33 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:55:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ char	*find_cardinal_paths(char **arr, char *s)
 			path_found = ft_strdup(arr[i] + 2);
 			if (!path_found)
 			{
-//				free_memory(arr);
-//				ft_putstr_fd("ERROR: Memory Alloc failed\n", 2);
 				error_message_simple("ERROR: Memory Alloc failed\n", arr);
 				return (NULL);
 			}
@@ -40,8 +38,6 @@ char	*find_cardinal_paths(char **arr, char *s)
 			return (path_extension);
 		}
 	}
-//	free_memory(arr);
-//	ft_putstr_fd("ERROR: path not found\n", 2);
 	error_message_simple("ERROR: path not found\n", arr);
 	return (NULL);
 }
@@ -90,7 +86,7 @@ char	*find_floor_ceiling(t_textinfo *text, char **arr, int c)
 	}
 	return (error_message_simple("ERROR: RGB path not found\n", arr), NULL);
 }
-/*funciton removes lines above and lines below the grid*/
+/*function removes lines above and lines below the grid*/
 char	**remove_empty_lines(char **arr)
 {
 	int		i;

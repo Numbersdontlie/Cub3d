@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:02:47 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 12:04:59 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:33:18 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_rotate_player_dir_vector(t_data *data, double speedrot)
 	t_vector	*tmp;
 
 	tmp = NULL;
-	ply = data->player;
+	ply = &data->player;
 	tmp->x = ply->dir_x;
 	tmp->y = ply->dir_y;
 	ft_rotate(tmp, speedrot);
