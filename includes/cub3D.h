@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 10:42:44 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 12:45:11 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,11 +220,11 @@ void		render_sky_floor_base(unsigned int sky, unsigned int floor, t_data *data);
 int			ft_initialize_imginfo(t_data *data);
 void		ft_init_game(t_data *data);
 void		ft_draw_image_in_window(t_data *data);
-void	ft_init_texture_pixels(t_data *data);
+void		ft_init_texture_pixels(t_data *data);
 
 //sources/moving/check_position.c
 int			ft_check_if_empty(t_data *data, double x, double y);
-int			ft_check_if_inside_map(double x, double y);
+int			ft_check_if_inside_map(t_data *data, double x, double y);
 int			ft_allow_movement(t_data *data, double x, double y);
 int			ft_validate_movement(t_data * data, double x_after, double y_after);
 
@@ -294,7 +294,7 @@ void		ft_get_texture_idx(t_data *data, t_ray *ray);
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
 void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
-void		ft_calculate_wall_height(t_ray *ray);//, t_player *player);
+void		ft_calculate_wall_height(t_ray *ray, t_player *player);
 int			ft_make_raycasting(t_player *player, t_data *data);
 void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
 void	 	ft_render_texture(t_data *data, t_ray *ray, int x);
