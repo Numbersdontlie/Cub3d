@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 10:48:15 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:30:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,3 +97,12 @@ int	ft_init_img(t_data *data, t_img *image)
 	return (EXIT_FAILURE);
 }*/
 
+
+/*void	init_img_clean(t_img *img)//ours: ft_memset
+{
+	img->img = NULL;
+	img->addr = NULL;
+	img->pixel_bits = 0;
+	img->size_line = 0;
+	img->endian = 0;
+}*/

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:30:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 12:19:44 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:59:35 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_initialize_textures(t_data *data)
 	int		i;
 
 	i = 0;
-	data->textures = ft_calloc(4, sizeof(int *));
+	data->textures = ft_calloc(5, sizeof(int *));
 	if (!data->textures)
 		return (EXIT_FAILURE);
 	while (i < 4)

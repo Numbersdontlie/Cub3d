@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 12:50:45 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:23:35 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ typedef struct s_data
 	char			**map;//will charge the map in an array to access from function to check movement
 	char			**path;
 	t_mapinfo		*mapinfo;
-	t_player		*player;
+	t_player		player;
 	t_ray			*ray;
 	t_textinfo		*textinfo;
 	int				**textures;
@@ -324,5 +324,8 @@ void	render_map_bonus(t_data *data);
 void 	render_sky_floor_base_bonus(unsigned int sky, unsigned int floor, t_data *data);
 void 	render_scaled_texture_on_base_bonus(t_data *data, int texture_idx, void *sky_floor_img);
 void	render_player_bonus(t_data *data);
+
+
+void	ft_initialize_player(t_player *player);
 
 #endif

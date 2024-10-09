@@ -20,17 +20,17 @@ int	ft_handle_key(int keysym, t_data *data)
 	if (keysym == XK_ESCAPE)
 		on_destroy(data);
 	if (keysym == FORWARD)
-		data->player->move_y = 1;
+		data->player.move_y = 1;
 	if (keysym == BACKWARD)
-		data->player->move_y = -1;
+		data->player.move_y = -1;
 	if (keysym == MOVE_LEFT)
-		data->player->move_x = -1;
+		data->player.move_x = -1;
 	if (keysym == MOVE_RIGHT)
-		data->player->move_x = 1;
+		data->player.move_x = 1;
 	if (keysym == ROTATE_LEFT)
-		data->player->rotate = -1;
+		data->player.rotate = -1;
 	if (keysym == ROTATE_RIGHT)
-		data->player->rotate = 1;
+		data->player.rotate = 1;
 	return (EXIT_SUCCESS);
 }
 
@@ -40,18 +40,18 @@ int	ft_handle_key(int keysym, t_data *data)
 {
 	if (keysym == XK_ESCAPE)
 		on_destroy(data);
-	if (keysym == FORWARD && data->player->move_y == 1)
-		data->player->move_y = 0;
-	if (keysym == BACKWARD && data->player->move_y == -1)
-		data->player->move_y = 0;
-	if (keysym == MOVE_LEFT && data->player->move_x == -1)
-		data->player->move_x += 1;
-	if (keysym == MOVE_RIGHT && data->player->move_x == 1)
-		data->player->rotate -= 1;
-	if (keysym == ROTATE_LEFT && data->player->rotate <= 1)
-		data->player->rotate = 0;
-	if (keysym == ROTATE_RIGHT && data->player->rotate >= -1)
-		data->player->rotate = 0;
+	if (keysym == FORWARD && data->player.move_y == 1)
+		data->player.move_y = 0;
+	if (keysym == BACKWARD && data->player.move_y == -1)
+		data->player.move_y = 0;
+	if (keysym == MOVE_LEFT && data->player.move_x == -1)
+		data->player.move_x += 1;
+	if (keysym == MOVE_RIGHT && data->player.move_x == 1)
+		data->player.rotate -= 1;
+	if (keysym == ROTATE_LEFT && data->player.rotate <= 1)
+		data->player.rotate = 0;
+	if (keysym == ROTATE_RIGHT && data->player.rotate >= -1)
+		data->player.rotate = 0;
 	return (EXIT_SUCCESS);
 }*/
 
@@ -60,11 +60,11 @@ int	ft_release_key(int keysym, t_data *data)
 	if (keysym == XK_ESCAPE)
 		on_destroy(data);
 	if (keysym == FORWARD || keysym == BACKWARD)
-		data->player->move_y = 0;
+		data->player.move_y = 0;
 	if (keysym == MOVE_LEFT || keysym == MOVE_RIGHT)
-		data->player->move_x = 0;
+		data->player.move_x = 0;
 	if (keysym == ROTATE_LEFT || keysym == ROTATE_RIGHT)
-		data->player->rotate = 0;
+		data->player.rotate = 0;
 	return (EXIT_SUCCESS);
 }
 
