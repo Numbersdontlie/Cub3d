@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 16:28:58 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 23:33:45 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,13 +165,6 @@ typedef struct s_mini
 	int		mini_y;//offset
 	int		mini_x;//offset
 }	t_mini;
-
-typedef struct s_vector
-{
-	double	x;
-	double	y;
-}	t_vector;
-
 
 //Structure to store the global data of the game, it includes:
 //pointer to minilibx connection and window, window height and width, pointer to

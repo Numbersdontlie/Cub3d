@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:02:47 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 15:33:18 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 23:33:20 by luifer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/cub3D.h"
 
 //Function to apply the rotation formula
-static void	ft_rotate(t_vector *vector, double speedrot)
+static void	ft_rotate(double *x, double *y, double speedrot)
 {
 	double	old_x;
 
-	old_x = vector->x;
-	vector->x = vector->x * cos(speedrot) - vector->y * sin(speedrot);
-	vector->y = old_x * sin(speedrot) + vector->y * cos(speedrot);
+	old_x = *x;
+	*x = *x * cos(speedrot) - *y * sin(speedrot);
+	*y = old_x * sin(speedrot) + *y * cos(speedrot);
 }
 
 //Function to rotate the player direction vector
@@ -30,16 +30,10 @@ static void	ft_rotate(t_vector *vector, double speedrot)
 int	ft_rotate_player_dir_vector(t_data *data, double speedrot)
 {
 	t_player	*ply;
-	t_vector	*tmp;
 
-	tmp = NULL;
 	ply = &data->player;
-	tmp->x = ply->dir_x;
-	tmp->y = ply->dir_y;
-	ft_rotate(tmp, speedrot);
-	tmp->x = ply->plane_x;
-	tmp->y = ply->plane_y;
-	ft_rotate(tmp, speedrot);
+	ft_rotate(&ply->dir_x, &ply->dir_y, speedrot);
+	ft_rotate(&ply->plane_x, &ply->plane_y, speedrot);
 	return (EXIT_FAILURE);
 }
 
