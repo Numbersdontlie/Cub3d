@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/08 18:49:24 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 10:59:55 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,14 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 	(*data)->player = (t_player *)ft_calloc(1, sizeof(t_player));
 	if (!(*data)->player)
 		return (error_message_simple("ERROR: problems init player\n", NULL));
-	(*data)->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
-	if (!(*data)->ray)
-		return (error_message_simple("ERROR: problems init ra\n", NULL));
+//	(*data)->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
+//	if (!(*data)->ray)
+//		return (error_message_simple("ERROR: problems init ra\n", NULL));
 	(*data)->mapinfo = (t_mapinfo *)ft_calloc(1, sizeof(t_mapinfo));
 	if (!(*data)->mapinfo)
 		return (error_message_simple("ERROR: problems init map\n", NULL));
 	if (ft_initialize_map(*data, text) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (ft_initialize_connection(*data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (ft_initialize_textures(*data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	ft_init_player_dir(*data);//initialize player data
 	return (EXIT_SUCCESS);
 }
-
