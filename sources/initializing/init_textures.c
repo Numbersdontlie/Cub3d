@@ -6,13 +6,57 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:30:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 15:59:35 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 16:45:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int	*xpm_buffer_image(t_data *data, char *path)
+//not ours, from mcombeau
+void	ft_init_texture_pixels(t_data *data)//init_texture_pixels
+{
+	int	i;
+
+	if (data->texture_pixels)
+		free_textures(data->texture_pixels);
+	data->texture_pixels = ft_calloc(HEIGHT + 1, sizeof(int *));
+	if (!data->texture_pixels)
+		error_exit("ERROR: calloc init texture pixels total\n", data, NULL);
+	i = 0;
+	while (i < HEIGHT)
+	{
+		data->texture_pixels[i] = ft_calloc(WIDTH + 1, sizeof(int));
+		if (!data->texture_pixels[i])
+			error_exit("ERROR: calloc init texture pixels\n", data, NULL);
+		i++;
+	}
+}
+
+//Function to get the texture index from the texture info struct
+//if side is not zero, we're working on the y axis, else on the x
+//if dir_y is greather than zero then we're on South 
+//else North. If x axis is lower than zero is west else east
+void	ft_get_texture_idx(t_data *data, t_ray *ray)
+{
+	if (ray->side == 1)
+	{
+		if (ray->dir_y > 0)
+			data->textinfo->idx = S;
+		else
+			data->textinfo->idx = N;
+	}
+	else
+	{
+		if (ray->dir_x < 0)
+			data->textinfo->idx = W;
+		else
+			data->textinfo->idx = E;
+	}
+}
+
+
+
+int	*xpm_buffer_image(t_data *data, char *path)//OK checked with other code
 {
 	t_img	temp;
 	int		*buff;
@@ -44,7 +88,7 @@ int	*xpm_buffer_image(t_data *data, char *path)
 //Function to initialize the image, it creates the new image using 
 //the mlx library and checks it was correctly created and saves the 
 //image address
-int	ft_initialize_textures(t_data *data)
+int	ft_initialize_textures(t_data *data)//ok checked with other code
 {
 	int		i;
 
@@ -64,4 +108,24 @@ int	ft_initialize_textures(t_data *data)
 	}
 	return (EXIT_SUCCESS);
 }
+
+
+
+
+
+void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)//set_image_pixel
+{
+/*	ours:
+	int	*pixel;
+
+	if (x< 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
+	pixel = (int *)((char *)imginfo->img_addr + (y * imginfo->line_len) + (x * (imginfo->bpp / 8)));
+	*pixel = colour;*/
+	int	pixel;
+
+	pixel = y * (imginfo->line_len / 4) + x;
+	imginfo->img_addr[pixel] = colour;
+}
+
 

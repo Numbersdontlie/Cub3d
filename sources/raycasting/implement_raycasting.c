@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 15:48:30 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 16:48:21 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,23 +130,25 @@ void	ft_calculate_wall_height(t_ray *ray, t_player *player)
 int	ft_make_raycasting(t_player *player, t_data *data)
 {
 	int		x;
+	t_ray	ray;
 
 	x = 0;
+	ray = data->ray;
 	while (x < WIDTH)
 	{
-		ft_initialize_raycasting(x, data->ray, player);
-		ft_get_ray_step_and_distance(data->ray, player);
-		ft_implement_dda(data, data->ray);
-		ft_calculate_wall_height(data->ray, &data->player);
-		ft_get_texture_idx(data, data->ray);
-		ft_calculate_texture_coordinates(data, data->ray);
-		ft_update_texture_pixels(data, data->ray, x);
+		ft_initialize_raycasting(x, &ray, player);
+		ft_get_ray_step_and_distance(&ray, player);
+		ft_implement_dda(data, &ray);
+		ft_calculate_wall_height(&ray, &data->player);
+//		ft_get_texture_idx(data, &ray);
+//		ft_calculate_texture_coordinates(data, &ray);
+		ft_update_texture_pixels(data, &ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);
 }
 
-void	ft_calculate_texture_coordinates(t_data *data, t_ray *ray)
+void	ft_calculate_texture_coordinates(t_data *data, t_ray *ray)//part of update_texture_pixels
 {
 	data->textinfo->x = (int)(ray->wall_x * PIXELS);
 	if ((ray->side == 0 && ray->dir_x < 0)
@@ -160,19 +162,13 @@ void	ft_calculate_texture_coordinates(t_data *data, t_ray *ray)
 //Function to update the texture pixels on the screen for render
 //it calculates which part of the texture to apply to the current vertical line
 //it flip the textures based on the direction the ray hits the wall
-void	ft_update_texture_pixels(t_data *data, t_ray *ray, int x)
+void	ft_update_texture_pixels(t_data *data, t_ray *ray, int x)//update_texture_pixels
 {
 	int		y;
 	int		colour;
 
 	ft_get_texture_idx(data, ray);
-	data->textinfo->x = (int)(ray->wall_x * PIXELS);
-	if ((ray->side == 0 && ray->dir_x < 0) || \
-		(ray->side == 1 && ray->dir_y > 0))
-		data->textinfo->x = PIXELS - data->textinfo->x - 1;
-	data->textinfo->step = 1.0 * PIXELS / ray->line_height;
-	data->textinfo->pos = (ray->draw_start - HEIGHT / 2 \
-		+ ray->line_height / 2) * data->textinfo->step;
+	ft_calculate_texture_coordinates(data, ray);
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{

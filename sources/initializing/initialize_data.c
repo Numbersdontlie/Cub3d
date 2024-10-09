@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 15:43:40 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 16:32:16 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int	ft_initialize_data(t_data **data, t_textinfo *text)
 		return (error_message_simple("ERROR: problems copying grid in init\n", NULL));
 	(*data)->textinfo = text;
 	ft_initialize_player(&(*data)->player);
-	(*data)->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
-	if (!(*data)->ray)
-		return (error_message_simple("ERROR: problems init ra\n", NULL));
+//	(*data)->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
+//	if (!(*data)->ray)
+//		return (error_message_simple("ERROR: problems init ra\n", NULL));
 	(*data)->mapinfo = (t_mapinfo *)ft_calloc(1, sizeof(t_mapinfo));
 	if (!(*data)->mapinfo)
 		return (error_message_simple("ERROR: problems init map\n", NULL));

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 15:49:04 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 16:34:37 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ void	ft_clean_exit(t_data *data)
 		free_memory(data->path);
 	if (data->mapinfo)
 		free_mapstruct(data);
-//	if (data->player)
-//		free(data->player);
-	if (data->ray)
-		free(data->ray);
 	if (data->textinfo)
 		free_text(data->textinfo);
 	if (data->textures)
