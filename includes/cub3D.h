@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 15:23:35 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 16:28:58 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ typedef struct s_data
 	char			**path;
 	t_mapinfo		*mapinfo;
 	t_player		player;
-	t_ray			*ray;
+	t_ray			ray;
 	t_textinfo		*textinfo;
 	int				**textures;
 	int				**texture_pixels;
