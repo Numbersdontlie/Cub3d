@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/07 13:28:45 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 10:18:59 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_textinfo	*ft_initialize_textinfo(char **arr)
 	text->ceiling_rgb = populate_rgb_values(text, grid, 'C', \
 		&text->hex_ceiling);
 	text->floor_rgb = populate_rgb_values(text, grid, 'F', &text->hex_floor);
-	text->size = PIXELS;
+//	text->size = PIXELS;
 	text = find_grid(text, grid);
 	if (!text->grid)
 		error_message_text("ERROR: problems copying grid in init\n", text);
