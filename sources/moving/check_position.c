@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:56:54 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 15:32:53 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 10:21:48 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int	ft_validate_movement(t_data * data, double x_after, double y_after)
 	int	move;
 
 	move = EXIT_SUCCESS;
-	if (ft_allow_movement(data, x_after, data->player.pos_y) == 0)
+	if (ft_allow_movement(data, x_after, data->player.pos_y))
 	{
 		data->player.pos_x = x_after;
 		move = EXIT_FAILURE;
 	}
-	if (ft_allow_movement(data, data->player.pos_x, y_after) == 0)
+	if (ft_allow_movement(data, data->player.pos_x, y_after))
 	{
 		data->player.pos_y = y_after;
 		move = EXIT_FAILURE;
