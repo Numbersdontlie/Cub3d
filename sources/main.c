@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/10 10:04:34 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 16:44:24 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ int	main(int ac, char **av)
 	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);
 	mlx_loop_hook(data->mlx_conn, ft_render, data);
 	mlx_loop(data->mlx_conn);
-	ft_exit_game(data);
+	//ft_exit_game(data);
 //	free_text(text);
 //	free(data);
 	return (EXIT_SUCCESS);
 }
+

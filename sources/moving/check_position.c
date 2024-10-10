@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_position.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:56:54 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/10 10:57:00 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 12:33:53 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,16 @@ int	ft_check_if_inside_map(t_data *data, double x, double y)//is_valid_pos_in_ma
 //for the chance to open doors
 int	ft_allow_movement(t_data *data, double x, double y)//is_valid_pos
 {
-	if (BONUS)
-	{
-		if (ft_check_if_empty(data, x, y) == 0)
-			return (EXIT_SUCCESS);
-	}
+	//if (BONUS)
+	if ((ft_check_if_empty(data, x, y) == 0) && (ft_check_if_inside_map(data, x, y) == 0))
+		return (EXIT_SUCCESS);
+
 	else
-	{
-		if (ft_check_if_inside_map(data, x, y) == 0)
-			return (EXIT_SUCCESS);
-	}
-	return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
+	//{
+	//	if (moved this check up)
+	//		return (EXIT_SUCCESS);
+	//}
 }
 
 //Function to validate the movement of the player. It initializes move to 0
@@ -67,16 +66,13 @@ int	ft_validate_movement(t_data * data, double x_after, double y_after)//validat
 {
 	int	move;
 
-	move = 0;
-//	if (x_after < 0 || x_after >= data->mapinfo->map_width ||
-//		y_after < 0 || y_after >= data->mapinfo->map_height)
-//		return 0; 
-	if (ft_allow_movement(data, x_after, data->player.pos_y))
+	move = EXIT_SUCCESS;
+	if (ft_allow_movement(data, x_after, data->player.pos_y) == 0)
 	{
 		data->player.pos_x = x_after;
 		move = 1;
 	}
-	if (ft_allow_movement(data, data->player.pos_x, y_after))
+	if (ft_allow_movement(data, data->player.pos_x, y_after) == 0)
 	{
 		data->player.pos_y = y_after;
 		move = 1;
