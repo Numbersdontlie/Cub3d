@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 15:55:01 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 06:29:54 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char	*find_floor_ceiling(t_textinfo *text, char **arr, int c)
 	}
 	return (error_message_simple("ERROR: RGB path not found\n", arr), NULL);
 }
+
 /*function removes lines above and lines below the grid*/
 char	**remove_empty_lines(char **arr)
 {
@@ -143,6 +144,5 @@ t_textinfo	*find_grid(t_textinfo *text, char **grid)
 	}
 	temp[j] = NULL;
 	text->grid = temp;
-//	free(temp);
 	return (text);
 }

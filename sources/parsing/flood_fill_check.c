@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:44:09 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/07 13:52:00 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 06:44:48 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int	path_checker(char **game, size_t y, size_t x)
 {
 	size_t	line_count;
 
-	line_count = row_count(game);
-	if (y >= line_count || !game[y] || x >= ft_strlen(game[y]) || !game[y][x])
+	line_count = row_count(game);		
+	if (y >= line_count || !game[y] || x >= ft_strlen(game[y]) || !game[y][x] || \
+		y < 0 || x < 0)
 		return (1);
 	if (game[y][x] == ' ')
 	{
@@ -71,7 +72,6 @@ int	path_checker(char **game, size_t y, size_t x)
 	return (0);
 }
 
-
 /*uses flood fill to see if the room is enclosed*/
 void	flood_fill(char **game)
 {
@@ -83,6 +83,7 @@ void	flood_fill(char **game)
 	i = 0;
 	player_x = find_item(game, 'x');
 	player_y = find_item(game, 'y');
+	check_map_size(game);
 	arr = (char **) malloc (sizeof(char *) * (row_count(game) + 1));
 	if (!arr)
 		error_message("Error\nmemory allocation fail in tmp.grid");
@@ -92,8 +93,20 @@ void	flood_fill(char **game)
 		i++;
 	}
 	arr[i] = NULL;
-	if (path_checker(arr, player_y, player_x)) 
-		error_message_simple("ERROR: Map is not enclosed\n", arr);
+	if (path_checker(arr, player_y, player_x))
+	{
+		free_memory(arr);
+		error_message("ERROR: Map is not enclosed\n");
+	}
 	else
 		free_memory(arr);
+}
+
+void	check_map_size(char **grid)
+{
+	int	line_count;
+
+	line_count = row_count(grid);
+	if (line_count <= 3)
+		error_message("ERROR: Map is too small\n");
 }

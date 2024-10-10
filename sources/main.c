@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 15:50:57 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 06:38:50 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int ac, char **av)
 	check_args(text);
 	if (ft_initialize_data(&data, text) == EXIT_FAILURE)
 		error_exit("ERROR: problem loading text", data, NULL);
+//	printf("direction: %c\n", data->player.direction);
 	if (ft_initialize_connection(data) == EXIT_FAILURE)
 		error_exit("ERROR: problem init connection", data, NULL);
 	if (ft_initialize_textures(data) == EXIT_FAILURE)
