@@ -20,9 +20,9 @@ void	ft_update_pixels_img(t_data *data, t_img *img, int x, int y)//set_frame_ima
 {
 	if (data->texture_pixels[y][x] > 0)
 		ft_put_pixel_to_img(img, x, y, data->texture_pixels[y][x]);
-	else if (y < HEIGHT / 2)
+	else if (y < data->height / 2)
 		ft_put_pixel_to_img(img, x, y, data->textinfo->hex_ceiling);
-	else if (y < HEIGHT - 1)
+	else if (y < data->height - 1)
 		ft_put_pixel_to_img(img, x, y, data->textinfo->hex_floor);
 }
 
@@ -40,10 +40,10 @@ void	ft_draw_image_in_window(t_data *data)//render_frame
 	image.img = NULL;
 	ft_init_img(data, &image);
 	y = 0;
-	while (y < HEIGHT)
+	while (y < data->height)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < data->width)
 		{
 			ft_update_pixels_img(data, &image, x, y);
 			x++;
