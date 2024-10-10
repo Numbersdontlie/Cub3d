@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/09 15:30:01 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 09:42:29 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	ft_init_texture_img(t_data *data, t_img *image, char *path)
 int	ft_init_img(t_data *data, t_img *image)
 {
 	ft_memset(image, 0, sizeof(t_img));
-//	image->img = mlx_new_image(data->mlx_conn, image->texture_width, image->texture_height);
 	image->img = mlx_new_image(data->mlx_conn, WIDTH, HEIGHT);
 	if (!image->img)
 	{
@@ -74,35 +73,3 @@ int	ft_init_img(t_data *data, t_img *image)
 	}
 	return (EXIT_SUCCESS);
 }
-
-
-//function destroys the texture images if any problems were found
-//during the loading of each texture.
-/*int	ft_clear_textures(t_data *data)
-{
-	int	i;
-
-	i = 3;
-	while (--i >= 0)
-	{
-		if (data->textureinfo[i])
-		{
-			if (data->textureinfo[i]->img)
-				mlx_destroy_image(data->mlx_conn, data->textureinfo[i]->img);
-			free(data->textureinfo[i]);
-		}
-	}
-	free(data->textinfo->paths[i]);
-	ft_putstr_fd("ERROR: problems loading texture.\n", 2);
-	return (EXIT_FAILURE);
-}*/
-
-
-/*void	init_img_clean(t_img *img)//ours: ft_memset
-{
-	img->img = NULL;
-	img->addr = NULL;
-	img->pixel_bits = 0;
-	img->size_line = 0;
-	img->endian = 0;
-}*/
