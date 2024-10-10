@@ -36,7 +36,7 @@ int	ft_handle_key(int keysym, t_data *data)
 
 //Function to handle the release of the key after being 
 //hold pressed for a while
-/*int	ft_release_key(int keysym, t_data *data)
+int	ft_release_key(int keysym, t_data *data)
 {
 	if (keysym == XK_ESCAPE)
 		on_destroy(data);
@@ -53,9 +53,9 @@ int	ft_handle_key(int keysym, t_data *data)
 	if (keysym == ROTATE_RIGHT && data->player.rotate >= -1)
 		data->player.rotate = 0;
 	return (EXIT_SUCCESS);
-}*/
+}
 
-int	ft_release_key(int keysym, t_data *data)
+/*int	ft_release_key(int keysym, t_data *data)
 {
 	if (keysym == XK_ESCAPE)
 		on_destroy(data);
@@ -66,7 +66,7 @@ int	ft_release_key(int keysym, t_data *data)
 	if (keysym == ROTATE_LEFT || keysym == ROTATE_RIGHT)
 		data->player.rotate = 0;
 	return (EXIT_SUCCESS);
-}
+}*/
 
 int on_destroy(t_data *data)
 {
@@ -82,6 +82,7 @@ int on_destroy(t_data *data)
 	mlx_hook(data->mlx_window, KeyPress, KeyPressMask, ft_handle_key, data);
 	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);
 	mlx_hook(data->mlx_window, DestroyNotify, 0, on_destroy, data);
+//	mlx_hook(data->mlx_window, ClientMessage, NoEventMask, on_destroy, data);
 	mlx_loop(data->mlx_conn);
 
 	//We're missing the hook to handle the input from mouse if we make the bonus
