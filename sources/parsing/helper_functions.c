@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:27:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/07 18:03:25 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 06:09:50 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_strndup(const char *s, size_t n)
 	return (p);
 }
 
-/*void	print_map(char **arr)
+void	print_map(char **arr)
 {
 	size_t	count;
 	size_t	i;
@@ -55,7 +55,7 @@ char	*ft_strndup(const char *s, size_t n)
 		printf("%s\n", arr[i]);
 		i++;
 	}
-}*/
+}
 
 //this function has been tailored for cub3d
 int	ft_strstr(char *str, char *to_find)

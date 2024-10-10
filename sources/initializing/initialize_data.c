@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/10 05:49:16 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 06:49:18 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	ft_initialize_player(t_data *data)
 	int	y;
 
 	ft_memset(&data->player, 0, sizeof(t_player));
+	find_player_direction(data);
+//	printf("direction: %c\n", data->player.direction);
 	x = find_item(data->mapinfo->grid, 'x');
 	y = find_item(data->mapinfo->grid, 'y');
 	data->player.pos_x = x + 0.5;
@@ -84,4 +86,23 @@ int	check_player_position(t_data *data)
 		data->mapinfo->grid[i - 1][j] == '1' || data->mapinfo->grid[i - 1][j] == '1')
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
+}
+
+void	find_player_direction(t_data *data)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (data->mapinfo->grid[y])
+	{
+		x = 0;
+		while (data->mapinfo->grid[y][x])
+		{
+			if (ft_strchr("NESW", data->mapinfo->grid[y][x]) && data->player.direction == '\0')
+				data->player.direction = data->mapinfo->grid[y][x];
+			x++;
+		}
+		y++;
+	}
 }
