@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/10/10 06:55:22 by kbolon           ###   ########.fr        #
+#    Updated: 2024/10/10 11:00:30 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ COMMON_SRCS =	sources/errors.c \
 		sources/moving/rotate.c \
 		sources/moving/move_player.c \
 		sources/raycasting/implement_raycasting.c \
-		sources/raycasting/handle_textures.c \
 		sources/initializing/init_textures.c
 
 SRCS = sources/main.c \
