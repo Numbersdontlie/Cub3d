@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luifer <luifer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 23:33:45 by luifer           ###   ########.fr       */
+/*   Updated: 2024/10/10 05:40:00 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ typedef struct s_textinfo
 //file, height, width and index of tcharhe end of the map
 typedef struct s_mapinfo
 {
-	int		fd;
+//	int		fd;
 	char	**grid;
-	size_t	player_x; //we can move these, I just put to easy testing bc I only init map
-	size_t	player_y; //we can move these, I just put to easy testing bc I only init map
+//	size_t	player_x; //we can move these, I just put to easy testing bc I only init map
+//	size_t	player_y; //we can move these, I just put to easy testing bc I only init map
 	size_t	map_height;//line count??
 	size_t	map_width;
 	int		idx_map_end;
@@ -319,6 +319,7 @@ void 	render_scaled_texture_on_base_bonus(t_data *data, int texture_idx, void *s
 void	render_player_bonus(t_data *data);
 
 
-void	ft_initialize_player(t_player *player);
+int	ft_initialize_player(t_data *data);
+int	check_player_position(t_data *data);
 
 #endif
