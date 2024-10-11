@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/10 11:58:36 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/09 16:48:21 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@
 //dir_x/y refers to the direction of the ray
 //map_x/y refers to the current coordinates(x,y) in which the ray is 
 //deltadist_x/y refers to the distance of the next x, y
-void	ft_initialize_raycasting(int x, t_ray *ray, t_player *player)//init_raycasting_info
+void	ft_initialize_raycasting(int x, t_ray *ray, t_player *player)
 {
 	memset(ray, 0, sizeof(t_ray));//ok tested with other code
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
-	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
 	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
+	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
 	ray->map_y = (int)player->pos_y;
 	ray->map_x = (int)player->pos_x;
-	ray->deltadistance_x = fabs(1 / ray->dir_x);
 	ray->deltadistance_y = fabs(1 / ray->dir_y);
+	ray->deltadistance_x = fabs(1 / ray->dir_x);
 }
 
 //Function to calculate the step and initial side distances
@@ -37,30 +37,30 @@ void	ft_initialize_raycasting(int x, t_ray *ray, t_player *player)//init_raycast
 //moves through the grid. The sidedist_x and y represents
 //the dist the ray must travel from current position to next grid
 //line in x or y direction
-void	ft_get_ray_step_and_distance(t_ray *ray, t_player *player)//set_dda
+void	ft_get_ray_step_and_distance(t_ray *ray, t_player *player)
 {
 	if (ray->dir_x < 0)
 	{
 		ray->step_x = -1;
-		ray->sidedistance_x = (player->pos_x - ray->map_x) \
+		ray->sidedistance_x = (player->pos_x - ray->map_x)
 			* ray->deltadistance_x;
 	}
 	else
 	{
 		ray->step_x = 1;
-		ray->sidedistance_x = (ray->map_x + 1.0 - player->pos_x) \
+		ray->sidedistance_x = (ray->map_x + 1.0 - player->pos_x)
 			* ray->deltadistance_x;
 	}
 	if (ray->dir_y < 0)
 	{
 		ray->step_y = -1;
-		ray->sidedistance_y = (player->pos_y - ray->map_y) \
+		ray->sidedistance_y = (player->pos_y - ray->map_y)
 			* ray->deltadistance_y;
 	}
 	else
 	{
 		ray->step_y = 1;
-		ray->sidedistance_y = (ray->map_y + 1.0 - player->pos_y) \
+		ray->sidedistance_y = (ray->map_y + 1.0 - player->pos_y)
 			* ray->deltadistance_y;
 	}
 }
@@ -73,7 +73,7 @@ void	ft_get_ray_step_and_distance(t_ray *ray, t_player *player)//set_dda
 //deltadis refers to how far ray moves in x or y direction when crossing a grid
 //map_x/y refers to current position (x,y) of ray in map
 //step_x/y refers to direction in which ray is moving (1 or -1)
-void	ft_implement_dda(t_data *data, t_ray *ray)//perform_dda
+void	ft_implement_dda(t_data *data, t_ray *ray)
 {
 	while (1)
 	{
@@ -102,19 +102,19 @@ void	ft_implement_dda(t_data *data, t_ray *ray)//perform_dda
 //it calculates the wall distance based if the ray hit in a vertical 
 //or horizontal wall (defined by ray->side)
 //to the wall and them derive the draw start and end position.
-void	ft_calculate_wall_height(t_ray *ray, t_data *data, t_player *player)//calculate_line_height
+void	ft_calculate_wall_height(t_ray *ray, t_player *player)
 {
 	if (ray->side == 0)
 		ray->wall_distance = (ray->sidedistance_x - ray->deltadistance_x);
 	else
 		ray->wall_distance = (ray->sidedistance_y - ray->deltadistance_y);
-	ray->line_height = (int)(data->height / ray->wall_distance);
-	ray->draw_start = -(ray->line_height / 2) + (data->height / 2);
+	ray->line_height = (int)(HEIGHT / ray->wall_distance);
+	ray->draw_start = -(ray->line_height / 2) + (HEIGHT / 2);
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	ray->draw_end = (ray->line_height / 2) + (data->height / 2);
-	if (ray->draw_end >= data->height)
-		ray->draw_end = data->height - 1;
+	ray->draw_end = (ray->line_height / 2) + (HEIGHT / 2);
+	if (ray->draw_end >= HEIGHT)
+		ray->draw_end = HEIGHT - 1;
 	if (ray->side == 0)
 		ray->wall_x = player->pos_y + ray->wall_distance * ray->dir_y;
 	else
@@ -134,15 +134,15 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 
 	x = 0;
 	ray = data->ray;
-	while (x < data->width)
+	while (x < WIDTH)
 	{
-		ft_initialize_raycasting(x, &ray, player);//init_raycasting_info
-		ft_get_ray_step_and_distance(&ray, player);//set_dda
-		ft_implement_dda(data, &ray);//perform_dda
-		ft_calculate_wall_height(&ray, data, &data->player);//calculate_line_height
+		ft_initialize_raycasting(x, &ray, player);
+		ft_get_ray_step_and_distance(&ray, player);
+		ft_implement_dda(data, &ray);
+		ft_calculate_wall_height(&ray, &data->player);
 //		ft_get_texture_idx(data, &ray);
 //		ft_calculate_texture_coordinates(data, &ray);
-		ft_update_texture_pixels(data, &ray, x);//update_texture_pixels
+		ft_update_texture_pixels(data, &ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);
@@ -150,12 +150,12 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 
 void	ft_calculate_texture_coordinates(t_data *data, t_ray *ray)//part of update_texture_pixels
 {
-	data->textinfo->x = (int)(ray->wall_x * data->textinfo->size);
+	data->textinfo->x = (int)(ray->wall_x * PIXELS);
 	if ((ray->side == 0 && ray->dir_x < 0)
 		|| (ray->side == 1 && ray->dir_y > 0))
-		data->textinfo->x = data->textinfo->size - data->textinfo->x - 1;
-	data->textinfo->step = 1.0 * data->textinfo->size / ray->line_height;
-	data->textinfo->pos = (ray->draw_start - data->height / 2 + \
+		data->textinfo->x = PIXELS - data->textinfo->x - 1;
+	data->textinfo->step = 1.0 * PIXELS / ray->line_height;
+	data->textinfo->pos = (ray->draw_start - HEIGHT / 2 + \
 		ray->line_height / 2) * data->textinfo->step;
 }
 
@@ -173,9 +173,9 @@ void	ft_update_texture_pixels(t_data *data, t_ray *ray, int x)//update_texture_p
 	while (y < ray->draw_end)
 	{
 //		data->textinfo->y = (int)data->textinfo->pos % PIXELS;
-		data->textinfo->y = (int)data->textinfo->pos & (data->textinfo->size - 1);
+		data->textinfo->y = (int)data->textinfo->pos & (PIXELS - 1);
 		data->textinfo->pos += data->textinfo->step;
-		colour = data->textures[data->textinfo->idx][data->textinfo->size * \
+		colour = data->textures[data->textinfo->idx][PIXELS * \
 			data->textinfo->y + data->textinfo->x];
 		if (data->textinfo->idx == N || data->textinfo->idx == E)
 			colour = (colour >> 1);// & 8355711;
