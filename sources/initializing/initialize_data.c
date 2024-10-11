@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/11 12:50:31 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/11 12:58:22 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,25 @@ int	ft_initialize_player(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-//function checkt that the player position is legit
+//function check that the player position is legit
 int	check_player_position(t_data *data)
 {
 	int	i;
 	int	j;
+	int	count;
 
 	i = (int)data->player.pos_y;
 	j = (int)data->player.pos_x;
-	if (data->mapinfo->grid[i][j - 1] == '1' || data->mapinfo->grid[i][j + 1] == '1' || \
-		data->mapinfo->grid[i - 1][j] == '1' || data->mapinfo->grid[i - 1][j] == '1')
+	count = 0;
+	if (data->mapinfo->grid[i][j - 1] == '1')
+		count++;
+	if (data->mapinfo->grid[i][j + 1] == '1')
+		count++;
+	if (data->mapinfo->grid[i - 1][j] == '1')
+		count++;
+	if (data->mapinfo->grid[i - 1][j] == '1')
+		count++;
+	if (count == 4)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
