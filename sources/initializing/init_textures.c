@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:30:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/10 11:54:26 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 09:38:53 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	ft_init_texture_pixels(t_data *data)//init_texture_pixels
 
 	if (data->texture_pixels)
 		free_textures(data->texture_pixels);
-	data->texture_pixels = ft_calloc(data->height + 1, sizeof(int *));
+	data->texture_pixels = ft_calloc(HEIGHT + 1, sizeof(int *));
 	if (!data->texture_pixels)
 		error_exit("ERROR: calloc init texture pixels total\n", data, NULL);
 	i = 0;
-	while (i < data->height)
+	while (i < HEIGHT)
 	{
-		data->texture_pixels[i] = ft_calloc(data->width + 1, sizeof(int));
+		data->texture_pixels[i] = ft_calloc(WIDTH + 1, sizeof(int));
 		if (!data->texture_pixels[i])
 			error_exit("ERROR: calloc init texture pixels\n", data, NULL);
 		i++;
@@ -35,7 +35,7 @@ void	ft_init_texture_pixels(t_data *data)//init_texture_pixels
 //if side is not zero, we're working on the y axis, else on the x
 //if dir_y is greather than zero then we're on South 
 //else North. If x axis is lower than zero is west else east
-void	ft_get_texture_idx(t_data *data, t_ray *ray)//get_texture_index
+void	ft_get_texture_idx(t_data *data, t_ray *ray)
 {
 	if (ray->side == 1)
 	{
@@ -54,7 +54,8 @@ void	ft_get_texture_idx(t_data *data, t_ray *ray)//get_texture_index
 }
 
 
-int	*xpm_buffer_image(t_data *data, char *path)//xpm_to_img   OK checked with other code
+
+int	*xpm_buffer_image(t_data *data, char *path)//OK checked with other code
 {
 	t_img	temp;
 	int		*buff;
@@ -62,7 +63,7 @@ int	*xpm_buffer_image(t_data *data, char *path)//xpm_to_img   OK checked with ot
 	int		y;
 
 	ft_init_texture_img(data, &temp, path);
-	buff = ft_calloc((data->textinfo->size * data->textinfo->size), sizeof(int));
+	buff = ft_calloc((temp.texture_width * temp.texture_height), sizeof(int));
 	if (!buff)
 	{
 		error_message("ERROR: Unable to calloc buffer\n");
@@ -72,9 +73,9 @@ int	*xpm_buffer_image(t_data *data, char *path)//xpm_to_img   OK checked with ot
 	while (y < PIXELS)
 	{
 		x = 0;
-		while (x < data->textinfo->size)
+		while (x < PIXELS)
 		{
-			buff[y * data->textinfo->size + x] = temp.img_addr[y * data->textinfo->size + x];
+			buff[y * PIXELS + x] = temp.img_addr[y * PIXELS + x];
 			x++;
 		}
 		y++;

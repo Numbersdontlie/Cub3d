@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/10 11:56:40 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/10 09:42:29 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_initialize_connection(t_data *data)
 		ft_putstr_fd("ERROR: problems with mlx_init\n", 2);
 		return (EXIT_FAILURE);
 	}
-	data->mlx_window = mlx_new_window(data->mlx_conn, data->width, data->height, "Cub3D");
+	data->mlx_window = mlx_new_window(data->mlx_conn, WIDTH, HEIGHT, "Cub3D");
 	if (!data->mlx_window)
 	{
 		mlx_destroy_display(data->mlx_conn);
@@ -59,7 +59,7 @@ int	ft_init_texture_img(t_data *data, t_img *image, char *path)
 int	ft_init_img(t_data *data, t_img *image)
 {
 	ft_memset(image, 0, sizeof(t_img));
-	image->img = mlx_new_image(data->mlx_conn, data->width, data->height);
+	image->img = mlx_new_image(data->mlx_conn, WIDTH, HEIGHT);
 	if (!image->img)
 	{
 		error_message("ERROR: Unable to load image\n");
