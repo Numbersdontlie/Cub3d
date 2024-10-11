@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:44:09 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/10 06:44:48 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/11 13:00:44 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ void	check_map_size(char **grid)
 	int	line_count;
 
 	line_count = row_count(grid);
-	if (line_count <= 3)
+	if (line_count <= 2)
 		error_message("ERROR: Map is too small\n");
 }
