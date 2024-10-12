@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/12 11:26:04 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/12 17:10:36 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_implement_dda(t_data *data, t_ray *ray)//perform_dda
 			ray->map_y > data->mapinfo->map_height - 0.25 || \
 			ray->map_x > data->mapinfo->map_width - 1.25)
 			return ;
-		else if (data->mapinfo->grid[ray->map_y][ray->map_x] > '0')//maybe we check if it's also a player
+		else if (data->map[ray->map_y][ray->map_x] > '0')//maybe we check if it's also a player
 			return ;
 	}
 }
