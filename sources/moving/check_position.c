@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:56:54 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/10 10:21:48 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/12 17:10:03 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_check_if_empty(t_data *data, double x, double y)
 	if (!data || !data->map)
 		return (EXIT_FAILURE);
 	tile = data->map[(int)y][(int)x];
-	if (tile == '0' || tile == '4')
+	if (tile == '1')// || tile == '4')
 		return (EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }
