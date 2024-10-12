@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:30:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 10:31:04 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/12 13:30:04 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_get_texture_idx(t_data *data, t_ray *ray)
 
 
 
-int	*xpm_buffer_image(t_data *data, char *path)//OK checked with other code
+int	*xpm_buffer_image(t_data *data, char *path)//OK xpm_to_img
 {
 	t_img	temp;
 	int		*buff;
@@ -63,19 +63,19 @@ int	*xpm_buffer_image(t_data *data, char *path)//OK checked with other code
 	int		y;
 
 	ft_init_texture_img(data, &temp, path);
-	buff = ft_calloc((temp.texture_width * temp.texture_height), sizeof(int));
+	buff = (int *)ft_calloc(data->textinfo->size * data->textinfo->size, sizeof(int));
 	if (!buff)
 	{
 		error_message("ERROR: Unable to calloc buffer\n");
 		return (0);
 	}
 	y = 0;
-	while (y < PIXELS)
+	while (y < data->textinfo->size)
 	{
 		x = 0;
-		while (x < PIXELS)
+		while (x < data->textinfo->size)
 		{
-			buff[y * PIXELS + x] = temp.img_addr[y * PIXELS + x];
+			buff[y * data->textinfo->size + x] = temp.img_addr[y * data->textinfo->size + x];
 			x++;
 		}
 		y++;
@@ -92,7 +92,7 @@ int	ft_initialize_textures(t_data *data)//init_textures  OK checked with other c
 	int		i;
 
 	i = 0;
-	data->textures = ft_calloc(5, sizeof(int *));
+	data->textures = ft_calloc(5, sizeof(data->textures));//sizeof(int)
 	if (!data->textures)
 		return (EXIT_FAILURE);
 	while (i < 4)
