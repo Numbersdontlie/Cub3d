@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 11:24:33 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/12 17:06:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_textinfo
 typedef struct s_mapinfo
 {
 //	int		fd;
-	char	**grid;
+//	char	**grid;
 //	size_t	player_x; //we can move these, I just put to easy testing bc I only init map
 //	size_t	player_y; //we can move these, I just put to easy testing bc I only init map
 	size_t	map_height;//line count??
@@ -174,7 +174,7 @@ typedef struct s_data
 {
 	void			*mlx_conn;
 	void			*mlx_window;
-	char			**map;//will charge the map in an array to access from function to check movement
+	char			**map;//use this map, it is updated to make square
 	char			**path;
 	t_mapinfo		*mapinfo;
 	t_player		player;
@@ -247,34 +247,41 @@ int			ft_move_player(t_data *data);
 int			ft_rotate_player_dir_vector(t_data *data, double speedrot);
 int			ft_execute_rotation(t_data *data, double dirrot);
 
-//parsing/check_map.c
+//sources/parsing/check_map.c
 void		valid_chars(t_textinfo *text);
 void		count_chars(char **arr, size_t *player);
 void		check_map_items(t_textinfo *text);
 char		*ft_trim_line(char *str);
 int			filter_grid_lines(char *grid);
 
-//parsing/flood_fill_check.c
+//sources/parsing/flood_fill_check.c
 int			find_item(char **grid, char axis);
 int			path_checker(char **game, size_t y, size_t x);
 void		flood_fill(char **game);
 void		check_map_size(char **grid);
 
-//sources/helper_functions.c
+//sources/parsing/helper_functions.c
 void		copy_valid_lines(char *grid, char *trimmed, char **arr);
 void		check_empty_lines(char **grid, int i);
 char		*ft_strndup(const char *s, size_t n);
 void		print_map(char **arr);
 int			ft_strstr(char *str, char *to_find);
 
-//parsing/parse_input.c
+//sources/parsing/make_game_map.c
+void	ft_change_space(t_data *data);
+int		ft_make_game_map(t_data *data);
+int		ft_find_longest_line(char **arr);
+char	**reallocate_map(t_data *data, int len);
+char	*ft_strncpy(char *dest, char *src, unsigned int n);
+
+//sources/parsing/parse_input.c
 char		*find_cardinal_paths(char **arr, char *s);
 char 		*path_extractor(char **arr, char *str);
 char		*find_floor_ceiling(t_textinfo *text, char **arr, int c);
 char		**remove_empty_lines(char **arr);
 t_textinfo	*find_grid(t_textinfo *text, char **grid);
 
-//parsing/read_input.c
+//sources/parsing/read_input.c
 void		check_extension(char *s);
 size_t		row_count(char **grid);
 char		**read_map(char *s);
@@ -311,8 +318,7 @@ void		free_textures(int **arr);
 
 //sources/free_functions2.c
 void		free_mapstruct(t_data *data);
-void	free_tab(void **tab);
-void free_partial(int **array, int rows);
+void 		free_partial(void **array, int rows);
 
 //sources/bonus/mini_map.c
 int		ft_launch_game_bonus(t_data *data);

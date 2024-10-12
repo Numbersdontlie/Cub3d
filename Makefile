@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/10/12 10:18:05 by kbolon           ###   ########.fr        #
+#    Updated: 2024/10/12 14:08:54 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ COMMON_SRCS =	sources/errors.c \
 		sources/parsing/check_map.c \
 		sources/parsing/flood_fill_check.c \
 		sources/parsing/helper_functions.c \
+		sources/parsing/make_game_map.c \
 		sources/parsing/parse_input.c \
 		sources/parsing/read_input.c \
 		sources/initializing/initialize_data.c \
