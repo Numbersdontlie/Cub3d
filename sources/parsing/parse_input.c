@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/10 06:29:54 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/12 10:20:41 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	**remove_empty_lines(char **arr)
 
 
 /*function checks that the texture paths have been removed and should
-only have grid left. It copies the grid into the textinfo struct */
+only have grid left. It copies the grid into the info struct */
 t_textinfo	*find_grid(t_textinfo *text, char **grid)
 {
 	char	**temp;

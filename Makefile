@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/10/10 11:00:30 by kbolon           ###   ########.fr        #
+#    Updated: 2024/10/12 10:18:05 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ COMMON_SRCS =	sources/errors.c \
 		sources/parsing/parse_input.c \
 		sources/parsing/read_input.c \
 		sources/initializing/initialize_data.c \
-		sources/initializing/initialize_text.c \
+		sources/initializing/initialize_info.c \
 		sources/initializing/render_image.c \
 		sources/moving/input_handler.c \
 		sources/initializing/initialize_window.c \

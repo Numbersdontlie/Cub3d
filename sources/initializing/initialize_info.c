@@ -6,14 +6,14 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 10:18:59 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/12 10:16:51 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
 //function initializes the text struct and saves it in our data struct
-t_textinfo	*ft_initialize_textinfo(char **arr)
+t_textinfo	*ft_initialize_info(char **arr)
 {
 	char		**grid;
 	t_textinfo	*text;

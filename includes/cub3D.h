@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 09:26:41 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/12 11:24:33 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define PIXELS 64
 # define WIDTH 640
 # define HEIGHT 480
+# define NUM_TEXTURES 4
 # define MOVEMENTSPEED 0.0125
 # define ROTATIONSPEED 0.015
 # define XK_ESCAPE 0xff1b //Escape
@@ -88,10 +89,10 @@ typedef struct s_textinfo
 	char			**paths;
 	int				*floor_rgb;
 	int				*ceiling_rgb;
-	char			**grid;
+	char			**grid;//ignore this, it is only used to populate the map function
 	unsigned long	hex_floor;
 	unsigned long	hex_ceiling;
-	int				size;//what is this for?
+	int				size;//set to PIXELS
 	int				idx;
 	double			step;
 	double			pos;
@@ -191,8 +192,8 @@ int 		ft_initialize_map(t_data *data, t_textinfo *text);
 int			ft_initialize_data(t_data **data, t_textinfo *text);
 int			ft_init_background(t_data *data);
 
-//sources/initializing/initialize_text.c
-t_textinfo	*ft_initialize_textinfo(char **arr);
+//sources/initializing/initialize_info.c
+t_textinfo	*ft_initialize_info(char **arr);
 int			fill_paths(t_textinfo *text, char **grid);
 int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_value);
 int			*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value);
@@ -203,7 +204,7 @@ int			ft_initialize_connection(t_data *data);
 int			ft_initialize_textures(t_data *data);
 int			ft_clear_textures(t_data *data);
 int			ft_init_texture_img(t_data *data, t_img *image, char *path);
-int	ft_init_img(t_data *data, t_img *image);
+int			ft_init_img(t_data *data, t_img *image);
 
 //sources/initialize/render_image.c
 int			ft_launch_game(t_data *data);
@@ -289,11 +290,11 @@ void		ft_get_texture_idx(t_data *data, t_ray *ray);
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
 void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
-void		ft_calculate_wall_height(t_ray *ray, t_player *player);
 int			ft_make_raycasting(t_player *player, t_data *data);
 void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
 void	 	ft_render_texture(t_data *data, t_ray *ray, int x);
 void		ft_update_texture_pixels(t_data *data, t_ray *ray, int x);
+void		ft_calculate_wall_height(t_data *data, t_ray *ray, t_player *player);
 
 //sources/errors.c
 void		error_message(char *str);
@@ -325,5 +326,7 @@ void	render_player_bonus(t_data *data);
 int	ft_initialize_player(t_data *data);
 int	check_player_position(t_data *data);
 void	find_player_direction(t_data *data);
+void	check_initial_position(t_data *data);
+int is_position_valid(t_data *data, double new_x, double new_y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/10 10:04:34 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/12 10:16:59 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int ac, char **av)
 		error_message("ERROR: include ./cub3D & .cub\n");
 	data = NULL;
 	check_extension(av[1]);
-	text = ft_initialize_textinfo(&av[1]);
+	text = ft_initialize_info(&av[1]);
 	if (!text)
 		error_message("ERROR: problem loading text");
 	check_args(text);
