@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:08:40 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/11 12:58:22 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/12 11:12:25 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ int	ft_initialize_player(t_data *data)
 	y = find_item(data->mapinfo->grid, 'y');
 	data->player.pos_x = x + 0.5;
 	data->player.pos_y = y + 0.5;
-//	data->mapinfo->grid[y][x] = '0';
+	data->height = HEIGHT;
+	data->width = WIDTH;
+	data->mapinfo->grid[y][x] = '0';
 	if (check_player_position(data) == EXIT_FAILURE)
 		return (error_message_simple("ERROR: problems player position\n", NULL));
 	ft_init_player_dir(data);
