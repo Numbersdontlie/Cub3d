@@ -6,18 +6,18 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:30:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 13:30:04 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/13 09:20:12 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void	ft_init_texture_pixels(t_data *data)//init_texture_pixels
+void	ft_init_texture_pixels(t_data *data)
 {
 	int	i;
 
 	if (data->texture_pixels)
-		free_textures(data->texture_pixels);
+		free_partials((void **)data->texture_pixels);
 	data->texture_pixels = ft_calloc(HEIGHT + 1, sizeof(int *));
 	if (!data->texture_pixels)
 		error_exit("ERROR: calloc init texture pixels total\n", data, NULL);
@@ -53,9 +53,7 @@ void	ft_get_texture_idx(t_data *data, t_ray *ray)
 	}
 }
 
-
-
-int	*xpm_buffer_image(t_data *data, char *path)//OK xpm_to_img
+int	*xpm_buffer_image(t_data *data, char *path)
 {
 	t_img	temp;
 	int		*buff;
@@ -87,12 +85,12 @@ int	*xpm_buffer_image(t_data *data, char *path)//OK xpm_to_img
 //Function to initialize the image, it creates the new image using 
 //the mlx library and checks it was correctly created and saves the 
 //image address
-int	ft_initialize_textures(t_data *data)//init_textures  OK checked with other code
+int	ft_initialize_textures(t_data *data)
 {
 	int		i;
 
 	i = 0;
-	data->textures = ft_calloc(5, sizeof(data->textures));//sizeof(int)
+	data->textures = ft_calloc(5, sizeof(int **));
 	if (!data->textures)
 		return (EXIT_FAILURE);
 	while (i < 4)
@@ -108,7 +106,7 @@ int	ft_initialize_textures(t_data *data)//init_textures  OK checked with other c
 	return (EXIT_SUCCESS);
 }
 
-void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)//set_image_pixel
+void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)
 {
 	int	*pixel;
 
@@ -117,5 +115,4 @@ void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)//set_image_pi
 	pixel = (int *)((char *)imginfo->img_addr + (y * imginfo->line_len) + (x * (imginfo->bpp / 8)));
 	*pixel = colour;
 }
-
 

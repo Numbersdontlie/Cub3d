@@ -55,19 +55,6 @@ int	ft_release_key(int keysym, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-/*int	ft_release_key(int keysym, t_data *data)
-{
-	if (keysym == XK_ESCAPE)
-		on_destroy(data);
-	if (keysym == FORWARD || keysym == BACKWARD)
-		data->player.move_y = 0;
-	if (keysym == MOVE_LEFT || keysym == MOVE_RIGHT)
-		data->player.move_x = 0;
-	if (keysym == ROTATE_LEFT || keysym == ROTATE_RIGHT)
-		data->player.rotate = 0;
-	return (EXIT_SUCCESS);
-}*/
-
 int on_destroy(t_data *data)
 {
 	ft_exit_game(data);
@@ -77,13 +64,13 @@ int on_destroy(t_data *data)
 }
 
 
-/*void	ft_loop_events(t_data *data)
+void	ft_loop_events(t_data *data)
 {
 	mlx_hook(data->mlx_window, KeyPress, KeyPressMask, ft_handle_key, data);
 	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);
 	mlx_hook(data->mlx_window, DestroyNotify, 0, on_destroy, data);
-//	mlx_hook(data->mlx_window, ClientMessage, NoEventMask, on_destroy, data);
+	mlx_loop_hook(data->mlx_conn, ft_render, data);
 	mlx_loop(data->mlx_conn);
 
 	//We're missing the hook to handle the input from mouse if we make the bonus
-}*/
+}

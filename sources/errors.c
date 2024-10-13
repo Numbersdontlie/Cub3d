@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:47:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 10:19:34 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/13 09:08:05 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 
 void	error_message(char *str)
 {
+	ft_putstr_fd(str, 2);
+	exit (EXIT_FAILURE);
+}
+
+void	error_reading_file(char *str, char **arr, int fd)
+{
+	if (fd)
+		close (fd);
+	if (arr)
+		free_memory(arr);
 	ft_putstr_fd(str, 2);
 	exit (EXIT_FAILURE);
 }
@@ -32,7 +42,6 @@ void	error_message_text(char *str, t_textinfo *text)
 	ft_putstr_fd(str, 2);
 	exit (EXIT_FAILURE);
 }
-
 
 void	error_exit(char *str, t_data *data, t_textinfo *text)
 {
