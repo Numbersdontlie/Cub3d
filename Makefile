@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/10/12 18:19:05 by kbolon           ###   ########.fr        #
+#    Updated: 2024/10/13 09:21:47 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ BONUS_NAME = bonus_cub3D
 
 COMMON_SRCS =	sources/errors.c \
 		sources/free_functions.c \
-		sources/free_functions2.c \
 		sources/parsing/check_map.c \
 		sources/parsing/flood_fill_check.c \
 		sources/parsing/helper_functions.c \
@@ -32,6 +31,7 @@ COMMON_SRCS =	sources/errors.c \
 		sources/moving/rotate.c \
 		sources/moving/move_player.c \
 		sources/raycasting/implement_raycasting.c \
+		sources/raycasting/handle_textures.c \
 		sources/initializing/init_textures.c
 
 SRCS = sources/main.c \
@@ -48,7 +48,7 @@ MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
 #BONUS_OBJS = $(BONUS_SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
 
 #colours
 
@@ -65,8 +65,8 @@ all: $(NAME)
 #bonus: $(BONUS_NAME)
 
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
-#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
 

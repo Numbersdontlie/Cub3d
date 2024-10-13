@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:14:37 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/09 15:52:59 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/13 09:01:17 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,18 @@ char	**read_map(char *s)
 	size = 100;
 	fd = open(s, O_RDONLY);
 	if (fd < 0)
-	{
-		ft_putstr_fd("ERROR: unable to open file \n", 2);
-		return (NULL);
-	}
+		error_message("ERROR: unable to open file \n");
 	arr = NULL;
 	arr = (char **) malloc (sizeof(char *) * size); 
 	if (!arr)
-	{
-		close (fd);
-		return (NULL);
-	}
+		error_reading_file("ERROR: problems mallocing\n", NULL, fd);
 	arr = graphic_gnl(size, fd, arr, i);
 	close(fd);
 	if (!arr)
 		return (NULL);
 	i = row_count(arr);
 	if (i < 2)
-	{
-		free_memory(arr);
-		ft_putstr_fd("ERROR: empty file\n", 2);
-		return (NULL);
-	}
+		error_reading_file("ERROR: empty file\n", arr, 0);
 	return (arr);
 }
 

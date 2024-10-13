@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:56:28 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 17:05:00 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/13 09:15:49 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,16 @@ void	ft_change_space(t_data *data)
 	new_map = reallocate_map(data, data->mapinfo->map_width);
 	if (!new_map)
 		exit(EXIT_FAILURE);
-//	free_memory(data->map);
-	data->map = new_map;
-	while (data->map[++y])
+	data->mapinfo->map = new_map;
+	while (data->mapinfo->map[++y])
 	{
 		x = 0;
-		while (data->map[y][x] && x < data->mapinfo->map_width)
+		while (data->mapinfo->map[y][x] && x < data->mapinfo->map_width)
 		{
-			if (data->map[y][x] == ' ' || data->map[y][x] == '\r' ||\
-				data->map[y][x] == '\t' || data->map[y][x] == '\v')
+			if (data->mapinfo->map[y][x] == ' ' || data->mapinfo->map[y][x] == '\r' ||\
+				data->mapinfo->map[y][x] == '\t' || data->mapinfo->map[y][x] == '\v')
 			{
-				data->map[y][x] = '1';
+				data->mapinfo->map[y][x] = '1';
 			}
 			x++;
 		}
@@ -43,7 +42,7 @@ void	ft_change_space(t_data *data)
 int	ft_make_game_map(t_data *data)
 {
 	ft_change_space(data);
-	if (!data->map)
+	if (!data->mapinfo->map)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -80,7 +79,7 @@ char	**reallocate_map(t_data *data, int len)
 	{
 		new[i] = (char *)malloc((len + 1) * sizeof(char));
 		if (!new[i])
-			free_partial((void **)new, i);
+			free_partials((void **)new);
 		ft_strncpy(new[i], data->textinfo->grid[i], len);
 		current_len = ft_strlen(data->textinfo->grid[i]);
 		while (current_len < len)

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/12 17:10:36 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/13 09:05:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 //dir_x/y refers to the direction of the ray
 //map_x/y refers to the current coordinates(x,y) in which the ray is 
 //deltadist_x/y refers to the distance of the next x, y
-void	ft_initialize_raycasting(int x, t_ray *ray, t_player *player)//init_raycasting_info
+void	ft_initialize_raycasting(int x, t_ray *ray, t_player *player)
 {
 	memset(ray, 0, sizeof(t_ray));//ok tested with other code
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
@@ -37,7 +37,7 @@ void	ft_initialize_raycasting(int x, t_ray *ray, t_player *player)//init_raycast
 //moves through the grid. The sidedist_x and y represents
 //the dist the ray must travel from current position to next grid
 //line in x or y direction
-void	ft_get_ray_step_and_distance(t_ray *ray, t_player *player)//set_dda
+void	ft_get_ray_step_and_distance(t_ray *ray, t_player *player)
 {
 	if (ray->dir_x < 0)
 	{
@@ -73,7 +73,7 @@ void	ft_get_ray_step_and_distance(t_ray *ray, t_player *player)//set_dda
 //deltadis refers to how far ray moves in x or y direction when crossing a grid
 //map_x/y refers to current position (x,y) of ray in map
 //step_x/y refers to direction in which ray is moving (1 or -1)
-void	ft_implement_dda(t_data *data, t_ray *ray)//perform_dda
+void	ft_implement_dda(t_data *data, t_ray *ray)
 {
 	while (1)
 	{
@@ -93,7 +93,7 @@ void	ft_implement_dda(t_data *data, t_ray *ray)//perform_dda
 			ray->map_y > data->mapinfo->map_height - 0.25 || \
 			ray->map_x > data->mapinfo->map_width - 1.25)
 			return ;
-		else if (data->map[ray->map_y][ray->map_x] > '0')//maybe we check if it's also a player
+		else if (data->mapinfo->map[ray->map_y][ray->map_x] > '0')
 			return ;
 	}
 }
@@ -102,7 +102,7 @@ void	ft_implement_dda(t_data *data, t_ray *ray)//perform_dda
 //it calculates the wall distance based if the ray hit in a vertical 
 //or horizontal wall (defined by ray->side)
 //to the wall and them derive the draw start and end position.
-void	ft_calculate_wall_height(t_data *data, t_ray *ray, t_player *player)//calculate_line_height(t_ray *ray, t_data *data, t_player *player)
+void	ft_calculate_wall_height(t_data *data, t_ray *ray, t_player *player)
 {
 	if (ray->side == 0)
 		ray->wall_distance = (ray->sidedistance_x - ray->deltadistance_x);
@@ -127,7 +127,7 @@ void	ft_calculate_wall_height(t_data *data, t_ray *ray, t_player *player)//calcu
 //and point of view of the player
 //initializes ray, calculates steps and distances, performs DDA, 
 //calculates wall height and updates textures
-int	ft_make_raycasting(t_player *player, t_data *data)//raycasting
+int	ft_make_raycasting(t_player *player, t_data *data)
 {
 	int		x;
 	t_ray	ray;
@@ -140,50 +140,9 @@ int	ft_make_raycasting(t_player *player, t_data *data)//raycasting
 		ft_get_ray_step_and_distance(&ray, player);
 		ft_implement_dda(data, &ray);
 		ft_calculate_wall_height(data, &ray, &data->player);
-//		ft_get_texture_idx(data, &ray);
-//		ft_calculate_texture_coordinates(data, &ray);
 		ft_update_texture_pixels(data, &ray, x);
 		x++;
 	}
 	return (EXIT_SUCCESS);
 }
 
-void	ft_calculate_texture_coordinates(t_data *data, t_ray *ray)//part of update_texture_pixels
-{
-	data->textinfo->x = (int)(ray->wall_x * data->textinfo->size);
-	if ((ray->side == 0 && ray->dir_x < 0)
-		|| (ray->side == 1 && ray->dir_y > 0))
-		data->textinfo->x = data->textinfo->size - data->textinfo->x - 1;
-	data->textinfo->step = 1.0 * data->textinfo->size / ray->line_height;
-	data->textinfo->pos = (ray->draw_start - data->height / 2 + \
-		ray->line_height / 2) * data->textinfo->step;
-}
-
-//Function to update the texture pixels on the screen for render
-//it calculates which part of the texture to apply to the current vertical line
-//it flip the textures based on the direction the ray hits the wall
-void	ft_update_texture_pixels(t_data *data, t_ray *ray, int x)//update_texture_pixels
-{
-	int		y;
-	int		colour;
-
-	ft_get_texture_idx(data, ray);
-	ft_calculate_texture_coordinates(data, ray);
-	y = ray->draw_start;
-	while (y < ray->draw_end)
-	{
-		if (data->textinfo->idx >= NUM_TEXTURES || data->textinfo->x >= data->textinfo->size || 
-			data->textinfo->y >= data->textinfo->size)
-			return;
-		data->textinfo->y = (int)data->textinfo->pos % data->textinfo->size;
-//		data->textinfo->y = (int)data->textinfo->pos & (data->textinfo->size - 1);
-		data->textinfo->pos += data->textinfo->step;
-		colour = data->textures[data->textinfo->idx][data->textinfo->size * \
-			data->textinfo->y + data->textinfo->x];
-		if (data->textinfo->idx == N || data->textinfo->idx == E)
-			colour = (colour >> 1);
-		if (colour > 0)
-			data->texture_pixels[y][x] = colour;
-		y++;
-	}
-}

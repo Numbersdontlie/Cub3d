@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 17:06:01 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/13 09:21:20 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <memory.h>
 # include <math.h>
-# include <time.h>
 # include <string.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
@@ -32,26 +30,18 @@
 # define NUM_TEXTURES 4
 # define MOVEMENTSPEED 0.0125
 # define ROTATIONSPEED 0.015
-# define XK_ESCAPE 0xff1b //Escape
-# define FORWARD 0x77 //W
-# define BACKWARD 0x73 //S
-# define MOVE_LEFT 0x61 //A
-# define MOVE_RIGHT 0x64 //D
-# define ROTATE_LEFT 0xff51 //left arrow
-# define ROTATE_RIGHT 0xff53 //right arrow
+# define XK_ESCAPE 0xff1b
+# define FORWARD 0x77
+# define BACKWARD 0x73
+# define MOVE_LEFT 0x61
+# define MOVE_RIGHT 0x64
+# define ROTATE_LEFT 0xff51
+# define ROTATE_RIGHT 0xff53
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
-# define TRUE 10
-# define FALSE 20
 # define RED 0x7F7F7F
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
-# define MAGENTA_BURST 0xFF00FF
-# define LIME_SHOCK 0xCCFF00
-# define NEON_ORANGE 0xFF6600
-# define PSYCHEDELIC_PURPLE 0x660866
-# define ELECTRIC_BLUE 0x0066FF
-# define LAVA_RED 0xFF3300
 
 # ifndef BONUS
 #  define BONUS 1
@@ -80,7 +70,6 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-
 //Structure for the text information of the game, it includes:
 //pointer to path of north, south, east and west. Color of floor and ceiling
 //
@@ -89,10 +78,10 @@ typedef struct s_textinfo
 	char			**paths;
 	int				*floor_rgb;
 	int				*ceiling_rgb;
-	char			**grid;//ignore this, it is only used to populate the map function
+	char			**grid;
 	unsigned long	hex_floor;
 	unsigned long	hex_ceiling;
-	int				size;//set to PIXELS
+	int				size;
 	int				idx;
 	double			step;
 	double			pos;
@@ -105,11 +94,8 @@ typedef struct s_textinfo
 //file, height, width and index of tcharhe end of the map
 typedef struct s_mapinfo
 {
-//	int		fd;
-//	char	**grid;
-//	size_t	player_x; //we can move these, I just put to easy testing bc I only init map
-//	size_t	player_y; //we can move these, I just put to easy testing bc I only init map
-	size_t	map_height;//line count??
+	char	**map;
+	size_t	map_height;
 	size_t	map_width;
 	int		idx_map_end;
 }	t_mapinfo;
@@ -174,7 +160,6 @@ typedef struct s_data
 {
 	void			*mlx_conn;
 	void			*mlx_window;
-	char			**map;//use this map, it is updated to make square
 	char			**path;
 	t_mapinfo		*mapinfo;
 	t_player		player;
@@ -187,10 +172,19 @@ typedef struct s_data
 	t_mini			minimap;//only for bonus if we do it
 }	t_data;
 
+//sources/initialize/init_textures.c
+void		ft_init_texture_pixels(t_data *data);
+void		ft_get_texture_idx(t_data *data, t_ray *ray);
+int			*xpm_buffer_image(t_data *data, char *path);
+int			ft_initialize_textures(t_data *data);
+void		ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour);
+
 //sources/initialize/initialize_data.c
 int 		ft_initialize_map(t_data *data, t_textinfo *text);
 int			ft_initialize_data(t_data **data, t_textinfo *text);
-int			ft_init_background(t_data *data);
+int			ft_initialize_player(t_data *data);
+int			check_player_position(t_data *data);
+void		find_player_direction(t_data *data);
 
 //sources/initializing/initialize_info.c
 t_textinfo	*ft_initialize_info(char **arr);
@@ -201,21 +195,14 @@ int			check_rgb_for_illegal_chars(char **arr);
 
 //sources/initialize/initialize_window.c
 int			ft_initialize_connection(t_data *data);
-int			ft_initialize_textures(t_data *data);
-int			ft_clear_textures(t_data *data);
 int			ft_init_texture_img(t_data *data, t_img *image, char *path);
 int			ft_init_img(t_data *data, t_img *image);
 
 //sources/initialize/render_image.c
-int			ft_launch_game(t_data *data);
-int			ft_render(t_data *data);
-void		ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour);
-void 		render_scaled_texture_on_base(t_data *data, int texture_idx, void *sky_floor_img);
-void		render_sky_floor_base(unsigned int sky, unsigned int floor, t_data *data);
-int			ft_initialize_imginfo(t_data *data);
-void		ft_init_game(t_data *data);
+void		ft_update_pixels_img(t_data *data, t_img *img, int x, int y);
 void		ft_draw_image_in_window(t_data *data);
-void		ft_init_texture_pixels(t_data *data);
+void		ft_init_game(t_data *data);
+int			ft_render(t_data *data);
 
 //sources/moving/check_position.c
 int			ft_check_if_empty(t_data *data, double x, double y);
@@ -231,12 +218,10 @@ void		ft_init_player_dir(t_data *data);
 //sources/moving/input_handler.c
 int			ft_handle_key(int keysym, t_data *data);
 int			ft_release_key(int keysym, t_data *data);
-void		ft_loop_events(t_data *data);
 int			on_destroy(t_data *data);
+void		ft_loop_events(t_data *data);
 
 //sources/moving/move_player.c
-void		ft_player_movement_forward_backword(t_data *data);
-void		ft_rotation(t_data *data);
 int			ft_move_player_fw(t_data *data);
 int			ft_move_player_bw(t_data *data);
 int			ft_move_player_left(t_data *data);
@@ -244,6 +229,7 @@ int			ft_move_player_right(t_data *data);
 int			ft_move_player(t_data *data);
 
 //sources/moving/rotate.c
+void		ft_rotate(double *x, double *y, double speedrot);
 int			ft_rotate_player_dir_vector(t_data *data, double speedrot);
 int			ft_execute_rotation(t_data *data, double dirrot);
 
@@ -268,11 +254,11 @@ void		print_map(char **arr);
 int			ft_strstr(char *str, char *to_find);
 
 //sources/parsing/make_game_map.c
-void	ft_change_space(t_data *data);
-int		ft_make_game_map(t_data *data);
-int		ft_find_longest_line(char **arr);
-char	**reallocate_map(t_data *data, int len);
-char	*ft_strncpy(char *dest, char *src, unsigned int n);
+void		ft_change_space(t_data *data);
+int			ft_make_game_map(t_data *data);
+int			ft_find_longest_line(char **arr);
+char		**reallocate_map(t_data *data, int len);
+char		*ft_strncpy(char *dest, char *src, unsigned int n);
 
 //sources/parsing/parse_input.c
 char		*find_cardinal_paths(char **arr, char *s);
@@ -289,23 +275,20 @@ char		*ft_replace(char *s);
 char		**graphic_gnl(int size, int fd, char **arr, int i);
 
 //sources/raycasting/handle_textures.c
-void		ft_update_texture(t_data *data, int *text, t_ray *ray, int x);
-void		ft_render_wall_texture(t_data *data, t_ray *ray, int x);
-void		ft_get_texture_idx(t_data *data, t_ray *ray);
+void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
+void		ft_update_texture_pixels(t_data *data, t_ray *ray, int x);
 
 //sources/raycasting/implement_raycasting.c
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
 void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
-int			ft_make_raycasting(t_player *player, t_data *data);
-void		ft_calculate_texture_coordinates(t_data *data, t_ray *ray);
-void	 	ft_render_texture(t_data *data, t_ray *ray, int x);
-void		ft_update_texture_pixels(t_data *data, t_ray *ray, int x);
 void		ft_calculate_wall_height(t_data *data, t_ray *ray, t_player *player);
+int			ft_make_raycasting(t_player *player, t_data *data);
 
 //sources/errors.c
 void		error_message(char *str);
 int			error_message_simple(char *str, char **arr);
+void		error_reading_file(char *str, char **arr, int fd);
 void		error_exit(char *str, t_data *data, t_textinfo *text);
 void		error_message_text(char *str, t_textinfo *text);
 
@@ -314,11 +297,7 @@ void		free_memory(char **arr);
 void		ft_exit_game(t_data *data);
 void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
-void		free_textures(int **arr);
-
-//sources/free_functions2.c
-void		free_mapstruct(t_data *data);
-void 		free_partial(void **array, int rows);
+void		free_partials(void **arr);
 
 //sources/bonus/mini_map.c
 int		ft_launch_game_bonus(t_data *data);
@@ -327,12 +306,5 @@ void	render_map_bonus(t_data *data);
 void 	render_sky_floor_base_bonus(unsigned int sky, unsigned int floor, t_data *data);
 void 	render_scaled_texture_on_base_bonus(t_data *data, int texture_idx, void *sky_floor_img);
 void	render_player_bonus(t_data *data);
-
-
-int	ft_initialize_player(t_data *data);
-int	check_player_position(t_data *data);
-void	find_player_direction(t_data *data);
-void	check_initial_position(t_data *data);
-int is_position_valid(t_data *data, double new_x, double new_y);
 
 #endif

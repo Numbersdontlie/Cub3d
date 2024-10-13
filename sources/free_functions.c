@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 10:20:18 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/13 09:20:40 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	free_memory(char **arr)
 		}
 	}
 	free(arr);
-	arr = NULL;
 }
 
 void	ft_exit_game(t_data *data)
@@ -44,20 +43,21 @@ void	ft_exit_game(t_data *data)
 
 //Function to exit the program in a clean way
 //it destroy the image, window and display before freeing memory
-
-//add new free for new image
 void	ft_clean_exit(t_data *data)
 {
 	if (data->path)
 		free_memory(data->path);
-	if (data->mapinfo)
-		free_mapstruct(data);
+	if (data->mapinfo->map)
+	{
+		free_memory(data->mapinfo->map);
+		free(data->mapinfo);
+	}
 	if (data->textinfo)
 		free_text(data->textinfo);
 	if (data->textures)
-		free_textures(data->textures);
+		free_partials((void **)data->textures);
 	if (data->texture_pixels)
-		free_textures(data->texture_pixels);	
+		free_partials((void **)data->texture_pixels);
 	free(data);
 	exit(EXIT_SUCCESS);
 }
@@ -78,7 +78,7 @@ void	free_text(t_textinfo *text)
 	}
 }
 
-void	free_textures(int **arr)
+void	free_partials(void **arr)
 {
 	int	i;
 
@@ -88,6 +88,5 @@ void	free_textures(int **arr)
 		free(arr[i]);
 		i++;
 	}
-	if (arr)
-		free(arr);
+	free(arr);
 }
