@@ -1,7 +1,7 @@
-NO walls/NO.xpm
-EA walls/EA.xpm
-SO walls/SO.xpm
-WE walls/WE.xpm
+NO walls/columns.xpm
+SO walls/large_bricks.xpm
+EA walls/so_beige.xpm
+WE walls/EA.xpm
 
 F 34,139,34
 
