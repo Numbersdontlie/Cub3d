@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 17:13:06 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 19:20:49 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,8 +244,9 @@ char		*ft_trim_line(char *str);
 
 //sources/parsing/check_map2.c
 char		**copy_grid(t_textinfo *text, char **grid, int start);
-void		filter_grid_lines(t_textinfo *text, char **grid);
+int			filter_grid_lines(t_textinfo *text, char **grid);
 int			find_grid_start(char **grid);
+int			check_after_grid(char **grid, int start);
 
 //sources/parsing/flood_fill_check.c
 int			find_item(char **grid, char axis);
