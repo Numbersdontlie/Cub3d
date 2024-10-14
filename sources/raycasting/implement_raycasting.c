@@ -6,11 +6,11 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:29:32 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/13 09:05:31 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 12:26:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 //Function to initialize the raycast
 //it will initialize the ray structure to zero and then assign
@@ -22,7 +22,7 @@
 //deltadist_x/y refers to the distance of the next x, y
 void	ft_initialize_raycasting(int x, t_ray *ray, t_player *player)
 {
-	memset(ray, 0, sizeof(t_ray));//ok tested with other code
+	memset(ray, 0, sizeof(t_ray));
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
 	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
 	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
@@ -145,4 +145,3 @@ int	ft_make_raycasting(t_player *player, t_data *data)
 	}
 	return (EXIT_SUCCESS);
 }
-

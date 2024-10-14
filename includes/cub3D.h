@@ -6,11 +6,11 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/13 09:21:20 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 11:57:32 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	CUB3D_H
+#ifndef CUB3D_H
 # define CUB3D_H
 
 # include "../libft/libft.h"
@@ -48,13 +48,13 @@
 # endif
 
 //set up enum for directions
-typedef enum	e_direction
+typedef enum e_direction
 {
 	N = 0,
 	E = 1,
 	S = 2,
 	W = 3
-} t_direction;
+}	t_direction;
 
 //Structure for the image it include:
 //pointer to image, pointer to img address, bit per pixel
@@ -63,8 +63,8 @@ typedef struct s_img
 {
 	void	*img; 
 	int		*img_addr;
-	int		texture_width;//width of the texture
-	int		texture_height;//height of the texture
+	int		texture_width;
+	int		texture_height;
 	int		bpp;
 	int		line_len;
 	int		endian;
@@ -125,8 +125,9 @@ typedef struct s_ray
 }	t_ray;
 
 //Structure for the player, it includes:
-//direction in which the player is oriented, position in x and y, direction in x and y
-//plane in x and y, check if the player has moved, movement in x and y and rotation
+//direction in which the player is oriented, position in x and y, 
+//direction in x and y plane in x and y, check if the player has 
+//moved, movement in x and y and rotation
 typedef struct s_player
 {
 	char	direction;
@@ -149,8 +150,8 @@ typedef struct s_mini
 	int		size;
 	int		dist;
 	int		tile;
-	int		mini_y;//offset
-	int		mini_x;//offset
+	int		mini_y;
+	int		mini_x;
 }	t_mini;
 
 //Structure to store the global data of the game, it includes:
@@ -169,7 +170,7 @@ typedef struct s_data
 	int				**texture_pixels;
 	int				height;
 	int				width;
-	t_mini			minimap;//only for bonus if we do it
+	t_mini			minimap;
 }	t_data;
 
 //sources/initialize/init_textures.c
@@ -180,7 +181,7 @@ int			ft_initialize_textures(t_data *data);
 void		ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour);
 
 //sources/initialize/initialize_data.c
-int 		ft_initialize_map(t_data *data, t_textinfo *text);
+int			ft_initialize_map(t_data *data, t_textinfo *text);
 int			ft_initialize_data(t_data **data, t_textinfo *text);
 int			ft_initialize_player(t_data *data);
 int			check_player_position(t_data *data);
@@ -189,8 +190,10 @@ void		find_player_direction(t_data *data);
 //sources/initializing/initialize_info.c
 t_textinfo	*ft_initialize_info(char **arr);
 int			fill_paths(t_textinfo *text, char **grid);
-int			*validate_and_convert(t_textinfo *text, char **grid, unsigned long *hex_value);
-int			*populate_rgb_values(t_textinfo *text, char **grid, int c, unsigned long *hex_value);
+int			*validate_and_convert(t_textinfo *text, char **grid, \
+				unsigned long *hex_value);
+int			*populate_rgb_values(t_textinfo *text, char **grid, \
+				int c, unsigned long *hex_value);
 int			check_rgb_for_illegal_chars(char **arr);
 
 //sources/initialize/initialize_window.c
@@ -208,7 +211,7 @@ int			ft_render(t_data *data);
 int			ft_check_if_empty(t_data *data, double x, double y);
 int			ft_check_if_inside_map(t_data *data, double x, double y);
 int			ft_allow_movement(t_data *data, double x, double y);
-int			ft_validate_movement(t_data * data, double x_after, double y_after);
+int			ft_validate_movement(t_data *data, double x_after, double y_after);
 
 //sources/moving/initial_position.c
 void		ft_initialize_north_south(t_player *player);
@@ -262,7 +265,7 @@ char		*ft_strncpy(char *dest, char *src, unsigned int n);
 
 //sources/parsing/parse_input.c
 char		*find_cardinal_paths(char **arr, char *s);
-char 		*path_extractor(char **arr, char *str);
+char		*path_extractor(char **arr, char *str);
 char		*find_floor_ceiling(t_textinfo *text, char **arr, int c);
 char		**remove_empty_lines(char **arr);
 t_textinfo	*find_grid(t_textinfo *text, char **grid);
@@ -282,7 +285,8 @@ void		ft_update_texture_pixels(t_data *data, t_ray *ray, int x);
 void		ft_initialize_raycasting(int x, t_ray *ray, t_player *player);
 void		ft_get_ray_step_and_distance(t_ray *ray, t_player *player);
 void		ft_implement_dda(t_data *data, t_ray *ray);
-void		ft_calculate_wall_height(t_data *data, t_ray *ray, t_player *player);
+void		ft_calculate_wall_height(t_data *data, t_ray *ray, \
+				t_player *player);
 int			ft_make_raycasting(t_player *player, t_data *data);
 
 //sources/errors.c
@@ -292,19 +296,14 @@ void		error_reading_file(char *str, char **arr, int fd);
 void		error_exit(char *str, t_data *data, t_textinfo *text);
 void		error_message_text(char *str, t_textinfo *text);
 
+//sources/errors2.c
+int	error_malloc(char *s);
+
 //sources/free_functions.c
 void		free_memory(char **arr);
 void		ft_exit_game(t_data *data);
 void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
 void		free_partials(void **arr);
-
-//sources/bonus/mini_map.c
-int		ft_launch_game_bonus(t_data *data);
-void	make_tiles(t_data *data, int x, int y, int colour);
-void	render_map_bonus(t_data *data);
-void 	render_sky_floor_base_bonus(unsigned int sky, unsigned int floor, t_data *data);
-void 	render_scaled_texture_on_base_bonus(t_data *data, int texture_idx, void *sky_floor_img);
-void	render_player_bonus(t_data *data);
 
 #endif

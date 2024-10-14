@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:56:28 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/13 09:15:49 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 11:33:23 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	ft_change_space(t_data *data)
 		x = 0;
 		while (data->mapinfo->map[y][x] && x < data->mapinfo->map_width)
 		{
-			if (data->mapinfo->map[y][x] == ' ' || data->mapinfo->map[y][x] == '\r' ||\
-				data->mapinfo->map[y][x] == '\t' || data->mapinfo->map[y][x] == '\v')
+			if (data->mapinfo->map[y][x] == ' ' || \
+				data->mapinfo->map[y][x] == '\r' || \
+				data->mapinfo->map[y][x] == '\t' || \
+				data->mapinfo->map[y][x] == '\v')
 			{
 				data->mapinfo->map[y][x] = '1';
 			}

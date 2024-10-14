@@ -6,11 +6,11 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:36:47 by lperez-h          #+#    #+#             */
-/*   Updated: 2024/10/12 09:42:02 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 12:22:29 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 //Function to initialize the player direction
 //if player is looking to the north it will be initialized to north

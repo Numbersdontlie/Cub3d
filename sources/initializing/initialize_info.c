@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 13:28:18 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 12:17:40 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,9 @@ int	*validate_and_convert(t_textinfo *text, char **arr, \
 	return (rgb);
 }
 
-/*funcion finds the rgb values in the .cub file, makes a char array and check for
-illegal characters too (empty or letters etc) and converts rgb values to hex.*/
+/*funcion finds the rgb values in the .cub file, makes a char array and 
+check for illegal characters too (empty or letters etc) and converts rgb 
+values to hex.*/
 int	*populate_rgb_values(t_textinfo *text, char **grid, int c, 
 	unsigned long *hex_value)
 {

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:44:09 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/11 13:00:44 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 11:30:16 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int	path_checker(char **game, size_t y, size_t x)
 {
 	size_t	line_count;
 
-	line_count = row_count(game);		
-	if (y >= line_count || !game[y] || x >= ft_strlen(game[y]) || !game[y][x] || \
-		y < 0 || x < 0)
+	line_count = row_count(game);
+	if (y >= line_count || !game[y] || x >= ft_strlen(game[y]) || \
+		!game[y][x] || y < 0 || x < 0)
 		return (1);
 	if (game[y][x] == ' ')
 	{

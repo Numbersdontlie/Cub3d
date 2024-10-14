@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 10:20:41 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 11:41:05 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*find_cardinal_paths(char **arr, char *s)
 
 /*this fcn looks moves past empty space and copies the line using
 ft_strdup and returns the line*/
-char 	*path_extractor(char **arr, char *str)
+char	*path_extractor(char **arr, char *str)
 {
 	char	*path;
 	int		i;
@@ -78,7 +78,8 @@ char	*find_floor_ceiling(t_textinfo *text, char **arr, int c)
 			path = arr[i] + 2;
 			while (*path && !ft_isdigit(*path))
 				path++;
-			if (*path && (path = ft_strdup(path)))
+			path = ft_strdup(path);
+			if (path)
 				return (path);
 			free_memory(arr);
 			error_message_text("ERROR: mem alloc failed\n", text);
@@ -116,7 +117,6 @@ char	**remove_empty_lines(char **arr)
 	return (updated_grid);
 }
 
-
 /*function checks that the texture paths have been removed and should
 only have grid left. It copies the grid into the info struct */
 t_textinfo	*find_grid(t_textinfo *text, char **grid)
@@ -137,7 +137,7 @@ t_textinfo	*find_grid(t_textinfo *text, char **grid)
 		{
 			temp[j] = ft_strdup(grid[i]);
 			if (!temp[j])
-				error_exit("ERROR: problems copying grid\n",  NULL, text);
+				error_exit("ERROR: problems copying grid\n", NULL, text);
 			j++;
 		}
 		i++;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handler->c                                    :+:      :+:    :+:   */
+/*   input_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42->fr>                      +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:53:26 by luifer            #+#    #+#             */
-/*   Updated: 2024/09/04 16:54:28 by kbolon           ###   ########->fr       */
+/*   Updated: 2024/10/14 12:23:33 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_release_key(int keysym, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int on_destroy(t_data *data)
+int	on_destroy(t_data *data)
 {
 	ft_exit_game(data);
 	free(data);
@@ -63,14 +63,12 @@ int on_destroy(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-
 void	ft_loop_events(t_data *data)
 {
 	mlx_hook(data->mlx_window, KeyPress, KeyPressMask, ft_handle_key, data);
-	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, data);
+	mlx_hook(data->mlx_window, KeyRelease, KeyReleaseMask, ft_release_key, \
+		data);
 	mlx_hook(data->mlx_window, DestroyNotify, 0, on_destroy, data);
 	mlx_loop_hook(data->mlx_conn, ft_render, data);
 	mlx_loop(data->mlx_conn);
-
-	//We're missing the hook to handle the input from mouse if we make the bonus
 }

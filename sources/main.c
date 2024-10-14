@@ -6,13 +6,13 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/13 08:38:09 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 11:28:45 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void check_args(t_textinfo *text)
+void	check_args(t_textinfo *text)
 {
 	valid_chars(text);
 	check_map_items(text);

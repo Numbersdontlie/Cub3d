@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/10 09:42:29 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 11:41:51 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,15 @@ int	ft_initialize_connection(t_data *data)
 int	ft_init_texture_img(t_data *data, t_img *image, char *path)
 {
 	ft_memset(image, 0, sizeof(t_img));
-	image->img = mlx_xpm_file_to_image(data->mlx_conn, path, &image->texture_width, &image->texture_height);
-	if (!image->img )
+	image->img = mlx_xpm_file_to_image(data->mlx_conn, path, \
+		&image->texture_width, &image->texture_height);
+	if (!image->img)
 	{
 		error_message("ERROR: Unable to load texture image\n");
 		return (EXIT_FAILURE);
 	}
-	image->img_addr = (int *)mlx_get_data_addr(image->img, &image->bpp, &image->line_len, &image->endian);
+	image->img_addr = (int *)mlx_get_data_addr(image->img, \
+		&image->bpp, &image->line_len, &image->endian);
 	if (!image->img_addr)
 	{
 		error_message("ERROR: Unable to load texture address\n");
@@ -65,7 +67,8 @@ int	ft_init_img(t_data *data, t_img *image)
 		error_message("ERROR: Unable to load image\n");
 		return (EXIT_FAILURE);
 	}
-	image->img_addr = (int *)mlx_get_data_addr(image->img, &image->bpp, &image->line_len, &image->endian);
+	image->img_addr = (int *)mlx_get_data_addr(image->img, \
+		&image->bpp, &image->line_len, &image->endian);
 	if (!image->img_addr)
 	{
 		error_message("ERROR: Unable to load image address\n");

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:27:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/10 06:09:50 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 11:30:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	copy_valid_lines(char *grid, char *trimmed, char **arr)
 void	check_empty_lines(char **grid, int i)
 {
 	if (i == 0)
-		error_message_simple("ERROR: Grid is empty after removing empty lines\n", grid);
+		error_message_simple("ERROR: Grid is empty after \
+			removing empty lines\n", grid);
 }
 
 char	*ft_strndup(const char *s, size_t n)

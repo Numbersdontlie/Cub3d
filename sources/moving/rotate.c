@@ -6,11 +6,11 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:02:47 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/13 08:40:01 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 12:23:46 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 //Function to apply the rotation formula
 void	ft_rotate(double *x, double *y, double speedrot)
