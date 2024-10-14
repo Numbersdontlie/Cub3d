@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 12:17:40 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 17:14:59 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_textinfo	*ft_initialize_info(char **arr)
 		&text->hex_ceiling);
 	text->floor_rgb = populate_rgb_values(text, grid, 'F', &text->hex_floor);
 	text->size = PIXELS;
-	text = find_grid(text, grid);
+	filter_grid_lines(text, grid);
 	if (!text->grid)
 		error_message_text("ERROR: problems copying grid in init\n", text);
 	free_memory(grid);
@@ -46,16 +46,16 @@ int	fill_paths(t_textinfo *text, char **grid)
 		return (error_message_simple("ERROR: problems callocing paths\n", NULL));
 	text->paths[0] = find_cardinal_paths(grid, "NO");
 	if (!text->paths[0])
-		return (error_message_simple("ERROR: north path not found\n", NULL));
+		return (free_paths("ERROR: problem N path\n", text->paths, 0), 0);
 	text->paths[1] = find_cardinal_paths(grid, "EA");
 	if (!text->paths[1])
-		return (error_message_simple("ERROR: east path not found\n", NULL));
+		return (free_paths("ERROR: problem E path\n", text->paths, 1), 0);
 	text->paths[2] = find_cardinal_paths(grid, "SO");
 	if (!text->paths[2])
-		return (error_message_simple("ERROR: south path not found\n", NULL));
+		return (free_paths("ERROR: problem S path\n", text->paths, 2), 0);
 	text->paths[3] = find_cardinal_paths(grid, "WE");
 	if (!text->paths[3])
-		return (error_message_simple("ERROR: west path not found\n", NULL));
+		return (free_paths("ERROR: problem W path\n", text->paths, 3), 0);
 	text->paths[4] = NULL;
 	return (EXIT_SUCCESS);
 }
@@ -64,7 +64,7 @@ int	fill_paths(t_textinfo *text, char **grid)
 checks the rgb value is within expectations, converts it to an int and
 saves as an int array and converts it to a hex value*/
 int	*validate_and_convert(t_textinfo *text, char **arr, \
-	unsigned long *hex_value)
+		unsigned long *hex_value)
 {
 	int		*rgb;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:38:56 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/13 09:20:40 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 16:38:52 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	free_memory(char **arr)
 			free(arr[i]);
 			i++;
 		}
+		free(arr);
 	}
-	free(arr);
 }
 
 void	ft_exit_game(t_data *data)
