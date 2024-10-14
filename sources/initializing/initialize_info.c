@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 17:14:59 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 21:23:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,21 @@ t_textinfo	*ft_initialize_info(char **arr)
 
 	grid = read_map(*arr);
 	if (!grid)
-		error_message("ERROR: problem reading map");
+		error_message("ERROR: problem reading map\n");
 	text = (t_textinfo *) ft_calloc (1, sizeof(t_textinfo));
 	if (!text)
-		error_message_simple("ERROR: calloc fail in text_init", grid);
+		error_message_simple("ERROR: calloc fail in text_init\n", grid);
 	if (fill_paths(text, grid) == EXIT_FAILURE)
-		error_exit("ERROR: calloc fail in text_init", NULL, text);
+		error_exit("ERROR: calloc fail in text_init\n", NULL, text);
 	text->ceiling_rgb = populate_rgb_values(text, grid, 'C', \
 		&text->hex_ceiling);
 	text->floor_rgb = populate_rgb_values(text, grid, 'F', &text->hex_floor);
 	text->size = PIXELS;
-	filter_grid_lines(text, grid);
-	if (!text->grid)
-		error_message_text("ERROR: problems copying grid in init\n", text);
-	free_memory(grid);
+	if (filter_grid_lines(text, grid) == EXIT_FAILURE)
+	{
+		free_memory(grid);
+		error_message_text("ERROR: problems with grid, check content\n", text);
+	}
 	return (text);
 }
 
@@ -43,19 +44,19 @@ int	fill_paths(t_textinfo *text, char **grid)
 {
 	text->paths = (char **) ft_calloc(5, sizeof(char *));
 	if (!text->paths)
-		return (error_message_simple("ERROR: problems callocing paths\n", NULL));
+		return (EXIT_FAILURE);
 	text->paths[0] = find_cardinal_paths(grid, "NO");
 	if (!text->paths[0])
-		return (free_paths("ERROR: problem N path\n", text->paths, 0), 0);
+		return (EXIT_FAILURE);
 	text->paths[1] = find_cardinal_paths(grid, "EA");
 	if (!text->paths[1])
-		return (free_paths("ERROR: problem E path\n", text->paths, 1), 0);
+		return (EXIT_FAILURE);
 	text->paths[2] = find_cardinal_paths(grid, "SO");
 	if (!text->paths[2])
-		return (free_paths("ERROR: problem S path\n", text->paths, 2), 0);
+		return (EXIT_FAILURE);
 	text->paths[3] = find_cardinal_paths(grid, "WE");
 	if (!text->paths[3])
-		return (free_paths("ERROR: problem W path\n", text->paths, 3), 0);
+		return (EXIT_FAILURE);
 	text->paths[4] = NULL;
 	return (EXIT_SUCCESS);
 }

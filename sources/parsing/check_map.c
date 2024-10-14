@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 16:31:45 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 20:22:12 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	check_map_items(t_textinfo *text)
 
 	player = 0;
 	count_chars(text->grid, &player);
-	if (player != 1)
-		error_message_text("ERROR: Too many players, check content\n", text);
+	if (player > 1 || player < 1)
+		error_message_text("ERROR: check content (map/players etc)\n", text);
 }
 
 /*trims the line found in the .cub file.  Ensures there are no leading or
