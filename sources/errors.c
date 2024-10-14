@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:47:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/13 09:08:05 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 16:41:12 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	error_message_text(char *str, t_textinfo *text)
 
 void	error_exit(char *str, t_data *data, t_textinfo *text)
 {
-	ft_exit_game(data);
+	if (data)
+		ft_exit_game(data);
 	if (text)
 		free_text(text);
 	if (data)

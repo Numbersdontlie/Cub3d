@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 11:57:32 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 17:13:06 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,11 @@ void		valid_chars(t_textinfo *text);
 void		count_chars(char **arr, size_t *player);
 void		check_map_items(t_textinfo *text);
 char		*ft_trim_line(char *str);
-int			filter_grid_lines(char *grid);
+
+//sources/parsing/check_map2.c
+char		**copy_grid(t_textinfo *text, char **grid, int start);
+void		filter_grid_lines(t_textinfo *text, char **grid);
+int			find_grid_start(char **grid);
 
 //sources/parsing/flood_fill_check.c
 int			find_item(char **grid, char axis);
@@ -268,7 +272,6 @@ char		*find_cardinal_paths(char **arr, char *s);
 char		*path_extractor(char **arr, char *str);
 char		*find_floor_ceiling(t_textinfo *text, char **arr, int c);
 char		**remove_empty_lines(char **arr);
-t_textinfo	*find_grid(t_textinfo *text, char **grid);
 
 //sources/parsing/read_input.c
 void		check_extension(char *s);
@@ -297,7 +300,8 @@ void		error_exit(char *str, t_data *data, t_textinfo *text);
 void		error_message_text(char *str, t_textinfo *text);
 
 //sources/errors2.c
-int	error_malloc(char *s);
+int			error_malloc(char *s);
+void		free_paths(char *str, char **paths, int count);
 
 //sources/free_functions.c
 void		free_memory(char **arr);

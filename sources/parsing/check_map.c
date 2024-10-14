@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 11:32:14 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 16:31:45 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,4 @@ char	*ft_trim_line(char *str)
 	while (*str == ' ' || *str == '\t')
 		str++;
 	return (str);
-}
-
-/*function looks for paths to textures or if the grid is empty*/
-int	filter_grid_lines(char *grid)
-{
-	if (ft_strstr(grid, "NO") || ft_strstr(grid, "SO") || ft_strstr(grid, "WE") \
-	|| ft_strstr(grid, "EA") || ft_strstr(grid, "F") || ft_strstr(grid, "C") || \
-	ft_strlen(grid) == 0)
-		return (1);
-	return (0);
 }

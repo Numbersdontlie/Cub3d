@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 11:41:05 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 16:29:52 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,34 +115,4 @@ char	**remove_empty_lines(char **arr)
 	check_empty_lines(updated_grid, j);
 	free_memory(arr);
 	return (updated_grid);
-}
-
-/*function checks that the texture paths have been removed and should
-only have grid left. It copies the grid into the info struct */
-t_textinfo	*find_grid(t_textinfo *text, char **grid)
-{
-	char	**temp;
-	int		i;
-	int		j;
-
-	j = 0;
-	i = row_count(grid);
-	temp = (char **)ft_calloc(i + 1, sizeof(char *));
-	if (!temp)
-		error_message_simple("ERROR: calloc fail in text_init", grid);
-	i = 0;
-	while (grid[i] != NULL)
-	{
-		if (filter_grid_lines(grid[i]) == 0)
-		{
-			temp[j] = ft_strdup(grid[i]);
-			if (!temp[j])
-				error_exit("ERROR: problems copying grid\n", NULL, text);
-			j++;
-		}
-		i++;
-	}
-	temp[j] = NULL;
-	text->grid = temp;
-	return (text);
 }

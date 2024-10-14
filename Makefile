@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/10/14 12:03:25 by kbolon           ###   ########.fr        #
+#    Updated: 2024/10/14 16:29:32 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ COMMON_SRCS =	sources/errors.c \
 		sources/error2.c \
 		sources/free_functions.c \
 		sources/parsing/check_map.c \
+		sources/parsing/check_map2.c \
 		sources/parsing/flood_fill_check.c \
 		sources/parsing/helper_functions.c \
 		sources/parsing/make_game_map.c \
@@ -38,21 +39,14 @@ COMMON_SRCS =	sources/errors.c \
 SRCS = sources/main.c \
 		$(COMMON_SRCS)
 
-#BONUS_SRCS =	sources/bonus/bonus_main.c \
-		sources/initializing/initialize_bonus_data.c \
-		sources/bonus/minimap.c \
-		$(COMMON_SRCS)
-
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
-#BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
 
 #colours
-
 RED=\033[0;31m
 GREEN=\033[0;32m
 YELLOW=\033[0;33m
@@ -70,12 +64,6 @@ $(NAME): $(OBJS) $(MLX) $(LIBFT)
 #	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
-
-#$(BONUS_NAME): $(BONUS_OBJS) $(MLX) $(LIBFT)
-#	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
-#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-#	@$(MAKE) clear-screen
-#	@echo "$(BLUE)cub3D compiled$(RESET)"
 
 $(MLX):
 	@make -C $(MLX_PATH)
