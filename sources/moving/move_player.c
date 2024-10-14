@@ -6,16 +6,17 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:59:22 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/13 08:33:35 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 12:25:02 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 //Function to move the player forward, it will take 2 variables to update
 //player x and y position after movement. It will add the x_dir to pos_x 
 //to update new x position. It will add dir_y to pos_y to update new y position
-//it will call the validate movement function to check if move is valid in the map.
+//it will call the validate movement function to check if move is valid in 
+//the map.
 int	ft_move_player_fw(t_data *data)
 {
 	double	x_after;
@@ -33,9 +34,10 @@ int	ft_move_player_fw(t_data *data)
 }
 
 //Function to move the player backward, it will take 2 variables to update
-//player x and y position after movement. It will substract the x_dir from pos_x 
-//to update new x position. It will substract dir_y from pos_y to update new y position
-//it will call the validate movement function to check if move is valid in the map.
+//player x and y position after movement. It will substract the x_dir from 
+//pos_x to update new x position. It will substract dir_y from pos_y to 
+//update new y position it will call the validate movement function to 
+//check if move is valid in the map.
 int	ft_move_player_bw(t_data *data)
 {
 	double	x_after;
@@ -54,8 +56,9 @@ int	ft_move_player_bw(t_data *data)
 
 //Function to move the player to the left, it will take 2 variables to update
 //player x and y position after movement. It will add the y_dir to pos_x 
-//to update new x position. It will substract dir_y from pos_y to update new y position
-//it will call the validate movement function to check if move is valid in the map.
+//to update new x position. It will substract dir_y from pos_y to update 
+//new y position it will call the validate movement function to check if 
+//move is valid in the map.
 int	ft_move_player_left(t_data *data)
 {
 	double	x_after;
@@ -73,9 +76,10 @@ int	ft_move_player_left(t_data *data)
 }
 
 //Function to move the player to the right, it will take 2 variables to update
-//player x and y position after movement. It will substract the y_dir from pos_x 
-//to update new x position. It will add dir_x to pos_x to update new y position
-//it will call the validate movement functionto check if move is valid in the map.
+//player x and y position after movement. It will substract the y_dir from 
+//pos_x to update new x position. It will add dir_x to pos_x to update new y 
+//position it will call the validate movement functionto check if move is 
+//valid in the map.
 int	ft_move_player_right(t_data *data)
 {
 	double	x_after;

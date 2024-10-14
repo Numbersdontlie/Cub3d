@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:42:05 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/12 10:20:41 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 11:32:14 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	check_map_items(t_textinfo *text)
 trailing spaces*/
 char	*ft_trim_line(char *str)
 {
-	while (*str== ' ' || *str == '\t')
+	while (*str == ' ' || *str == '\t')
 		str++;
 	return (str);
 }
@@ -82,4 +82,3 @@ int	filter_grid_lines(char *grid)
 		return (1);
 	return (0);
 }
-

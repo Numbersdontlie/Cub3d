@@ -6,16 +6,17 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/13 08:27:52 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 12:18:41 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 //Function to update individual pixels in an image based on conditions
 //it checks if texture pixels exits and set that pixel in the image to the 
-//corresponding texture color in x and y. It also check if pixel is in ceiling or floor
-//region and draw the ceiling or floor color if no texture is present
+//corresponding texture color in x and y. It also check if pixel is in 
+//ceiling or floor region and draw the ceiling or floor color if no 
+//texture is present
 void	ft_update_pixels_img(t_data *data, t_img *img, int x, int y)
 {
 	if (data->texture_pixels[y][x] > 0)
@@ -29,7 +30,8 @@ void	ft_update_pixels_img(t_data *data, t_img *img, int x, int y)
 //Function to render an image into a window
 //it will initialize an image buffer and fill it pixel by pixel
 //setting the appropiate color for each point (x, y). After the buffer is full
-//it display the whole buffer in the window and destroy the buffer and free memory
+//it display the whole buffer in the window and destroy the buffer and 
+//free memory
 void	ft_draw_image_in_window(t_data *data)
 {
 	t_img	image;
@@ -72,5 +74,3 @@ int	ft_render(t_data *data)
 	ft_init_game(data);
 	return (EXIT_SUCCESS);
 }
-
-

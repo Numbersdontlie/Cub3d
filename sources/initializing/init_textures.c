@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:30:58 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/13 09:20:12 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 12:05:12 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,17 @@ int	*xpm_buffer_image(t_data *data, char *path)
 	int		y;
 
 	ft_init_texture_img(data, &temp, path);
-	buff = (int *)ft_calloc(data->textinfo->size * data->textinfo->size, sizeof(int));
+	buff = (int *)ft_calloc(pow(data->textinfo->size, 2), sizeof(int));
 	if (!buff)
-	{
-		error_message("ERROR: Unable to calloc buffer\n");
-		return (0);
-	}
+		error_malloc("ERROR: Unable to calloc buffer\n");
 	y = 0;
 	while (y < data->textinfo->size)
 	{
 		x = 0;
 		while (x < data->textinfo->size)
 		{
-			buff[y * data->textinfo->size + x] = temp.img_addr[y * data->textinfo->size + x];
+			buff[y * data->textinfo->size + x] = temp.img_addr[y * \
+				data->textinfo->size + x];
 			x++;
 		}
 		y++;
@@ -110,9 +108,9 @@ void	ft_put_pixel_to_img(t_img *imginfo, int x, int y, int colour)
 {
 	int	*pixel;
 
-	if (x< 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
-	pixel = (int *)((char *)imginfo->img_addr + (y * imginfo->line_len) + (x * (imginfo->bpp / 8)));
+	pixel = (int *)((char *)imginfo->img_addr + (y * imginfo->line_len) \
+		+ (x * (imginfo->bpp / 8)));
 	*pixel = colour;
 }
-

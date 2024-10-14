@@ -6,11 +6,11 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 09:03:01 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/13 09:07:18 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/14 12:25:42 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 void	ft_calculate_texture_coordinates(t_data *data, t_ray *ray)
 {
@@ -36,9 +36,9 @@ void	ft_update_texture_pixels(t_data *data, t_ray *ray, int x)
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{
-		if (data->textinfo->idx >= NUM_TEXTURES || data->textinfo->x >= data->textinfo->size || 
-			data->textinfo->y >= data->textinfo->size)
-			return;
+		if (data->textinfo->idx >= NUM_TEXTURES || data->textinfo->x >= \
+			data->textinfo->size || data->textinfo->y >= data->textinfo->size)
+			return ;
 		data->textinfo->y = (int)data->textinfo->pos % data->textinfo->size;
 		data->textinfo->pos += data->textinfo->step;
 		colour = data->textures[data->textinfo->idx][data->textinfo->size * \
