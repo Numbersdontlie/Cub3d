@@ -6,12 +6,16 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 19:20:49 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/17 13:13:08 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# ifndef BONUS
+#  define BONUS 1
+# endif
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
@@ -23,6 +27,7 @@
 # include <string.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <stdbool.h>
 
 # define PIXELS 64
 # define WIDTH 640
@@ -39,9 +44,12 @@
 # define ROTATE_RIGHT 0xff53
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
-# define RED 0x7F7F7F
+# define RED 0xFF0000
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
+# define MINIMAP_SIZE 100
+# define MINIMAP_TILE 16
+# define MOUSE 20
 
 # ifndef BONUS
 #  define BONUS 1
@@ -143,16 +151,16 @@ typedef struct s_player
 	int		rotate;
 }	t_player;
 
-typedef struct s_mini
+typedef struct s_minimap
 {
 	char	**map;
-	t_img	*img;
 	int		size;
-	int		dist;
-	int		tile;
-	int		mini_y;
+	int		height;
+	int		width;
 	int		mini_x;
-}	t_mini;
+	int		mini_y;
+	int		tile_size;
+}	t_minimap;
 
 //Structure to store the global data of the game, it includes:
 //pointer to minilibx connection and window, window height and width, pointer to
@@ -170,7 +178,7 @@ typedef struct s_data
 	int				**texture_pixels;
 	int				height;
 	int				width;
-	t_mini			minimap;
+	t_minimap		minimap;
 }	t_data;
 
 //sources/initialize/init_textures.c
@@ -310,5 +318,15 @@ void		ft_exit_game(t_data *data);
 void		ft_clean_exit(t_data *data);
 void		free_text(t_textinfo *text);
 void		free_partials(void **arr);
+
+//sources/bonus/minimap.c
+void		ft_mouse_position(t_data *data, int x, int y);
+int			ft_mouse_handler(t_data *data, int x, int y);
+void 		ft_initialize_minimap(t_data *data);
+void 		render_minimap(t_data *data);
+
+//sources/bonus/minimap_helper.c
+int			ft_find_colour(t_data *data, int y, int x);
+void		ft_make_mini_tiles(t_data *data, t_img *img, int y, int x);
 
 #endif

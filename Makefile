@@ -6,14 +6,15 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/10/14 21:39:10 by kbolon           ###   ########.fr        #
+#    Updated: 2024/10/17 12:59:11 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
-BONUS_NAME = bonus_cub3D
+BONUS_NAME = cub3D_bonus
 
-COMMON_SRCS =	sources/errors.c \
+SRCS =	sources/main.c \
+		sources/errors.c \
 		sources/error2.c \
 		sources/free_functions.c \
 		sources/parsing/check_map.c \
@@ -23,9 +24,9 @@ COMMON_SRCS =	sources/errors.c \
 		sources/parsing/make_game_map.c \
 		sources/parsing/parse_input.c \
 		sources/parsing/read_input.c \
-		sources/initializing/initialize_data.c \
 		sources/initializing/initialize_info.c \
 		sources/initializing/render_image.c \
+		sources/initializing/initialize_data.c \
 		sources/moving/input_handler.c \
 		sources/initializing/initialize_window.c \
 		sources/moving/initial_position.c \
@@ -36,15 +37,16 @@ COMMON_SRCS =	sources/errors.c \
 		sources/raycasting/handle_textures.c \
 		sources/initializing/init_textures.c
 
-SRCS = sources/main.c \
-		$(COMMON_SRCS)
+BONUS_SRCS = sources/bonus/minimap.c \
+		sources/bonus/minimap_helper.c
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
+BONUS_OBJS = $(OBJS) $(BONUS_SRCS:.c=.o)
+CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include -fsanitize=address
 
 #colours
 RED=\033[0;31m
@@ -57,13 +59,12 @@ RESET=\033[0m
 
 all: $(NAME)
 
-#bonus: $(BONUS_NAME)
-
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+#	$(CC) $(CFLAGS) -DBONUS=0 $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+	$(CC) $(CFLAGS) -DBONUS=0 $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
+
 
 $(MLX):
 	@make -C $(MLX_PATH)
@@ -71,11 +72,20 @@ $(MLX):
 $(LIBFT):
 	@make -C libft
 
+bonus: CFLAGS += -DBONUS=1
+bonus: $(BONUS_NAME)
+
+$(BONUS_NAME): $(BONUS_OBJS) $(MLX) $(LIBFT)
+#	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
+	@$(MAKE) clear-screen
+	@echo "$(BLUE)cub3D_bonus compiled$(RESET)"
+
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(BONUS_OBJ)
 	@make clean -C $(MLX_PATH)
 	@make clean -C libft
 	@$(MAKE) clear-screen
@@ -86,10 +96,10 @@ clear-screen:
 	@echo "$(YELLOW)Terminal cleared after process$(RESET)"
 
 fclean: clean
-		rm -rf $(NAME) $(MLX) $(LIBFT)
+		rm -rf $(NAME) $(BONUS_NAME) $(MLX) $(LIBFT)
 		@$(MAKE) clear-screen
-		@echo "$(MAGENTA)$(NAME) $(MLX) $(LIBFT) was deleted$(RESET)"
+		@echo "$(MAGENTA)$(NAME), $(BONUS_NAME), $(MLX), and $(LIBFT) were deleted$(RESET)"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re

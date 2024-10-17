@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/14 11:41:51 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/17 09:46:11 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ int	ft_initialize_connection(t_data *data)
 		ft_putstr_fd("ERROR: problems with mlx window\n", 2);
 		return (EXIT_FAILURE);
 	}
+	if (BONUS)
+		mlx_mouse_move(data->mlx_conn, data->mlx_window, data->width / 2, \
+			data->height / 2);
 	return (EXIT_SUCCESS);
 }
 
