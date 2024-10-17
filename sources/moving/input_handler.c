@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:53:26 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/14 12:23:33 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/17 12:49:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,9 @@ void	ft_loop_events(t_data *data)
 		data);
 	mlx_hook(data->mlx_window, DestroyNotify, 0, on_destroy, data);
 	mlx_loop_hook(data->mlx_conn, ft_render, data);
+//	if (BONUS)
+//	{
+//		mlx_mouse_hook(data->mlx_window, ft_mouse_handler, data);
+//	}
 	mlx_loop(data->mlx_conn);
 }
