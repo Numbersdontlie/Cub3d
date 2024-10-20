@@ -6,47 +6,40 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/10/17 12:59:11 by kbolon           ###   ########.fr        #
+#    Updated: 2024/10/20 09:23:54 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 BONUS_NAME = cub3D_bonus
 
-SRCS =	sources/main.c \
-		sources/errors.c \
-		sources/error2.c \
-		sources/free_functions.c \
-		sources/parsing/check_map.c \
-		sources/parsing/check_map2.c \
-		sources/parsing/flood_fill_check.c \
-		sources/parsing/helper_functions.c \
-		sources/parsing/make_game_map.c \
-		sources/parsing/parse_input.c \
-		sources/parsing/read_input.c \
-		sources/initializing/initialize_info.c \
-		sources/initializing/render_image.c \
-		sources/initializing/initialize_data.c \
-		sources/moving/input_handler.c \
-		sources/initializing/initialize_window.c \
-		sources/moving/initial_position.c \
+SRCS =	sources/initializing/render_image.c sources/moving/input_handler.c \
 		sources/moving/check_position.c \
-		sources/moving/rotate.c \
-		sources/moving/move_player.c \
-		sources/raycasting/implement_raycasting.c \
-		sources/raycasting/handle_textures.c \
+		$(COMMON_SRCS)
+
+COMMON_SRCS = sources/main.c sources/errors.c sources/error2.c sources/free_functions.c \
+		sources/parsing/check_map.c sources/parsing/check_map2.c \
+		sources/parsing/flood_fill_check.c sources/parsing/helper_functions.c \
+		sources/parsing/make_game_map.c sources/parsing/parse_input.c \
+		sources/parsing/read_input.c sources/initializing/initialize_info.c \
+		sources/initializing/initialize_window.c \
+		sources/initializing/initialize_data.c sources/moving/initial_position.c \
+		sources/moving/rotate.c sources/moving/move_player.c \
+		sources/raycasting/implement_raycasting.c sources/raycasting/handle_textures.c \
 		sources/initializing/init_textures.c
 
-BONUS_SRCS = sources/bonus/minimap.c \
-		sources/bonus/minimap_helper.c
+BONUS_SRCS = bonus/sources/check_position_bonus.c \
+		bonus/sources/input_handler_bonus.c bonus/sources/minimap.c \
+		bonus/sources/minimap_helper.c bonus/sources/render_image_bonus.c \
+		$(COMMON_SRCS)
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
-BONUS_OBJS = $(OBJS) $(BONUS_SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include -fsanitize=address
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
 
 #colours
 RED=\033[0;31m
@@ -59,12 +52,19 @@ RESET=\033[0m
 
 all: $(NAME)
 
+bonus: $(BONUS_NAME)
+
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
-#	$(CC) $(CFLAGS) -DBONUS=0 $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-	$(CC) $(CFLAGS) -DBONUS=0 $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
 
+$(BONUS_NAME): $(BONUS_OBJS) $(MLX) $(LIBFT)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
+#	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
+	@$(MAKE) clear-screen
+	@echo "$(CYAN)cub3D bonus compiled$(RESET)"
 
 $(MLX):
 	@make -C $(MLX_PATH)
@@ -72,20 +72,11 @@ $(MLX):
 $(LIBFT):
 	@make -C libft
 
-bonus: CFLAGS += -DBONUS=1
-bonus: $(BONUS_NAME)
-
-$(BONUS_NAME): $(BONUS_OBJS) $(MLX) $(LIBFT)
-#	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
-	@$(MAKE) clear-screen
-	@echo "$(BLUE)cub3D_bonus compiled$(RESET)"
-
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 
 clean:
-	rm -rf $(OBJS) $(BONUS_OBJ)
+	rm -rf $(OBJS) $(BONUS_OBJS)
 	@make clean -C $(MLX_PATH)
 	@make clean -C libft
 	@$(MAKE) clear-screen
@@ -102,4 +93,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean bonus re

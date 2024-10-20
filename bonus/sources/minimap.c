@@ -6,39 +6,11 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:08:50 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/17 13:12:23 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/20 09:18:43 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/cub3D.h"
-
-int	ft_mouse_handler(t_data *data, int x, int y)
-{
-//	if (!data || !data->mlx_conn || !data->mlx_conn)
-//		return (0);
-	ft_mouse_position(data, x, y);
-	if (x == WIDTH / 2)
-		return (0);
-	else if (x < WIDTH / 2)
-		data->player.has_moved += ft_execute_rotation(data, -1);
-	else if (x > WIDTH / 2)
-		data->player.has_moved += ft_execute_rotation(data, 1);
-	return (0);
-}
-
-void	ft_mouse_position(t_data *data, int x, int y)
-{
-	if (x > data->width - MOUSE)
-	{
-		x = MOUSE;
-		mlx_mouse_move(data->mlx_conn, data->mlx_window, x, y);
-	}
-	else if (x < MOUSE)
-	{
-		x = data->width - MOUSE;
-		mlx_mouse_move(data->mlx_conn, data->mlx_window, x, y);
-	}
-}
 
 //initialize minimap struct
 void	ft_initialize_minimap(t_data *data)

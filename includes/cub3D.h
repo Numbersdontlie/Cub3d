@@ -6,16 +6,12 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/17 13:13:08 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/20 09:19:23 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-
-# ifndef BONUS
-#  define BONUS 1
-# endif
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
@@ -49,7 +45,6 @@
 # define WHITE 0xFFFFFF
 # define MINIMAP_SIZE 100
 # define MINIMAP_TILE 16
-# define MOUSE 20
 
 # ifndef BONUS
 #  define BONUS 1
@@ -323,7 +318,7 @@ void		free_partials(void **arr);
 void		ft_mouse_position(t_data *data, int x, int y);
 int			ft_mouse_handler(t_data *data, int x, int y);
 void 		ft_initialize_minimap(t_data *data);
-void 		render_minimap(t_data *data);
+void		render_minimap(t_data *data);
 
 //sources/bonus/minimap_helper.c
 int			ft_find_colour(t_data *data, int y, int x);
