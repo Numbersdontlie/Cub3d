@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:56:52 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/20 08:14:37 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/20 08:15:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_init_game(t_data *data)
 	ft_memset(&data->ray, 0, sizeof(t_ray));
 	ft_make_raycasting(&data->player, data);
 	ft_draw_image_in_window(data);
+	render_minimap(data);
 }
 
 //Function to render the game, it will check if the player
