@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 12:17:00 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:02:10 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,17 @@ t_textinfo	*ft_initialize_info(char **arr)
 		error_exit("ERROR: calloc fail in text_init\n", NULL, text);
 	text->ceiling_rgb = populate_rgb_values(text, grid, 'C', \
 		&text->hex_ceiling);
+	if (!text->ceiling_rgb)
+	{
+		free_memory(grid);
+		error_exit("ERROR: problems with rgb ceiling\n", NULL, text);
+	}
 	text->floor_rgb = populate_rgb_values(text, grid, 'F', &text->hex_floor);
+	if (!text->floor_rgb)
+	{
+		free_memory(grid);
+		error_exit("ERROR: problems with rgb floor\n", NULL, text);
+	}
 	text->size = PIXELS;
 	if (filter_grid_lines(text, grid) == EXIT_FAILURE)
 	{
@@ -105,19 +115,19 @@ int	*populate_rgb_values(t_textinfo *text, char **grid, int c,
 	temp = find_floor_ceiling(text, grid, c);
 	if (!temp)
 	{
-		free_memory(grid);
+//		free_memory(grid);
 		error_exit("ERROR: floor/ceiling values not found\n", NULL, text);
 	}
 	arr = ft_split(temp, ',');
 	free(temp);
 	if (!arr)
 	{
-		free_memory(grid);
+//		free_memory(grid);
 		error_exit("problem with splitting rgb", NULL, text);
 	}
 	if (check_rgb_for_illegal_chars(arr) == EXIT_FAILURE)
 	{
-		free_memory(grid);
+		free_memory(arr);
 		error_exit("problem with splitting rgb", NULL, text);
 	}
 	rgb = validate_and_convert(text, arr, hex_value);

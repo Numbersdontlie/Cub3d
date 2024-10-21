@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:44:09 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 21:01:52 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:12:30 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	flood_fill(char **game)
 	i = 0;
 	player_x = find_item(game, 'x');
 	player_y = find_item(game, 'y');
-	check_map_size(game);
+//	check_map_size(game);
 	arr = (char **) malloc (sizeof(char *) * (row_count(game) + 1));
 	if (!arr)
 		error_message("Error\nmemory allocation fail in tmp.grid");
@@ -102,11 +102,11 @@ void	flood_fill(char **game)
 		free_memory(arr);
 }
 
-void	check_map_size(char **grid)
+void	check_map_size(t_textinfo *text)
 {
 	int	line_count;
 
-	line_count = row_count(grid);
+	line_count = row_count(text->grid);
 	if (line_count <= 2)
-		error_message("ERROR: Map is too small\n");
+		error_message_text("ERROR: Map is too small\n", text);
 }

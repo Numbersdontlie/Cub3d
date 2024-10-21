@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:27:01 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 19:41:26 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:01:12 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	filter_grid_lines(t_textinfo *text, char **grid)
 	start = find_grid_start(grid);
 	if (check_after_grid(grid, start) == EXIT_FAILURE)
 	{
-//		error_exit("ERROR: extra content found\n", NULL, text);
+		error_exit("ERROR: extra content found\n", NULL, text);
 		return (EXIT_FAILURE);
 	}
 	text->grid = copy_grid(text, grid, start);
 	if (!text->grid)
 	{
-//		free_memory(grid);
-//		error_exit("ERROR: problems copying grid\n", NULL, text);
+		free_memory(grid);
+		error_exit("ERROR: problems copying grid\n", NULL, text);
 		return (EXIT_FAILURE);
 	}
 	free_memory(grid);
@@ -51,7 +51,8 @@ char	**copy_grid(t_textinfo *text, char **grid, int start)
 		temp[j] = ft_strdup(grid[start]);
 		if (!temp[j])
 		{
-//			free_memory(grid);
+			free_memory(temp);
+			free_memory(grid);
 			error_exit("ERROR: problems copying grid\n", NULL, text);
 		}
 		j++;
