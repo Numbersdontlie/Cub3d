@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 12:20:43 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:12:17 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ int			check_after_grid(char **grid, int start);
 int			find_item(char **grid, char axis);
 int			path_checker(char **game, size_t y, size_t x);
 void		flood_fill(char **game);
-void		check_map_size(char **grid);
+void		check_map_size(t_textinfo *text);
 
 //sources/parsing/helper_functions.c
 void		copy_valid_lines(char *grid, char *trimmed, char **arr);

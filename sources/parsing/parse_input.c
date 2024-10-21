@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 12:21:52 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 12:41:46 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*find_cardinal_paths(char **arr, char *s)
 			return (path_extension);
 		}
 	}
-	error_message_simple("ERROR: path not found\n", arr);
+	free_memory(arr);
 	return (NULL);
 }
 
