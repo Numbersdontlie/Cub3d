@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:44:09 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 13:12:30 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:17:56 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	path_checker(char **game, size_t y, size_t x)
 
 	line_count = row_count(game);
 	if (y >= line_count || !game[y] || x >= ft_strlen(game[y]) || \
-		y < 0 || x < 0)//|| !game[y][x] 
+		y < 0 || x < 0 || !game[y][x])
 		return (1);
 	if (game[y][x] == ' ' || game[y][x] == '\t')
 	{
@@ -73,7 +73,7 @@ int	path_checker(char **game, size_t y, size_t x)
 }
 
 /*uses flood fill to see if the room is enclosed*/
-void	flood_fill(char **game)
+void	flood_fill(t_textinfo *text)
 {
 	size_t	player_x;
 	size_t	player_y;
@@ -81,22 +81,21 @@ void	flood_fill(char **game)
 	char	**arr;
 
 	i = 0;
-	player_x = find_item(game, 'x');
-	player_y = find_item(game, 'y');
-//	check_map_size(game);
-	arr = (char **) malloc (sizeof(char *) * (row_count(game) + 1));
+	player_x = find_item(text->grid, 'x');
+	player_y = find_item(text->grid, 'y');
+	arr = (char **) malloc (sizeof(char *) * (row_count(text->grid) + 1));
 	if (!arr)
 		error_message("Error\nmemory allocation fail in tmp.grid");
-	while (i < row_count(game))
+	while (i < row_count(text->grid))
 	{
-		arr[i] = ft_strdup(game[i]);
+		arr[i] = ft_strdup(text->grid[i]);
 		i++;
 	}
 	arr[i] = NULL;
 	if (path_checker(arr, player_y, player_x))
 	{
 		free_memory(arr);
-		error_message("ERROR: Map is not enclosed\n");
+		error_message_text("ERROR: Map is not enclosed\n", text);
 	}
 	else
 		free_memory(arr);

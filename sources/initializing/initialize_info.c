@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 13:02:10 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:34:38 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	fill_paths(t_textinfo *text, char **grid)
 checks the rgb value is within expectations, converts it to an int and
 saves as an int array and converts it to a hex value*/
 int	*validate_and_convert(t_textinfo *text, char **arr, \
-		unsigned long *hex_value)
+		char **grid, unsigned long *hex_value)
 {
 	int		*rgb;
 	int		i;
@@ -85,7 +85,8 @@ int	*validate_and_convert(t_textinfo *text, char **arr, \
 	if (!rgb)
 	{
 		free_memory(arr);
-		error_exit("ERROR: problem with allocating rgb", NULL, text);
+		free_memory(grid);
+		error_message_text("ERROR: problem with allocating rgb", text);
 	}
 	while (++i < 3)
 	{
@@ -94,7 +95,8 @@ int	*validate_and_convert(t_textinfo *text, char **arr, \
 		{
 			free(rgb);
 			free_memory(arr);
-			error_exit("ERROR: rgb is not valid", NULL, text);
+			free_memory(grid);
+			error_message_text("ERROR: rgb is not valid", text);
 		}
 	}
 	*hex_value = ((rgb[0] & 0xff) << 16) + ((rgb[1] & 0xff) << 8) + \
@@ -115,22 +117,23 @@ int	*populate_rgb_values(t_textinfo *text, char **grid, int c,
 	temp = find_floor_ceiling(text, grid, c);
 	if (!temp)
 	{
-//		free_memory(grid);
-		error_exit("ERROR: floor/ceiling values not found\n", NULL, text);
+		free_memory(grid);
+		error_message_text("ERROR: floor/ceiling values not found\n", text);
 	}
 	arr = ft_split(temp, ',');
 	free(temp);
 	if (!arr)
 	{
-//		free_memory(grid);
-		error_exit("problem with splitting rgb", NULL, text);
+		free_memory(grid);
+		error_message_text("problem with splitting rgb", text);
 	}
 	if (check_rgb_for_illegal_chars(arr) == EXIT_FAILURE)
 	{
+		free_memory(grid);
 		free_memory(arr);
-		error_exit("problem with splitting rgb", NULL, text);
+		error_message_text("problem with splitting rgb", text);
 	}
-	rgb = validate_and_convert(text, arr, hex_value);
+	rgb = validate_and_convert(text, arr, grid, hex_value);
 	free_memory(arr);
 	return (rgb);
 }
