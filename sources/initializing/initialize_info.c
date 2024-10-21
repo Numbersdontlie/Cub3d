@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 13:34:38 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 14:01:40 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	*validate_and_convert(t_textinfo *text, char **arr, \
 			free(rgb);
 			free_memory(arr);
 			free_memory(grid);
-			error_message_text("ERROR: rgb is not valid", text);
+			error_message_text("ERROR: rgb is not valid\n", text);
 		}
 	}
 	*hex_value = ((rgb[0] & 0xff) << 16) + ((rgb[1] & 0xff) << 8) + \
@@ -120,19 +120,7 @@ int	*populate_rgb_values(t_textinfo *text, char **grid, int c,
 		free_memory(grid);
 		error_message_text("ERROR: floor/ceiling values not found\n", text);
 	}
-	arr = ft_split(temp, ',');
-	free(temp);
-	if (!arr)
-	{
-		free_memory(grid);
-		error_message_text("problem with splitting rgb", text);
-	}
-	if (check_rgb_for_illegal_chars(arr) == EXIT_FAILURE)
-	{
-		free_memory(grid);
-		free_memory(arr);
-		error_message_text("problem with splitting rgb", text);
-	}
+	arr = split_rgb_and_validate(grid, text, temp);
 	rgb = validate_and_convert(text, arr, grid, hex_value);
 	free_memory(arr);
 	return (rgb);
@@ -149,7 +137,7 @@ int	check_rgb_for_illegal_chars(char **arr)
 	i = -1;
 	count = row_count(arr);
 	if (count < 3)
-		error_exit("ERROR: RGB not valid\n", NULL, NULL);
+		return (EXIT_FAILURE);
 	while (++i < count)
 	{
 		j = 0;
@@ -158,7 +146,7 @@ int	check_rgb_for_illegal_chars(char **arr)
 			if (ft_isdigit(arr[i][j]))
 				j++;
 			else
-				error_exit("ERROR: RGB not valid\n", NULL, NULL);
+				return (EXIT_FAILURE);
 		}
 	}
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 12:41:46 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:50:00 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,34 @@ specific items and paths such as NO, SO, WE, EA & returns
 an array with only*/
 char	*find_cardinal_paths(char **arr, char *s)
 {
+	char	*path_found;
+	char	*path_extension;
+
+	path_extension = NULL;
+	path_found = find_string_path(arr, s);
+	if (!path_found)
+	{
+		free_memory(arr);
+		return (NULL);
+	}
+	path_extension = path_extractor(arr, path_found);
+	if (!path_extension)
+	{
+		free(path_found);
+		return (NULL);
+	}
+	return (path_extension);
+}
+
+char	*find_string_path(char **arr, char *s)
+{
 	int		i;
 	int		count;
 	char	*path_found;
-	char	*path_extension;
 
 	i = -1;
 	count = row_count(arr);
 	path_found = NULL;
-	path_extension = NULL;
 	while (++i < count)
 	{
 		if (!ft_strncmp(arr[i], s, 2))
@@ -36,16 +55,9 @@ char	*find_cardinal_paths(char **arr, char *s)
 				error_message_simple("ERROR: Memory Alloc failed\n", arr);
 				return (NULL);
 			}
-			path_extension = path_extractor(arr, path_found);
-			if (!path_extension)
-			{
-				free(path_found);
-				return (NULL);
-			}
-			return (path_extension);
+			return (path_found);
 		}
 	}
-	free_memory(arr);
 	return (NULL);
 }
 
@@ -109,7 +121,6 @@ char	**remove_empty_lines(char **arr)
 
 	j = 0;
 	i = row_count(arr);
-	trimmed = NULL;
 	updated_grid = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (!updated_grid)
 		error_message_simple("ERROR: Memory alloc failed with trimming\n", arr);
@@ -128,19 +139,4 @@ char	**remove_empty_lines(char **arr)
 	check_empty_lines(updated_grid, j);
 	free_memory(arr);
 	return (updated_grid);
-}
-
-int	ft_empty_check(char **arr)
-{
-	int	i;
-
-	i = row_count(arr);
-	if (i < 2)
-	{
-		free_memory(arr);
-		free(arr);
-		error_reading_file("ERROR: empty file\n", 0, 0);
-		return (1);
-	}
-	return (0);
 }
