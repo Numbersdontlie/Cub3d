@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/20 09:19:23 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 12:20:43 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,7 @@ char		*find_cardinal_paths(char **arr, char *s);
 char		*path_extractor(char **arr, char *str);
 char		*find_floor_ceiling(t_textinfo *text, char **arr, int c);
 char		**remove_empty_lines(char **arr);
+int			ft_empty_check(char **arr);
 
 //sources/parsing/read_input.c
 void		check_extension(char *s);
