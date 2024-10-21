@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:08:50 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/20 09:18:43 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 14:29:19 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 //initialize minimap struct
 void	ft_initialize_minimap(t_data *data)
@@ -44,8 +44,7 @@ void	render_minimap(t_data *data)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, image.img,\
+	mlx_put_image_to_window(data->mlx_conn, data->mlx_window, image.img,
 		data->minimap.mini_x, data->minimap.mini_y);
 	mlx_destroy_image(data->mlx_conn, image.img);
 }
-

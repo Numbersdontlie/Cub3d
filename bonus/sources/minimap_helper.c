@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
+/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 12:19:37 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/17 13:11:59 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 14:33:16 by lperez-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 int	ft_find_colour(t_data *data, int y, int x)
 {
@@ -35,7 +35,8 @@ void	ft_make_mini_tiles(t_data *data, t_img *img, int y, int x)
 		j = 0;
 		while (j < data->minimap.tile_size)
 		{
-			img->img_addr[(y * data->minimap.tile_size + j) * data->minimap.width + (x * data->minimap.tile_size + i)] = colour;
+			img->img_addr[(y * data->minimap.tile_size + j) * data->minimap.width
+				+ (x * data->minimap.tile_size + i)] = colour;
 			j++;
 		}
 		i++;
