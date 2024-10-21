@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 14:31:52 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:28:11 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,7 @@ void		error_message_text(char *str, t_textinfo *text);
 
 //sources/errors2.c
 int			error_malloc(char *s);
-void		free_paths(char *str, char **paths, int count);
+void		error_text_with_array(char *str, t_textinfo *text, char **arr);
 
 //sources/free_functions.c
 void		free_memory(char **arr);

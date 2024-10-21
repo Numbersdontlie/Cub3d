@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 14:01:40 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 15:35:44 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,15 @@ t_textinfo	*ft_initialize_info(char **arr)
 	text->ceiling_rgb = populate_rgb_values(text, grid, 'C', \
 		&text->hex_ceiling);
 	if (!text->ceiling_rgb)
-	{
-		free_memory(grid);
-		error_exit("ERROR: problems with rgb ceiling\n", NULL, text);
-	}
+		error_text_with_array("ERROR: problems with rgb ceiling\n", text, grid);
 	text->floor_rgb = populate_rgb_values(text, grid, 'F', &text->hex_floor);
 	if (!text->floor_rgb)
-	{
-		free_memory(grid);
-		error_exit("ERROR: problems with rgb floor\n", NULL, text);
-	}
+		error_text_with_array("ERROR: problems with rgb floor\n", text, grid);
 	text->size = PIXELS;
 	if (filter_grid_lines(text, grid) == EXIT_FAILURE)
 	{
-		free_memory(grid);
-		error_message_text("ERROR: problems with grid, check content\n", text);
+		error_text_with_array("ERROR: problems with grid, check content\n", \
+			text, grid);
 	}
 	return (text);
 }

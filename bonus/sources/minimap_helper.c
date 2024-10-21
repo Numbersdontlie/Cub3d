@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperez-h <lperez-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 12:19:37 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 14:33:16 by lperez-h         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:37:26 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void	ft_make_mini_tiles(t_data *data, t_img *img, int y, int x)
 		j = 0;
 		while (j < data->minimap.tile_size)
 		{
-			img->img_addr[(y * data->minimap.tile_size + j) * data->minimap.width
-				+ (x * data->minimap.tile_size + i)] = colour;
+			img->img_addr[(y * data->minimap.tile_size + j) * \
+			data->minimap.width + (x * data->minimap.tile_size \
+			+ i)] = colour;
 			j++;
 		}
 		i++;

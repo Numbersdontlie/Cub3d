@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:47:17 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 13:39:07 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 15:32:22 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,8 @@ int	error_malloc(char *s)
 	return (0);
 }
 
-void	free_paths(char *str, char **paths, int count)
+void	error_text_with_array(char *str, t_textinfo *text, char **arr)
 {
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		free(paths[i]);
-		i++;
-	}
-	free(paths);
-	error_message_simple(str, NULL);
+	free_memory(arr);
+	error_message_text(str, text);
 }
