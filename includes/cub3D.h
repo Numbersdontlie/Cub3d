@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 13:12:17 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:35:30 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,8 +193,8 @@ void		find_player_direction(t_data *data);
 //sources/initializing/initialize_info.c
 t_textinfo	*ft_initialize_info(char **arr);
 int			fill_paths(t_textinfo *text, char **grid);
-int			*validate_and_convert(t_textinfo *text, char **grid, \
-				unsigned long *hex_value);
+int			*validate_and_convert(t_textinfo *text, char **arr, \
+				char **grid, unsigned long *hex_value);
 int			*populate_rgb_values(t_textinfo *text, char **grid, \
 				int c, unsigned long *hex_value);
 int			check_rgb_for_illegal_chars(char **arr);
@@ -254,7 +254,7 @@ int			check_after_grid(char **grid, int start);
 //sources/parsing/flood_fill_check.c
 int			find_item(char **grid, char axis);
 int			path_checker(char **game, size_t y, size_t x);
-void		flood_fill(char **game);
+void		flood_fill(t_textinfo *text);
 void		check_map_size(t_textinfo *text);
 
 //sources/parsing/helper_functions.c

@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:41:29 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 13:10:32 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:33:01 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	check_args(t_textinfo *text)
 	valid_chars(text);
 	check_map_size(text);
 	check_map_items(text);
-	flood_fill(text->grid);
+	flood_fill(text);
 }
 
 int	main(int ac, char **av)
