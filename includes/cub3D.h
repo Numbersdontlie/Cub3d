@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:09:34 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 13:35:30 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:59:22 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,5 +324,8 @@ void		render_minimap(t_data *data);
 //sources/bonus/minimap_helper.c
 int			ft_find_colour(t_data *data, int y, int x);
 void		ft_make_mini_tiles(t_data *data, t_img *img, int y, int x);
+
+char **split_rgb_and_validate(char **grid, t_textinfo *text, char *temp);
+char	*find_string_path(char **arr, char *s);
 
 #endif

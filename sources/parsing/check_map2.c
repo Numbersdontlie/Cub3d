@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:27:01 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 13:01:12 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 13:49:34 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,11 @@ int	check_after_grid(char **grid, int start)
 	int		i;
 
 	i = start;
-	while (grid[i] != NULL && (ft_strchr(grid[i], '1') || ft_strchr(grid[i], '0')))
+	while (grid[i] != NULL && (ft_strchr(grid[i], '1') || \
+		ft_strchr(grid[i], '0')))
+	{
 		i++;
+	}
 	while (grid[i] != NULL)
 	{
 		if (ft_strlen(grid[i]) > 0)
@@ -96,4 +99,19 @@ int	check_after_grid(char **grid, int start)
 		i++;
 	}
 	return (EXIT_SUCCESS);
+}
+
+int	ft_empty_check(char **arr)
+{
+	int	i;
+
+	i = row_count(arr);
+	if (i < 2)
+	{
+		free_memory(arr);
+		free(arr);
+		error_reading_file("ERROR: empty file\n", 0, 0);
+		return (1);
+	}
+	return (0);
 }
