@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:14:37 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/13 09:01:17 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 12:21:05 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ char	**read_map(char *s)
 	close(fd);
 	if (!arr)
 		return (NULL);
-	i = row_count(arr);
-	if (i < 2)
-		error_reading_file("ERROR: empty file\n", arr, 0);
+	if (ft_empty_check(arr))
+		return (NULL);
 	return (arr);
 }
 

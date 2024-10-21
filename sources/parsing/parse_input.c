@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/14 16:29:52 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/21 12:21:52 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*find_cardinal_paths(char **arr, char *s)
 
 	i = -1;
 	count = row_count(arr);
+	path_found = NULL;
+	path_extension = NULL;
 	while (++i < count)
 	{
 		if (!ft_strncmp(arr[i], s, 2))
@@ -35,6 +37,11 @@ char	*find_cardinal_paths(char **arr, char *s)
 				return (NULL);
 			}
 			path_extension = path_extractor(arr, path_found);
+			if (!path_extension)
+			{
+				free(path_found);
+				return (NULL);
+			}
 			return (path_extension);
 		}
 	}
@@ -57,6 +64,7 @@ char	*path_extractor(char **arr, char *str)
 	{
 		free (str);
 		error_message_simple("ERROR: Memory Alloc failed\n", arr);
+		return (NULL);
 	}
 	free (str);
 	return (path);
@@ -79,10 +87,13 @@ char	*find_floor_ceiling(t_textinfo *text, char **arr, int c)
 			while (*path && !ft_isdigit(*path))
 				path++;
 			path = ft_strdup(path);
-			if (path)
-				return (path);
-			free_memory(arr);
-			error_message_text("ERROR: mem alloc failed\n", text);
+			if (!path)
+			{
+				free_memory(arr);
+				error_message_text("ERROR: mem alloc failed\n", text);
+				return (NULL);
+			}
+			return (path);
 		}
 	}
 	return (error_message_simple("ERROR: RGB path not found\n", arr), NULL);
@@ -98,6 +109,7 @@ char	**remove_empty_lines(char **arr)
 
 	j = 0;
 	i = row_count(arr);
+	trimmed = NULL;
 	updated_grid = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (!updated_grid)
 		error_message_simple("ERROR: Memory alloc failed with trimming\n", arr);
@@ -110,9 +122,25 @@ char	**remove_empty_lines(char **arr)
 			copy_valid_lines(updated_grid[j], trimmed, arr);
 			j++;
 		}
+		free(trimmed);
 		i++;
 	}
 	check_empty_lines(updated_grid, j);
 	free_memory(arr);
 	return (updated_grid);
+}
+
+int	ft_empty_check(char **arr)
+{
+	int	i;
+
+	i = row_count(arr);
+	if (i < 2)
+	{
+		free_memory(arr);
+		free(arr);
+		error_reading_file("ERROR: empty file\n", 0, 0);
+		return (1);
+	}
+	return (0);
 }
