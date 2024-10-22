@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 15:35:44 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/22 15:39:41 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int	check_rgb_for_illegal_chars(char **arr)
 
 	i = -1;
 	count = row_count(arr);
-	if (count < 3)
+	if (count < 3 || count > 3)
 		return (EXIT_FAILURE);
 	while (++i < count)
 	{

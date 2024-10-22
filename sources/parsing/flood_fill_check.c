@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:44:09 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 13:17:56 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/22 15:21:08 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,19 @@ int	path_checker(char **game, size_t y, size_t x)
 	size_t	line_count;
 
 	line_count = row_count(game);
-	if (y >= line_count || !game[y] || x >= ft_strlen(game[y]) || \
+	if (y >= line_count || x >= ft_strlen(game[y]) || \
 		y < 0 || x < 0 || !game[y][x])
 		return (1);
-	if (game[y][x] == ' ' || game[y][x] == '\t')
-	{
-		if (game[y][x - 1] == '0' || game[y][x + 1] == '0' || \
-		game[y - 1][x] == '0' || game[y + 1][x] == '0')
-			return (1);
-		return (0);
-	}
 	if (game[y][x] == '1' || game[y][x] == 'V')
 		return (0);
+	if (game[y][x] == ' ' || game[y][x] == '\t')
+	{
+		if ((x > 0 && game[y][x - 1] == '0') || (x + 1 < ft_strlen(game[y]) && \
+			game[y][x + 1] == '0') || (y > 0 && game[y - 1][x] == '0') || \
+			(y + 1 < line_count && game[y + 1][x] == '0'))
+			return (1);
+		return (1);
+	}
 	game[y][x] = 'V';
 	if (path_checker(game, y, x - 1) || path_checker(game, y, x + 1) \
 		|| path_checker(game, y - 1, x) || path_checker(game, y + 1, x))

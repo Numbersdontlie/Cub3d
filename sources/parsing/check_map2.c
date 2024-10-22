@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:27:01 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 13:49:34 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/22 11:16:59 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	filter_grid_lines(t_textinfo *text, char **grid)
 	start = find_grid_start(grid);
 	if (check_after_grid(grid, start) == EXIT_FAILURE)
 	{
+		free_memory(grid);
 		error_exit("ERROR: extra content found\n", NULL, text);
 		return (EXIT_FAILURE);
 	}

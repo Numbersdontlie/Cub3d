@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:00:21 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/21 14:01:27 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/22 15:41:26 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ char	**split_rgb_and_validate(char **grid, t_textinfo *text, char *temp)
 	if (!arr)
 	{
 		free_memory(grid);
-		error_message_text("problem with splitting rgb\n", text);
+		error_message_text("ERROR: problem with splitting RGB\n", text);
 	}
 	if (check_rgb_for_illegal_chars(arr) == EXIT_FAILURE)
 	{
 		free_memory(grid);
 		free_memory(arr);
-		error_message_text("problem with splitting rgb\n", text);
+		error_message_text("ERROR: invalid chars in RGB\n", text);
 	}
 	return (arr);
 }
