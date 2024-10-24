@@ -6,7 +6,7 @@
 #    By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 15:39:45 by kbolon            #+#    #+#              #
-#    Updated: 2024/10/21 14:01:00 by kbolon           ###   ########.fr        #
+#    Updated: 2024/10/24 09:56:15 by kbolon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,11 @@ COMMON_SRCS = sources/main.c sources/errors.c sources/error2.c sources/free_func
 		sources/raycasting/implement_raycasting.c sources/raycasting/handle_textures.c \
 		sources/initializing/init_textures.c
 
-BONUS_SRCS = bonus/sources/check_position_bonus.c \
-		bonus/sources/input_handler_bonus.c bonus/sources/minimap.c \
+BONUS_SRCS = bonus/sources/check_position_bonus.c bonus/sources/minimap.c \
 		bonus/sources/minimap_helper.c bonus/sources/render_image_bonus.c \
+		bonus/sources/input_handler_bonus.c \
 		$(COMMON_SRCS)
+
 
 LIBFT = libft/libft.a
 MLX_PATH = minilibx-linux
@@ -39,7 +40,16 @@ MLX = $(MLX_PATH)/libmlx.a
 CC = cc
 OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I/opt/X11/include
+
+OS := $(shell uname)
+ifeq ($(OS), Darwin)
+	MLX_FLAGS = -L$(MLX_PATH) -fsanitize=address -lmlx -L/opt/X11/lib -lX11 -lXext -lm
+	SANITIZE_FLAGS = -fsanitize=address
+else
+	MLX_FLAGS = -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm
+	SANITIZE_FLAGS =
+endif
 
 #colours
 RED=\033[0;31m
@@ -55,14 +65,12 @@ all: $(NAME)
 bonus: $(BONUS_NAME)
 
 $(NAME): $(OBJS) $(MLX) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(NAME) $(LIBFT)
-#	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(NAME) $(LIBFT)
+	$(CC) $(CFLAGS) $(SANITIZE_FLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) $(LIBFT)
 	@$(MAKE) clear-screen
 	@echo "$(BLUE)cub3D compiled$(RESET)"
 
 $(BONUS_NAME): $(BONUS_OBJS) $(MLX) $(LIBFT)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
-#	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MLX_PATH) -lmlx -L/opt/X11/lib -lX11 -lXext -lm -o $(BONUS_NAME) $(LIBFT)
+	$(CC) $(CFLAGS)  $(SANITIZE_FLAGS) $(BONUS_OBJS) $(MLX_FLAGS) -o $(BONUS_NAME) $(LIBFT)
 	@$(MAKE) clear-screen
 	@echo "$(CYAN)cub3D bonus compiled$(RESET)"
 
