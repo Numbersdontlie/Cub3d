@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:00:21 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/22 15:41:26 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/28 17:21:03 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,29 @@ char	**split_rgb_and_validate(char **grid, t_textinfo *text, char *temp)
 		error_message_text("ERROR: invalid chars in RGB\n", text);
 	}
 	return (arr);
+}
+
+/*funciton looks for floor and ceiling values provided in .cub file*/
+char	*find_path_in_info(char **arr, int c)
+{
+	int		i;
+	int		count;
+	char	*path;
+
+	i = -1;
+	count = row_count(arr);
+	while (++i < count)
+	{
+		path = ft_strchr(arr[i], c);
+		if (path)
+		{
+			while (*path && !ft_isdigit(*path))
+				path++;
+			if (path)
+			{
+				return (ft_strdup(path));
+			}
+		}
+	}
+	return (NULL);
 }

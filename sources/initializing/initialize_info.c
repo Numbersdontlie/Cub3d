@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:34:42 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/22 15:39:41 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/28 16:53:41 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ t_textinfo	*ft_initialize_info(char **arr)
 	if (!text)
 		error_message_simple("ERROR: calloc fail in text_init\n", grid);
 	if (fill_paths(text, grid) == EXIT_FAILURE)
-		error_exit("ERROR: calloc fail in text_init\n", NULL, text);
+	{
+		free(text);
+		return (error_message("ERROR: calloc fail with paths\n"), NULL);
+	}
 	text->ceiling_rgb = populate_rgb_values(text, grid, 'C', \
 		&text->hex_ceiling);
 	if (!text->ceiling_rgb)
@@ -35,10 +38,7 @@ t_textinfo	*ft_initialize_info(char **arr)
 		error_text_with_array("ERROR: problems with rgb floor\n", text, grid);
 	text->size = PIXELS;
 	if (filter_grid_lines(text, grid) == EXIT_FAILURE)
-	{
-		error_text_with_array("ERROR: problems with grid, check content\n", \
-			text, grid);
-	}
+		return (NULL);
 	return (text);
 }
 
@@ -51,16 +51,16 @@ int	fill_paths(t_textinfo *text, char **grid)
 		return (EXIT_FAILURE);
 	text->paths[0] = find_cardinal_paths(grid, "NO");
 	if (!text->paths[0])
-		return (EXIT_FAILURE);
+		return (free(text->paths), EXIT_FAILURE);
 	text->paths[1] = find_cardinal_paths(grid, "EA");
 	if (!text->paths[1])
-		return (EXIT_FAILURE);
+		return (free_partials((void **)text->paths), EXIT_FAILURE);
 	text->paths[2] = find_cardinal_paths(grid, "SO");
 	if (!text->paths[2])
-		return (EXIT_FAILURE);
+		return (free_partials((void **)text->paths), EXIT_FAILURE);
 	text->paths[3] = find_cardinal_paths(grid, "WE");
 	if (!text->paths[3])
-		return (EXIT_FAILURE);
+		return (free_partials((void **)text->paths), EXIT_FAILURE);
 	text->paths[4] = NULL;
 	return (EXIT_SUCCESS);
 }
@@ -109,12 +109,15 @@ int	*populate_rgb_values(t_textinfo *text, char **grid, int c,
 	int		*rgb;
 
 	temp = find_floor_ceiling(text, grid, c);
-	if (!temp)
+	if (!temp || !*temp)
 	{
 		free_memory(grid);
+		free(temp);
 		error_message_text("ERROR: floor/ceiling values not found\n", text);
 	}
 	arr = split_rgb_and_validate(grid, text, temp);
+	if (!arr)
+		error_message_text("ERROR: problem with splitting RGB\n", text);
 	rgb = validate_and_convert(text, arr, grid, hex_value);
 	free_memory(arr);
 	return (rgb);
