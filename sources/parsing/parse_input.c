@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:51:39 by kbolon            #+#    #+#             */
-/*   Updated: 2024/10/22 15:27:52 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/28 17:21:13 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,31 +85,16 @@ char	*path_extractor(char **arr, char *str)
 /*funciton looks for floor and ceiling values provided in .cub file*/
 char	*find_floor_ceiling(t_textinfo *text, char **arr, int c)
 {
-	int		i;
-	int		count;
 	char	*path;
 
-	i = -1;
-	count = row_count(arr);
-	while (++i < count)
+	path = find_path_in_info(arr, c);
+	if (!path)
 	{
-		if (arr[i][0] == c)
-		{
-			path = arr[i];
-			while (*path && !ft_isdigit(*path))
-				path++;
-			path = ft_strdup(path);
-			if (!path)
-			{
-				free_memory(arr);
-				error_message_text("ERROR: mem alloc failed\n", text);
-				return (NULL);
-			}
-			return (path);
-		}
+		free_memory(arr);
+		error_message_text("ERROR: mem alloc failed\n", text);
+		return (NULL);
 	}
-	free_memory(arr);
-	return (error_message_text("ERROR: RGB path not found\n", text), NULL);
+	return (path);
 }
 
 /*function removes lines above and lines below the grid*/
