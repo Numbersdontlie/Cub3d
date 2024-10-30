@@ -6,7 +6,7 @@
 /*   By: kbolon <kbolon@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:52:09 by luifer            #+#    #+#             */
-/*   Updated: 2024/10/20 08:14:56 by kbolon           ###   ########.fr       */
+/*   Updated: 2024/10/30 14:56:31 by kbolon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	ft_init_texture_img(t_data *data, t_img *image, char *path)
 		&image->texture_width, &image->texture_height);
 	if (!image->img)
 	{
-		error_message("ERROR: Unable to load texture image\n");
+		error_exit("ERROR: Unable to load texture image\n", data, NULL);
 		return (EXIT_FAILURE);
 	}
 	image->img_addr = (int *)mlx_get_data_addr(image->img, \
 		&image->bpp, &image->line_len, &image->endian);
 	if (!image->img_addr)
 	{
-		error_message("ERROR: Unable to load texture address\n");
+		error_exit("ERROR: Unable to load texture address\n", data, NULL);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
